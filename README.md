@@ -1,1 +1,1 @@
-# veganer-ern-hrungsplan
+# veganer-ernährungsplan
