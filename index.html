@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Veganer Ernährungsplan – Woche 5</title>
+</head>
+<body>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+  :root{
+    --bg: #16241f;
+    --bg-alt: #1c2f28;
+    --card: #f3efe4;
+    --card-line: #d9d1bb;
+    --ink: #1c2b24;
+    --ink-soft: #55665c;
+    --cream: #f3efe4;
+    --sage: #93a89a;
+    --gold: #c79a2b;
+    --rust: #a8543a;
+    --rust-bg: #3a231d;
+  }
+  *{box-sizing:border-box;}
+  .tp-root{
+    background: radial-gradient(ellipse at top, var(--bg-alt) 0%, var(--bg) 60%);
+    color: var(--cream);
+    font-family:'IBM Plex Sans', sans-serif;
+    min-height: 100%;
+    padding: 28px 16px 48px;
+    display:flex; flex-direction:column; align-items:center;
+    gap:20px;
+  }
+  .tp-header{ text-align:center; max-width:640px; }
+  .tp-eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    letter-spacing:.18em; text-transform:uppercase;
+    font-size:11px; color: var(--sage); margin-bottom:6px;
+  }
+  .tp-date{
+    font-family:'Fraunces', serif; font-weight:700; font-size:clamp(26px,5vw,38px);
+    line-height:1.1; margin:0;
+  }
+  .tp-sub{ color: var(--sage); font-size:13px; margin-top:6px; }
+
+  .tp-alert{
+    max-width:560px; width:100%;
+    background: var(--rust-bg); border:1px solid var(--rust);
+    border-radius:10px; padding:14px 16px;
+    font-size:13.5px; line-height:1.5; color:#f2e2da;
+    display:flex; gap:10px; align-items:flex-start;
+  }
+  .tp-alert b{ color:#fff; }
+  .tp-alert .tp-alert-icon{ font-size:18px; line-height:1.3; }
+
+  .tp-ticket{
+    width:100%; max-width:560px;
+    background: var(--card); color: var(--ink);
+    border-radius: 14px;
+    box-shadow: 0 18px 40px rgba(0,0,0,.35);
+    overflow:hidden;
+    position:relative;
+  }
+  .tp-ticket::before{
+    content:"";
+    position:absolute; top:0; left:0; right:0; height:10px;
+    background-image: radial-gradient(circle at 10px 0, transparent 5px, var(--bg) 5px);
+    background-size: 20px 10px;
+    background-repeat: repeat-x;
+  }
+  .tp-meal{
+    padding: 22px 22px 18px;
+    border-bottom: 1px dashed var(--card-line);
+  }
+  .tp-meal:last-child{ border-bottom:none; }
+  .tp-meal-head{ display:flex; justify-content:space-between; align-items:baseline; gap:10px; margin-bottom:10px;}
+  .tp-slot{
+    font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.14em;
+    text-transform:uppercase; color: var(--ink-soft);
+  }
+  .tp-dish{
+    font-family:'Fraunces', serif; font-weight:600; font-size:19px; margin:2px 0 0;
+  }
+  .tp-macros{
+    font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--ink-soft);
+    white-space:nowrap;
+  }
+  .tp-ing{
+    list-style:none; margin:10px 0 4px; padding:0;
+    display:grid; grid-template-columns: 1fr; gap:5px;
+  }
+  .tp-ing li{
+    display:flex; justify-content:space-between; gap:12px;
+    font-size:14px; border-bottom:1px dotted var(--card-line); padding-bottom:5px;
+  }
+  .tp-ing .amt{
+    font-family:'IBM Plex Mono', monospace; font-weight:600; color:var(--rust); white-space:nowrap;
+  }
+  .tp-steps{
+    margin-top:12px;
+  }
+  .tp-steps summary{
+    cursor:pointer; font-size:12.5px; color:var(--gold); font-weight:600;
+    font-family:'IBM Plex Mono', monospace;
+  }
+  .tp-steps ol{ margin:10px 0 0; padding-left:18px; font-size:13.5px; line-height:1.55; color:var(--ink); }
+  .tp-steps li{ margin-bottom:6px; }
+  .tp-skip{
+    padding:18px 22px; font-size:13.5px; color:var(--ink-soft); font-style:italic;
+    border-bottom:1px dashed var(--card-line);
+  }
+
+  .tp-total{
+    padding:16px 22px 20px; display:flex; justify-content:space-between; align-items:center;
+    font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--ink-soft);
+  }
+  .tp-total b{ color:var(--ink); font-size:14px; }
+
+  .tp-footer{
+    max-width:560px; text-align:center; font-size:11.5px; color:var(--sage);
+    font-family:'IBM Plex Mono', monospace; line-height:1.6; margin-top:4px;
+  }
+  .tp-progress{
+    display:flex; gap:6px; margin: 4px 0 2px;
+  }
+  .tp-progress span{
+    width:26px; height:4px; border-radius:2px; background: rgba(255,255,255,.15);
+  }
+  .tp-progress span.done{ background: var(--gold); }
+  .tp-progress span.today{ background: var(--rust); }
+</style>
+
+<div class="tp-root" id="tp-root"></div>
+
+<script>
+(function(){
+  // ---------- DATA: Woche 5, Montag 27.07.2026 - Sonntag 02.08.2026 ----------
+  const PLAN_START = "2026-07-27"; // Montag
+  const SKIP_BREAKFAST_ON = "2026-07-27"; // heute schon gefrühstückt
+
+  const days = [
+    { name:"Montag", date:"2026-07-27", meals:{
+        "Früh": {dish:"Beeren-Chia-Kokos-Pudding",
+          ing:[["Chiasamen","25 g"],["Kokosmilch (Dose)","80 ml"],["Kokosöl","20 ml"],["Veganes Proteinpulver","30 g"],["Himbeeren","15 g"],["Mandeln","15 g"]],
+          macros:"P 33g · F 51g · KH 8g · 624 kcal",
+          steps:["Chiasamen mit Kokosmilch und Kokosöl verrühren, 5 Min. quellen lassen, nochmal umrühren.","Proteinpulver einrühren, glattrühren.","Mind. 2h (am besten über Nacht) im Kühlschrank quellen lassen.","Mit Himbeeren und gehackten Mandeln toppen."],
+          prepAhead:false},
+        "Mittag": {dish:"Tofu-Gemüse-Pfanne mediterran",
+          ing:[["Tofu (fest/natur)","250 g"],["Zucchini","150 g"],["Paprika","30 g"],["Champignons","100 g"],["Olivenöl","30 ml"],["Zwiebel","10 g"]],
+          macros:"P 45g · F 51g · KH 12g · 694 kcal",
+          steps:["Tofu würfeln, Zwiebel fein hacken.","Olivenöl erhitzen, Tofu darin knusprig anbraten (5-6 Min.).","Zwiebel, Zucchini, Paprika und Champignons dazugeben, 6-8 Min. mitbraten.","Mit Kräutern und Salz/Pfeffer abschmecken."]},
+        "Abend": {dish:"Seitan-Gulasch mit Blumenkohlpüree",
+          ing:[["Seitan","120 g"],["Paprika","30 g"],["Tomaten","30 g"],["Zwiebel","10 g"],["Olivenöl","25 ml"],["Blumenkohl","120 g"],["Kokosöl","10 ml"]],
+          macros:"P 78g · F 38g · KH 15g · 711 kcal",
+          steps:["Seitan würfeln, Zwiebel fein hacken.","Seitan in etwas Öl scharf anbraten, Zwiebel dazugeben, kurz mitdünsten.","Paprika und gehackte Tomaten dazugeben, mit Paprikapulver würzen, 10-12 Min. köcheln lassen.","Blumenkohl weich dämpfen, mit Kokosöl und restlichem Öl fein pürieren, salzen.","Gulasch auf dem Püree anrichten."]},
+      },
+      dayTotal:"P 156g · F 140g · KH 37g · 2.029 kcal"
+    },
+    { name:"Dienstag", date:"2026-07-28", meals:{
+        "Früh": {dish:"Tofu-Scramble mit Spinat & Champignons",
+          ing:[["Tofu (fest/natur)","250 g"],["Spinat","80 g"],["Champignons","80 g"],["Kokosöl","20 ml"],["Hefeflocken","5 g"]],
+          macros:"P 46g · F 41g · KH 9g · 585 kcal",
+          steps:["Tofu mit einer Gabel grob zerbröseln.","Kokosöl erhitzen, Champignons darin anbraten (3-4 Min.).","Tofu dazugeben, mit Kurkuma, Salz und Pfeffer würzen, 5-6 Min. braten.","Spinat und Hefeflocken unterheben, kurz zusammenfallen lassen."]},
+        "Mittag": {dish:"Tempeh-Zucchini-Pfanne mit Tahin-Sauce",
+          ing:[["Tempeh","150 g"],["Zucchini","150 g"],["Olivenöl","25 ml"],["Tahini","15 g"]],
+          macros:"P 46g · F 53g · KH 21g · 750 kcal",
+          steps:["Tempeh in Scheiben, Zucchini in Scheiben schneiden.","Olivenöl erhitzen, Tempeh von beiden Seiten goldbraun braten (5-6 Min.).","Zucchini dazugeben, 4-5 Min. mitbraten.","Tahini mit etwas Wasser und Zitronensaft glattrühren, über die Pfanne geben."]},
+        "Abend": {dish:"Räuchertofu-Auberginen-Auflauf mit Tomaten",
+          ing:[["Räuchertofu","200 g"],["Aubergine","150 g"],["Tomaten","30 g"],["Olivenöl","30 ml"],["Hefeflocken","10 g"]],
+          macros:"P 41g · F 48g · KH 13g · 649 kcal",
+          steps:["Backofen auf 190°C vorheizen. Aubergine in Scheiben schneiden, mit Öl bestreichen.","Räuchertofu würfeln oder in Scheiben schneiden.","In einer Auflaufform Auberginenscheiben, Räuchertofu und gehackte Tomaten schichten, mit Öl beträufeln, Hefeflocken bestreuen.","Ca. 25-30 Min. backen bis die Aubergine weich ist."]},
+      },
+      dayTotal:"P 133g · F 142g · KH 43g · 1.984 kcal"
+    },
+    { name:"Mittwoch", date:"2026-07-29", meals:{
+        "Früh": {dish:"Mandel-Chia-Porridge",
+          ing:[["Mandeln","40 g"],["Chiasamen","15 g"],["Veganes Proteinpulver","30 g"],["Kokosmilch (Dose)","100 ml"],["Kokosöl","10 ml"]],
+          macros:"P 37g · F 60g · KH 10g · 729 kcal",
+          steps:["Kokosmilch und Kokosöl leicht erwärmen.","Gemahlene Mandeln und Chiasamen einrühren, 3-4 Min. köcheln bis cremig.","Vom Herd nehmen, Proteinpulver unterrühren.","Mit Zimt servieren."]},
+        "Mittag": {dish:"Gebackene Tofu-Steaks mit Pilz-Kokos-Sauce & Brokkoli",
+          ing:[["Tofu (fest/natur)","250 g"],["Champignons","100 g"],["Kokosmilch (Dose)","60 ml"],["Olivenöl","25 ml"],["Brokkoli","130 g"]],
+          macros:"P 47g · F 55g · KH 15g · 748 kcal",
+          steps:["Tofu in dicke Scheiben schneiden, in Olivenöl goldbraun braten (4-5 Min./Seite).","Champignons in Scheiben anbraten, mit Kokosmilch ablöschen, 5 Min. köcheln.","Brokkoli separat dämpfen (5-6 Min.).","Zusammen servieren."]},
+        "Abend": {dish:"Seitan-Paprika-Pfanne mit Avocado-Gurken-Salsa",
+          ing:[["Seitan","100 g"],["Paprika","40 g"],["Zwiebel","10 g"],["Olivenöl","20 ml"],["Avocado","100 g"],["Gurke","80 g"]],
+          macros:"P 78g · F 37g · KH 15g · 708 kcal",
+          steps:["Seitan in Streifen schneiden, Zwiebel fein hacken.","In Olivenöl scharf anbraten, Paprika und Zwiebel dazugeben, 6-8 Min. mitbraten.","Avocado und Gurke würfeln, mit Limette, Salz und Koriander zur Salsa vermengen.","Zusammen servieren."]},
+      },
+      dayTotal:"P 163g · F 153g · KH 40g · 2.185 kcal"
+    },
+    { name:"Donnerstag", date:"2026-07-30", meals:{
+        "Früh": {dish:"Grüner Avocado-Spinat-Smoothie",
+          ing:[["Veganes Proteinpulver","35 g"],["Spinat","60 g"],["Avocado","90 g"],["Kokosmilch (Dose)","100 ml"],["Kokosöl","10 ml"]],
+          macros:"P 36g · F 53g · KH 8g · 648 kcal",
+          steps:["Alle Zutaten in den Mixer geben.","Glatt cremig mixen (30-45 Sek.), bei Bedarf etwas Wasser/Eis dazugeben."]},
+        "Mittag": {dish:"Räuchertofu-Salat mediterran",
+          ing:[["Räuchertofu","200 g"],["Gurke","120 g"],["Tomaten","30 g"],["Rucola","100 g"],["Tahini","15 g"],["Olivenöl","20 ml"]],
+          macros:"P 39g · F 51g · KH 12g · 659 kcal",
+          steps:["Räuchertofu würfeln, in etwas Öl kurz anbraten.","Rucola, Gurke und Tomaten anrichten.","Räuchertofu darauf verteilen.","Tahini mit restlichem Öl und Wasser zum Dressing verrühren, darüber geben."]},
+        "Abend": {dish:"Tempeh-Curry mit Blumenkohlreis & Spinat",
+          ing:[["Tempeh","150 g"],["Blumenkohl","120 g"],["Spinat","80 g"],["Kokosmilch (Dose)","70 ml"],["Olivenöl","25 ml"],["Zwiebel","10 g"]],
+          macros:"P 47g · F 60g · KH 22g · 809 kcal",
+          steps:["Tempeh würfeln, Zwiebel fein hacken.","In Olivenöl anbraten, Zwiebel dazugeben, mit Currypulver würzen.","Kokosmilch dazugeben, 8-10 Min. köcheln lassen.","Spinat kurz unterrühren.","Blumenkohl fein raspeln, roh oder kurz gedünstet als 'Reis' dazu servieren."]},
+      },
+      dayTotal:"P 121g · F 163g · KH 42g · 2.116 kcal",
+      nextDayPrep:false
+    },
+    { name:"Freitag", date:"2026-07-31", meals:{
+        "Früh": {dish:"Beeren-Kokosjoghurt-Parfait",
+          ing:[["Kokosjoghurt (ungesüßt)","120 g"],["Chiasamen","20 g"],["Veganes Proteinpulver","30 g"],["Mandeln","20 g"],["Himbeeren","15 g"]],
+          macros:"P 34g · F 35g · KH 10g · 489 kcal",
+          steps:["Kokosjoghurt mit Proteinpulver glattrühren.","Chiasamen einrühren, 10 Min. quellen lassen.","In einem Glas schichten: Joghurt-Masse, Himbeeren, gehackte Mandeln."]},
+        "Mittag": {dish:"Tofu-Zucchini-Kokos-Curry",
+          ing:[["Tofu (fest/natur)","250 g"],["Zucchini","150 g"],["Kokosmilch (Dose)","70 ml"],["Olivenöl","25 ml"],["Zwiebel","10 g"]],
+          macros:"P 43g · F 57g · KH 12g · 733 kcal",
+          steps:["Tofu würfeln, Zwiebel fein hacken.","In Olivenöl knusprig anbraten, Zwiebel dazugeben.","Zucchini in Scheiben dazugeben, kurz mitbraten.","Mit Kokosmilch ablöschen, Currypulver dazugeben, 8-10 Min. köcheln lassen."]},
+        "Abend": {dish:"Seitan-Champignon-Pfanne in Tomatensauce",
+          ing:[["Seitan","120 g"],["Champignons","100 g"],["Tomaten","40 g"],["Zwiebel","10 g"],["Olivenöl","25 ml"]],
+          macros:"P 94g · F 28g · KH 14g · 681 kcal",
+          steps:["Seitan in Streifen schneiden, Zwiebel fein hacken.","In Olivenöl scharf anbraten, Champignons und Zwiebel dazugeben, 5-6 Min. mitbraten.","Gehackte Tomaten dazugeben, mit italienischen Kräutern würzen, 8-10 Min. köcheln lassen."]},
+      },
+      dayTotal:"P 171g · F 120g · KH 35g · 1.903 kcal"
+    },
+    { name:"Samstag", date:"2026-08-01", meals:{
+        "Früh": {dish:"Räuchertofu-Rührei mit Paprika",
+          ing:[["Räuchertofu","200 g"],["Paprika","40 g"],["Olivenöl","20 ml"],["Hefeflocken","5 g"]],
+          macros:"P 37g · F 42g · KH 6g · 553 kcal",
+          steps:["Räuchertofu grob zerbröseln, Paprika würfeln.","Olivenöl erhitzen, Paprika kurz andünsten.","Räuchertofu dazugeben, mit Kurkuma und Salz würzen, 5-6 Min. braten.","Hefeflocken unterrühren."]},
+        "Mittag": {dish:"Auberginen-Involtini mit Tofu-Ricotta & Tomatensauce",
+          ing:[["Aubergine","150 g"],["Tofu (fest/natur)","220 g"],["Tomaten","40 g"],["Hefeflocken","10 g"],["Olivenöl","30 ml"]],
+          macros:"P 42g · F 44g · KH 15g · 618 kcal",
+          steps:["Aubergine in dünne Längsstreifen schneiden, in etwas Öl beidseitig kurz anbraten bis biegsam.","Tofu zerbröseln/pürieren, mit Hefeflocken, Kräutern und etwas Öl zur 'Ricotta' verrühren.","Klecks Tofu-Ricotta auf die Streifen geben, aufrollen.","Gehackte Tomaten mit restlichem Öl kurz einkochen, Involtini darauf anrichten."]},
+        "Abend": {dish:"Tempeh-Gemüsepfanne asiatisch",
+          ing:[["Tempeh","150 g"],["Zucchini","120 g"],["Brokkoli","100 g"],["Sesam","15 g"],["Sojasauce","10 ml"],["Olivenöl","15 ml"]],
+          macros:"P 48g · F 45g · KH 22g · 685 kcal",
+          steps:["Tempeh würfeln, in Olivenöl anbraten (5 Min.).","Zucchini und Brokkoli dazugeben, 6-8 Min. mitbraten.","Mit Sojasauce ablöschen, kurz durchschwenken.","Mit Sesam bestreuen."]},
+      },
+      dayTotal:"P 126g · F 131g · KH 43g · 1.856 kcal",
+      nextDayPrep:{ dish:"Schoko-Nuss-Chiapudding (Sonntag-Frühstück)",
+        note:"Chiasamen mit Kakaopulver, Kokosmilch und Kokosöl verrühren, Proteinpulver einrühren – heute Abend im Kühlschrank quellen lassen (über Nacht)." }
+    },
+    { name:"Sonntag", date:"2026-08-02", meals:{
+        "Früh": {dish:"Schoko-Nuss-Chiapudding",
+          ing:[["Chiasamen","25 g"],["Kakaopulver","10 g"],["Veganes Proteinpulver","30 g"],["Kokosmilch (Dose)","100 ml"],["Kokosöl","10 ml"],["Mandeln","15 g"]],
+          macros:"P 36g · F 52g · KH 9g · 648 kcal",
+          steps:["(Gestern Abend vorbereitet) Aus dem Kühlschrank nehmen.","Mit gehackten Mandeln bestreuen und servieren."]},
+        "Mittag": {dish:"Tofu-Gemüse-Bowl",
+          ing:[["Tofu (fest/natur)","250 g"],["Blumenkohl","120 g"],["Avocado","130 g"],["Gurke","100 g"],["Sonnenblumenkerne","20 g"]],
+          macros:"P 49g · F 50g · KH 17g · 710 kcal",
+          steps:["Tofu würfeln, in etwas Öl anbraten oder marinieren.","Blumenkohl fein raspeln ('Reis'), roh oder kurz gedünstet in die Schüssel geben.","Avocado und Gurke schneiden, dazu anrichten.","Tofu darauf verteilen, mit Sonnenblumenkernen bestreuen."]},
+        "Abend": {dish:"Räuchertofu-Champignon-Risotto (Blumenkohlreis)",
+          ing:[["Räuchertofu","180 g"],["Blumenkohl","130 g"],["Champignons","120 g"],["Olivenöl","30 ml"],["Hefeflocken","10 g"]],
+          macros:"P 42g · F 46g · KH 12g · 631 kcal",
+          steps:["Blumenkohl fein raspeln zu 'Reis'-Konsistenz.","Champignons in Scheiben in etwas Öl anbraten (3-4 Min.).","Blumenkohlreis dazugeben, mit Hefeflocken und Öl 8-10 Min. köcheln lassen bis cremig.","Räuchertofu würfeln, separat anbraten, unterheben oder obenauf anrichten."]},
+      },
+      dayTotal:"P 126g · F 148g · KH 37g · 1.989 kcal"
+    },
+  ];
+
+  function parseLocalDate(s){
+    const [y,m,d] = s.split("-").map(Number);
+    return new Date(y, m-1, d);
+  }
+
+  function todayLocal(){
+    const n = new Date();
+    return new Date(n.getFullYear(), n.getMonth(), n.getDate());
+  }
+
+  const root = document.getElementById("tp-root");
+  const today = todayLocal();
+  const startDate = parseLocalDate(PLAN_START);
+  const dayIndex = Math.round((today - startDate) / 86400000);
+
+  function el(tag, cls, html){
+    const e = document.createElement(tag);
+    if(cls) e.className = cls;
+    if(html !== undefined) e.innerHTML = html;
+    return e;
+  }
+
+  function renderIngredients(list){
+    const ul = el("ul","tp-ing");
+    list.forEach(([name, amt])=>{
+      const li = el("li");
+      li.innerHTML = `<span>${name}</span><span class="amt">${amt}</span>`;
+      ul.appendChild(li);
+    });
+    return ul;
+  }
+
+  function renderMeal(slot, meal){
+    const wrap = el("div","tp-meal");
+    const head = el("div","tp-meal-head");
+    head.innerHTML = `<div><div class="tp-slot">${slot}</div><div class="tp-dish">${meal.dish}</div></div><div class="tp-macros">${meal.macros}</div>`;
+    wrap.appendChild(head);
+    wrap.appendChild(renderIngredients(meal.ing));
+    const details = el("details","tp-steps");
+    const sum = el("summary", null, "Zubereitung anzeigen");
+    details.appendChild(sum);
+    const ol = el("ol");
+    meal.steps.forEach(s=>{ const li=el("li",null,s); ol.appendChild(li); });
+    details.appendChild(ol);
+    wrap.appendChild(details);
+    return wrap;
+  }
+
+  function renderProgress(idx){
+    const wrap = el("div","tp-progress");
+    for(let i=0;i<7;i++){
+      const s = el("span");
+      if(i < idx) s.classList.add("done");
+      if(i === idx) s.classList.add("today");
+      wrap.appendChild(s);
+    }
+    return wrap;
+  }
+
+  function weekdayLabel(d){
+    return d.toLocaleDateString("de-DE",{weekday:"long", day:"2-digit", month:"2-digit"});
+  }
+
+  if(dayIndex < 0){
+    root.appendChild(el("div","tp-header", `<p class="tp-eyebrow">Woche 5</p><h1 class="tp-date">Plan startet Montag, 27.07.2026</h1><p class="tp-sub">Schau am Starttag wieder vorbei.</p>`));
+    return;
+  }
+  if(dayIndex > 6){
+    root.appendChild(el("div","tp-header", `<p class="tp-eyebrow">Woche 5</p><h1 class="tp-date">Woche 5 ist abgeschlossen</h1><p class="tp-sub">Sag Bescheid, sobald Woche 6 steht — dann bekommt dieses Tool das Update.</p>`));
+    return;
+  }
+
+  const day = days[dayIndex];
+  const isToday27 = day.date === SKIP_BREAKFAST_ON;
+
+  const header = el("div","tp-header");
+  header.innerHTML = `<p class="tp-eyebrow">Woche 5 · Tag ${dayIndex+1} von 7</p><h1 class="tp-date">${weekdayLabel(today)}</h1>`;
+  root.appendChild(header);
+  root.appendChild(renderProgress(dayIndex));
+
+  // Prep-ahead alert: check current day's own flag OR whether the day itself IS the day something needed to be prepped last night (informational only handled via nextDayPrep on the PREVIOUS day)
+  if(day.nextDayPrep){
+    const a = el("div","tp-alert");
+    a.innerHTML = `<span class="tp-alert-icon">⏰</span><span><b>Für morgen vorbereiten:</b> ${day.nextDayPrep.dish}. ${day.nextDayPrep.note}</span>`;
+    root.appendChild(a);
+  }
+
+  const ticket = el("div","tp-ticket");
+  ["Früh","Mittag","Abend"].forEach(slot=>{
+    if(slot === "Früh" && isToday27){
+      ticket.appendChild(el("div","tp-skip","Frühstück heute übersprungen — schon gegessen."));
+      return;
+    }
+    if(day.meals[slot]) ticket.appendChild(renderMeal(slot, day.meals[slot]));
+  });
+  const totalRow = el("div","tp-total");
+  totalRow.innerHTML = `<span>Tagesziel ≈ 2.250 kcal / 150g P / 165g F / &lt;35-39g KH</span><b>${day.dayTotal}</b>`;
+  ticket.appendChild(totalRow);
+  root.appendChild(ticket);
+
+  root.appendChild(el("div","tp-footer","Aktualisiert sich automatisch anhand des heutigen Datums · Woche 5 · 27.07.–02.08.2026"));
+})();
+</script>
+</body>
+</html>
