@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Veganer Ernährungsplan – Woche 8</title>
+<title>Veganer Ernährungsplan – Woche 9</title>
 </head>
 <body>
 <style>
@@ -58,6 +58,13 @@
   .tp-progress span.done{ background: var(--gold); }
   .tp-progress span.today{ background: var(--rust); }
 
+  .tp-topbar{ width:100%; max-width:560px; display:flex; justify-content:center; gap:8px; }
+  .tp-archive-btn{
+    font-family:'IBM Plex Mono', monospace; font-size:11.5px; letter-spacing:.05em;
+    background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.22); color: var(--cream);
+    border-radius:999px; padding:6px 14px; cursor:pointer; transition: background .15s;
+  }
+  .tp-archive-btn:hover{ background: rgba(255,255,255,.15); }
   .tp-nav{ display:flex; align-items:center; justify-content:center; gap:8px; }
   .tp-nav-btn{
     font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.03em;
@@ -69,354 +76,137 @@
   .tp-nav-today{ color: var(--gold); border-color: var(--gold); }
   .tp-progress span{ cursor:pointer; }
   .tp-progress span.viewing{ outline:2px solid var(--cream); outline-offset:2px; }
-
   .tp-archive-list{ width:100%; max-width:560px; display:flex; flex-direction:column; gap:10px; }
-  .tp-archive-item{ display:flex; justify-content:space-between; align-items:center; width:100%;
-    background: var(--card); color: var(--ink); border:none; border-radius:12px; padding:14px 18px;
-    cursor:pointer; text-align:left; font-family:'IBM Plex Sans', sans-serif;
-    box-shadow: 0 10px 24px rgba(0,0,0,.28); transition: transform .12s ease, box-shadow .12s ease; }
-  .tp-archive-item:hover{ transform: translateY(-2px); box-shadow: 0 14px 30px rgba(0,0,0,.34); }
-  .tp-archive-week{ font-family:'Fraunces', serif; font-weight:600; font-size:16px; }
-  .tp-archive-range{ font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--ink-soft); }
+  .tp-archive-item{
+    display:flex; justify-content:space-between; align-items:center;
+    width:100%; text-align:left; background: var(--card); color: var(--ink);
+    border:none; border-radius:12px; padding:16px 20px; cursor:pointer;
+    font-family:'IBM Plex Sans', sans-serif; box-shadow: 0 8px 20px rgba(0,0,0,.25);
+    transition: transform .12s;
+  }
+  .tp-archive-item:hover{ transform: translateY(-2px); }
+  .tp-archive-week{ font-family:'Fraunces', serif; font-weight:600; font-size:17px; }
+  .tp-archive-range{ font-family:'IBM Plex Mono', monospace; font-size:12px; color: var(--ink-soft); }
 </style>
 
 <div class="tp-root" id="tp-root"></div>
 
 <script>
 (function(){
-  const PLAN_START = "2026-08-17"; // Montag Woche 8
-  const SELEN_DAYS = ["Montag","Mittwoch","Sonntag"]; // 2-3 Paranüsse an diesen Tagen
-
+  const CURRENT_WEEK = 9;
+  const PLAN_START = "2026-08-24";
   const days = [
-    { name:"Montag", date:"2026-08-17", meals:{
-        "Früh": {dish:"Erdnuss-Kakao-Chiapudding",
-          ing:[["Chiasamen","25 g"],["Kakaopulver","8 g"],["Erdnussmus","15 g"],["Kokosmilch (Dose)","80 ml"],["Veganes Proteinpulver","30 g"]],
-          macros:"P 34g · F 34g · KH 10g · 486 kcal",
-          steps:["Chiasamen mit Kakaopulver, Erdnussmus und Kokosmilch verrühren, 5 Min. quellen lassen.","Proteinpulver einrühren, glattrühren.","Mind. 2h (am besten über Nacht) im Kühlschrank quellen lassen."]},
-        "Mittag": {dish:"Tofu-Paprika-Curry rot mit Sesam",
-          ing:[["Tofu (fest/natur)","250 g"],["Paprika","50 g"],["Kokosmilch (Dose)","70 ml"],["Sesam","10 g"],["Olivenöl","15 ml"]],
-          macros:"P 43g · F 41g · KH 10g · 585 kcal",
-          steps:["Tofu würfeln, Paprika in Streifen schneiden.","Olivenöl erhitzen, Tofu knusprig anbraten (5-6 Min.).","Paprika dazugeben, mit Kokosmilch ablöschen, 8-10 Min. köcheln lassen.","Mit Sesam bestreuen."]},
-        "Abend": {dish:"Seitan-Zucchini-Auflauf mit Kruste",
-          ing:[["Seitan","120 g"],["Zucchini","120 g"],["Hefeflocken","10 g"],["Olivenöl","40 ml"]],
-          macros:"P 98g · F 42g · KH 12g · 838 kcal",
-          steps:["Backofen auf 190°C vorheizen. Seitan und Zucchini würfeln.","In einer Auflaufform verteilen, mit Öl beträufeln.","Mit Hefeflocken bestreuen.","20-25 Min. backen bis leicht gebräunt."]},
-      }, dayTotal:"P 175g · F 137g · KH 31g · 2.059 kcal",
+    { name:"Montag", date:"2026-08-24", meals:{
+        "Früh": {dish:"Zimt-Mandel-Chiapudding",
+          ing:[["Chiasamen","25 g"],["Kokosmilch (Dose)","80 ml"],["Kokosöl","20 ml"],["Veganes Proteinpulver","30 g"],["Mandeln","15 g"]],
+          macros:"P 33g · F 56g · KH 7g · 666 kcal",
+          steps:["Chiasamen mit Kokosmilch und Kokosöl verrühren, 5 Min. quellen lassen.","Proteinpulver und Zimt einrühren, glattrühren.","Mind. 2h (am besten über Nacht) im Kühlschrank quellen lassen.","Mit gehackten Mandeln toppen."]},
+        "Mittag": {dish:"Tofu-Curry mit Spinat und Kokos",
+          ing:[["Tofu (fest/natur)","250 g"],["Spinat","70 g"],["Kokosmilch (Dose)","80 ml"],["Olivenöl","20 ml"]],
+          macros:"P 42g · F 47g · KH 8g · 604 kcal",
+          steps:["Tofu würfeln, in Olivenöl anbraten (5-6 Min.).","Kokosmilch dazugeben, mit Currypulver würzen, 6-8 Min. köcheln lassen.","Spinat zum Schluss unterrühren, kurz zusammenfallen lassen."]},
+        "Abend": {dish:"Seitan-Champignon-Pfanne in Balsamico-Sauce",
+          ing:[["Seitan","120 g"],["Champignons","120 g"],["Olivenöl","30 ml"],["Balsamico-Essig","15 ml"]],
+          macros:"P 94g · F 46g · KH 15g · 862 kcal",
+          steps:["Seitan würfeln, Champignons in Scheiben.","Olivenöl erhitzen, Seitan 5 Min. anbraten, Champignons dazugeben, 5-6 Min. mitbraten.","Mit Balsamico ablöschen, kurz einkochen lassen."]},
+      }, dayTotal:"P 170g · F 148g · KH 30g · 2.133 kcal",
       selenNote:true
     },
-    { name:"Dienstag", date:"2026-08-18", meals:{
-        "Früh": {dish:"Tofu-Rührei mit Champignons",
-          ing:[["Tofu (fest/natur)","250 g"],["Champignons","100 g"],["Olivenöl","20 ml"],["Hefeflocken","5 g"]],
-          macros:"P 44g · F 43g · KH 8g · 610 kcal",
-          steps:["Tofu grob zerbröseln, Champignons in Scheiben.","Olivenöl erhitzen, Champignons 3-4 Min. anbraten.","Tofu dazugeben, mit Kurkuma und Salz würzen, 5-6 Min. braten.","Hefeflocken unterrühren."]},
-        "Mittag": {dish:"Tempeh-Brokkoli-Pfanne mit Tahin-Sauce",
-          ing:[["Tempeh","150 g"],["Brokkoli","130 g"],["Tahini","15 g"],["Olivenöl","15 ml"]],
-          macros:"P 36g · F 46g · KH 16g · 618 kcal",
-          steps:["Tempeh würfeln, Brokkoli in Röschen teilen.","Olivenöl erhitzen, Tempeh 5 Min. anbraten.","Brokkoli dazugeben, 5-6 Min. mitbraten.","Tahini mit etwas Wasser glattrühren, über die Pfanne geben."]},
-        "Abend": {dish:"Tofu-Gemüse-Curry grün mit Spinat",
-          ing:[["Tofu (fest/natur)","220 g"],["Spinat","80 g"],["Zucchini","100 g"],["Kokosmilch (Dose)","80 ml"],["Olivenöl","30 ml"]],
-          macros:"P 40g · F 59g · KH 11g · 726 kcal",
-          steps:["Tofu würfeln, Zucchini in Scheiben schneiden.","Olivenöl erhitzen, Tofu und Zucchini 5-6 Min. anbraten.","Kokosmilch dazugeben, mit Currypaste würzen, 8-10 Min. köcheln lassen.","Spinat zum Schluss unterrühren."]},
-      }, dayTotal:"P 120g · F 148g · KH 35g · 1.954 kcal"
+    { name:"Dienstag", date:"2026-08-25", meals:{
+        "Früh": {dish:"Tofu-Gemüse-Omelett-Style mit Paprika",
+          ing:[["Tofu (fest/natur)","250 g"],["Paprika","50 g"],["Hefeflocken","10 g"],["Olivenöl","20 ml"]],
+          macros:"P 45g · F 43g · KH 10g · 623 kcal",
+          steps:["Tofu mit Hefeflocken und etwas Wasser im Mixer cremig pürieren, würzen.","Paprika würfeln, in Olivenöl kurz andünsten.","Tofu-Masse dazugeben, bei mittlerer Hitze 8-10 Min. stocken lassen."]},
+        "Mittag": {dish:"Tempeh-Zucchini-Wok mit Erdnuss-Sauce",
+          ing:[["Tempeh","150 g"],["Zucchini","130 g"],["Erdnussmus","20 g"],["Sojasauce","10 ml"],["Olivenöl","25 ml"]],
+          macros:"P 40g · F 63g · KH 22g · 802 kcal",
+          steps:["Tempeh würfeln, Zucchini in Scheiben.","Olivenöl erhitzen, Tempeh 5 Min. anbraten, Zucchini dazugeben, 5-6 Min. mitbraten.","Erdnussmus mit Sojasauce und etwas Wasser glattrühren, über die Pfanne geben."]},
+        "Abend": {dish:"Tofu-Blumenkohl-Auflauf mit Tomaten",
+          ing:[["Tofu (fest/natur)","220 g"],["Blumenkohl","120 g"],["Tomaten","30 g"],["Hefeflocken","10 g"],["Olivenöl","40 ml"]],
+          macros:"P 39g · F 45g · KH 8g · 566 kcal",
+          steps:["Backofen auf 190°C vorheizen. Tofu würfeln, Blumenkohl in Röschen.","In einer Auflaufform verteilen, gehackte Tomaten und Öl darüber, Hefeflocken bestreuen.","20-25 Min. backen bis leicht gebräunt."]},
+      }, dayTotal:"P 123g · F 151g · KH 34g · 1.990 kcal"
     },
-    { name:"Mittwoch", date:"2026-08-19", meals:{
-        "Früh": {dish:"Mandel-Kokos-Protein-Smoothie",
-          ing:[["Veganes Proteinpulver","35 g"],["Mandeln","20 g"],["Kokosmilch (Dose)","100 ml"],["Kokosöl","10 ml"]],
-          macros:"P 34g · F 43g · KH 8g · 574 kcal",
+    { name:"Mittwoch", date:"2026-08-26", meals:{
+        "Früh": {dish:"Beeren-Mandel-Protein-Smoothie",
+          ing:[["Veganes Proteinpulver","35 g"],["Mandeln","15 g"],["Himbeeren","25 g"],["Kokosmilch (Dose)","100 ml"],["Kokosöl","10 ml"]],
+          macros:"P 33g · F 40g · KH 8g · 546 kcal",
           steps:["Alle Zutaten in den Mixer geben.","Glatt cremig mixen, bei Bedarf Wasser/Eis dazugeben."]},
-        "Mittag": {dish:"Seitan-Zucchini-Spieße mit Avocado-Dip",
-          ing:[["Seitan","120 g"],["Zucchini","120 g"],["Olivenöl","20 ml"],["Avocado","100 g"]],
-          macros:"P 94g · F 41g · KH 12g · 748 kcal",
-          steps:["Seitan und Zucchini würfeln, auf Spieße stecken.","In Olivenöl von allen Seiten anbraten (6-8 Min.) oder im Ofen grillen.","Avocado zerdrücken, mit Salz, Limette und Kräutern zum Dip verarbeiten."]},
-        "Abend": {dish:"Tofu-Auberginen-Auflauf mit Tomaten",
-          ing:[["Tofu (fest/natur)","220 g"],["Aubergine","150 g"],["Tomaten","30 g"],["Hefeflocken","10 g"],["Olivenöl","40 ml"]],
-          macros:"P 41g · F 58g · KH 13g · 762 kcal",
-          steps:["Backofen auf 190°C vorheizen. Aubergine in Scheiben, Tofu würfeln.","In einer Auflaufform schichten, gehackte Tomaten und Öl darüber, Hefeflocken bestreuen.","25-30 Min. backen bis die Aubergine weich ist."]},
-      }, dayTotal:"P 169g · F 142g · KH 33g · 2.085 kcal",
+        "Mittag": {dish:"Seitan-Gemüse-Curry gelb",
+          ing:[["Seitan","120 g"],["Zucchini","120 g"],["Kokosmilch (Dose)","70 ml"],["Olivenöl","15 ml"]],
+          macros:"P 93g · F 35g · KH 13g · 653 kcal",
+          steps:["Seitan würfeln, Zucchini in Scheiben.","Olivenöl erhitzen, Seitan und Zucchini 5-6 Min. anbraten.","Kokosmilch und Kurkuma dazugeben, 8-10 Min. köcheln lassen."]},
+        "Abend": {dish:"Tofu-Champignon-Steak mit Rucola",
+          ing:[["Tofu (fest/natur)","250 g"],["Champignons","100 g"],["Olivenöl","30 ml"],["Rucola","80 g"]],
+          macros:"P 44g · F 54g · KH 9g · 754 kcal",
+          steps:["Tofu in dicke Scheiben schneiden, in Olivenöl goldbraun braten (4-5 Min./Seite).","Champignons in Scheiben in restlichem Öl separat anbraten.","Mit frischem Rucola servieren."]},
+      }, dayTotal:"P 170g · F 129g · KH 30g · 1.953 kcal"
+    },
+    { name:"Donnerstag", date:"2026-08-27", meals:{
+        "Früh": {dish:"Kakao-Erdnuss-Proteinshake",
+          ing:[["Veganes Proteinpulver","35 g"],["Kakaopulver","8 g"],["Erdnussmus","15 g"],["Kokosmilch (Dose)","100 ml"]],
+          macros:"P 33g · F 35g · KH 8g · 495 kcal",
+          steps:["Alle Zutaten in den Mixer geben.","Glatt cremig mixen, bei Bedarf Wasser/Eis dazugeben."]},
+        "Mittag": {dish:"Tempeh-Paprika-Salat mit Tahin-Dressing",
+          ing:[["Tempeh","130 g"],["Paprika","50 g"],["Rucola","60 g"],["Tahini","15 g"],["Olivenöl","25 ml"]],
+          macros:"P 32g · F 49g · KH 13g · 623 kcal",
+          steps:["Tempeh würfeln, in etwas vom Öl anbraten.","Rucola und Paprika anrichten, Tempeh darauf verteilen.","Tahini mit restlichem Öl und etwas Wasser zum Dressing verrühren."]},
+        "Abend": {dish:"Seitan-Auberginen-Pfanne mit Sesam",
+          ing:[["Seitan","120 g"],["Aubergine","100 g"],["Sesam","15 g"],["Sojasauce","10 ml"],["Olivenöl","35 ml"]],
+          macros:"P 95g · F 43g · KH 15g · 812 kcal",
+          steps:["Seitan würfeln, Aubergine in Stücke.","Olivenöl erhitzen, beides 8-10 Min. anbraten.","Mit Sojasauce ablöschen, mit Sesam bestreuen."]},
+      }, dayTotal:"P 160g · F 127g · KH 36g · 1.930 kcal",
       selenNote:true
     },
-    { name:"Donnerstag", date:"2026-08-20", meals:{
-        "Früh": {dish:"Beeren-Sonnenblumenkern-Chiapudding",
-          ing:[["Chiasamen","25 g"],["Sonnenblumenkerne","20 g"],["Kokosmilch (Dose)","80 ml"],["Veganes Proteinpulver","30 g"],["Himbeeren","20 g"]],
-          macros:"P 36g · F 40g · KH 12g · 585 kcal",
-          steps:["Chiasamen mit Kokosmilch verrühren, 5 Min. quellen lassen.","Proteinpulver einrühren, glattrühren.","Mind. 2h (am besten über Nacht) im Kühlschrank quellen lassen.","Mit Himbeeren und gerösteten Sonnenblumenkernen toppen."]},
-        "Mittag": {dish:"Tempeh-Gurken-Salat mit Sesam-Dressing",
-          ing:[["Tempeh","150 g"],["Gurke","80 g"],["Rucola","80 g"],["Sesam","15 g"],["Olivenöl","20 ml"]],
-          macros:"P 36g · F 51g · KH 15g · 660 kcal",
-          steps:["Tempeh würfeln, in etwas vom Öl anbraten.","Rucola und Gurke anrichten, Tempeh darauf verteilen.","Sesam mit restlichem Öl und etwas Sojasauce zum Dressing verrühren."]},
-        "Abend": {dish:"Seitan-Pilz-Ragout mit Blumenkohlpüree",
-          ing:[["Seitan","120 g"],["Champignons","120 g"],["Blumenkohl","100 g"],["Olivenöl","40 ml"],["Kokosöl","10 ml"]],
-          macros:"P 92g · F 45g · KH 12g · 789 kcal",
-          steps:["Seitan würfeln, Champignons in Scheiben.","Olivenöl erhitzen, Seitan anbraten (5 Min.), Champignons dazugeben, 5-6 Min. mitbraten.","Blumenkohl weich dämpfen, mit Kokosöl fein pürieren, salzen.","Ragout auf dem Püree anrichten."]},
-      }, dayTotal:"P 164g · F 136g · KH 39g · 2.034 kcal"
+    { name:"Freitag", date:"2026-08-28", meals:{
+        "Früh": {dish:"Avocado-Mandel-Chiapudding",
+          ing:[["Avocado","100 g"],["Chiasamen","15 g"],["Veganes Proteinpulver","30 g"],["Kokosmilch (Dose)","60 ml"],["Mandeln","10 g"]],
+          macros:"P 30g · F 33g · KH 6g · 449 kcal",
+          steps:["Avocado, Proteinpulver und Kokosmilch im Mixer glattpürieren.","Chiasamen einrühren, 10 Min. quellen lassen.","Mit gehackten Mandeln toppen."]},
+        "Mittag": {dish:"Tofu-Brokkoli-Curry gelb",
+          ing:[["Tofu (fest/natur)","250 g"],["Brokkoli","130 g"],["Kokosmilch (Dose)","80 ml"],["Olivenöl","20 ml"]],
+          macros:"P 45g · F 53g · KH 12g · 693 kcal",
+          steps:["Tofu würfeln, in Olivenöl anbraten.","Brokkoli dazugeben, kurz mitbraten.","Kokosmilch und Kurkuma dazugeben, 8-10 Min. köcheln lassen."]},
+        "Abend": {dish:"Seitan-Zucchini-Pfanne mit Avocado",
+          ing:[["Seitan","120 g"],["Zucchini","100 g"],["Olivenöl","20 ml"],["Avocado","100 g"]],
+          macros:"P 94g · F 52g · KH 16g · 912 kcal",
+          steps:["Seitan würfeln, Zucchini in Scheiben.","In Olivenöl anbraten, 6-8 Min. mitbraten.","Mit Avocadoscheiben servieren."]},
+      }, dayTotal:"P 169g · F 138g · KH 34g · 2.054 kcal"
     },
-    { name:"Freitag", date:"2026-08-21", meals:{
-        "Früh": {dish:"Avocado-Beeren-Bowl mit Chiasamen",
-          ing:[["Avocado","100 g"],["Himbeeren","25 g"],["Chiasamen","15 g"],["Veganes Proteinpulver","30 g"],["Kokosmilch (Dose)","40 ml"]],
-          macros:"P 31g · F 27g · KH 8g · 386 kcal",
-          steps:["Avocado mit Proteinpulver und Kokosmilch verrühren oder pürieren.","Mit Himbeeren und Chiasamen toppen."]},
-        "Mittag": {dish:"Tofu-Zucchini-Curry gelb",
-          ing:[["Tofu (fest/natur)","250 g"],["Zucchini","130 g"],["Kokosmilch (Dose)","80 ml"],["Olivenöl","35 ml"]],
-          macros:"P 45g · F 63g · KH 11g · 799 kcal",
-          steps:["Tofu würfeln, in etwas Öl anbraten.","Zucchini dazugeben, kurz mitbraten.","Kokosmilch und Kurkuma dazugeben, 8-10 Min. köcheln lassen."]},
-        "Abend": {dish:"Seitan-Gemüse-Pfanne mit Erdnuss-Sauce",
-          ing:[["Seitan","120 g"],["Paprika","40 g"],["Erdnussmus","20 g"],["Sojasauce","10 ml"],["Olivenöl","15 ml"]],
-          macros:"P 92g · F 43g · KH 12g · 809 kcal",
-          steps:["Seitan in Streifen schneiden, Paprika in Streifen.","In Olivenöl anbraten, Paprika dazugeben, 6-8 Min. mitbraten.","Erdnussmus mit Sojasauce und etwas Wasser glattrühren, über die Pfanne geben."]},
-      }, dayTotal:"P 168g · F 133g · KH 31g · 1.994 kcal"
+    { name:"Samstag", date:"2026-08-29", meals:{
+        "Früh": {dish:"Tofu-Kräuter-Frühstückspfanne mit Zucchini",
+          ing:[["Tofu (fest/natur)","250 g"],["Zucchini","100 g"],["Olivenöl","30 ml"],["Hefeflocken","5 g"]],
+          macros:"P 41g · F 50g · KH 7g · 646 kcal",
+          steps:["Tofu grob zerbröseln, Zucchini würfeln.","Olivenöl erhitzen, Zucchini andünsten.","Tofu dazugeben, mit Kräutern und Salz würzen, 5-6 Min. braten, Hefeflocken unterrühren."]},
+        "Mittag": {dish:"Tofu-Rucola-Bowl mit Sonnenblumenkernen",
+          ing:[["Tofu (fest/natur)","220 g"],["Blumenkohl","130 g"],["Rucola","80 g"],["Sonnenblumenkerne","25 g"],["Olivenöl","25 ml"]],
+          macros:"P 45g · F 63g · KH 15g · 782 kcal",
+          steps:["Tofu würfeln, in etwas vom Öl anbraten.","Blumenkohl fein raspeln als 'Reis', mit Rucola in eine Schüssel geben.","Tofu darauf verteilen, mit Sonnenblumenkernen bestreuen, mit Öl beträufeln."]},
+        "Abend": {dish:"Tempeh-Champignon-Curry rot",
+          ing:[["Tempeh","150 g"],["Champignons","120 g"],["Kokosmilch (Dose)","80 ml"],["Olivenöl","20 ml"]],
+          macros:"P 35g · F 49g · KH 15g · 656 kcal",
+          steps:["Tempeh würfeln, Champignons in Scheiben.","Olivenöl erhitzen, Tempeh 5 Min. anbraten, Champignons dazugeben.","Kokosmilch dazugeben, 8-10 Min. köcheln lassen."]},
+      }, dayTotal:"P 121g · F 162g · KH 35g · 2.084 kcal"
     },
-    { name:"Samstag", date:"2026-08-22", meals:{
-        "Früh": {dish:"Tofu-Spinat-Frühstückspfanne mit Champignons",
-          ing:[["Tofu (fest/natur)","250 g"],["Spinat","60 g"],["Champignons","80 g"],["Olivenöl","20 ml"]],
-          macros:"P 42g · F 42g · KH 8g · 610 kcal",
-          steps:["Tofu grob zerbröseln, Champignons in Scheiben.","Olivenöl erhitzen, Champignons 3-4 Min. anbraten.","Tofu dazugeben, mit Kurkuma und Salz würzen, 5-6 Min. braten.","Spinat zum Schluss unterheben."]},
-        "Mittag": {dish:"Tofu-Rucola-Salat mit gerösteten Mandeln",
-          ing:[["Tofu (fest/natur)","220 g"],["Rucola","100 g"],["Gurke","100 g"],["Mandeln","25 g"],["Olivenöl","20 ml"]],
-          macros:"P 43g · F 51g · KH 13g · 691 kcal",
-          steps:["Mandeln in einer trockenen Pfanne kurz rösten.","Tofu würfeln, in etwas vom Öl knusprig anbraten.","Rucola und Gurke anrichten, Tofu darauf verteilen.","Mit gerösteten Mandeln bestreuen, mit Öl beträufeln."]},
-        "Abend": {dish:"Tempeh-Paprika-Curry rot",
-          ing:[["Tempeh","150 g"],["Paprika","50 g"],["Kokosmilch (Dose)","80 ml"],["Olivenöl","30 ml"]],
-          macros:"P 32g · F 64g · KH 13g · 780 kcal",
-          steps:["Tempeh würfeln, Paprika in Streifen.","Olivenöl erhitzen, Tempeh 5 Min. anbraten.","Paprika dazugeben, kurz mitbraten.","Kokosmilch dazugeben, 8-10 Min. köcheln lassen."]},
-      }, dayTotal:"P 117g · F 157g · KH 34g · 2.014 kcal"
-    },
-    { name:"Sonntag", date:"2026-08-23", meals:{
-        "Früh": {dish:"Schoko-Chia-Pudding mit Paranüssen",
+    { name:"Sonntag", date:"2026-08-30", meals:{
+        "Früh": {dish:"Schoko-Kokos-Chiapudding mit Paranüssen",
           ing:[["Chiasamen","25 g"],["Kakaopulver","10 g"],["Kokosmilch (Dose)","80 ml"],["Kokosöl","10 ml"],["Veganes Proteinpulver","30 g"],["Paranüsse","2-3 Stk."]],
           macros:"P 32g · F 41g · KH 9g · 555 kcal",
-          steps:["Chiasamen mit Kakaopulver, Kokosmilch und Kokosöl verrühren.","Proteinpulver einrühren, glattrühren.","Mind. 2h (am besten über Nacht) im Kühlschrank quellen lassen.","Mit 2-3 gehackten Paranüssen toppen (Selen)."]},
-        "Mittag": {dish:"Tofu-Blumenkohl-Wok mit Sesam",
-          ing:[["Tofu (fest/natur)","250 g"],["Blumenkohl","130 g"],["Sesam","15 g"],["Sojasauce","10 ml"],["Olivenöl","25 ml"]],
-          macros:"P 47g · F 55g · KH 11g · 730 kcal",
-          steps:["Tofu würfeln, Blumenkohl in kleine Röschen teilen.","Olivenöl erhitzen, Tofu knusprig anbraten (5-6 Min.).","Blumenkohl dazugeben, 5-6 Min. mitbraten.","Mit Sojasauce ablöschen, mit Sesam bestreuen."]},
-        "Abend": {dish:"Seitan-Auberginen-Curry mit Kokosmilch",
-          ing:[["Seitan","120 g"],["Aubergine","120 g"],["Kokosmilch (Dose)","80 ml"],["Olivenöl","35 ml"]],
-          macros:"P 91g · F 54g · KH 14g · 875 kcal",
-          steps:["Seitan würfeln, Aubergine in Stücke schneiden.","Olivenöl erhitzen, beides 6-8 Min. anbraten.","Kokosmilch dazugeben, 8-10 Min. köcheln lassen."]},
-      }, dayTotal:"P 170g · F 150g · KH 34g · 2.161 kcal",
+          steps:["Chiasamen mit Kakaopulver, Kokosmilch und Kokosöl verrühren.","Proteinpulver einrühren, glattrühren.","Mind. 2h (am besten über Nacht) im Kühlschrank quellen lassen.","Mit 2-3 gehackten Paranüssen toppen."]},
+        "Mittag": {dish:"Tofu-Paprika-Wok mit Sesam",
+          ing:[["Tofu (fest/natur)","250 g"],["Paprika","50 g"],["Sesam","15 g"],["Sojasauce","10 ml"],["Olivenöl","35 ml"]],
+          macros:"P 47g · F 65g · KH 12g · 807 kcal",
+          steps:["Tofu würfeln, Paprika in Streifen.","Olivenöl erhitzen, Tofu knusprig anbraten, Paprika dazugeben, 5-6 Min. mitbraten.","Mit Sojasauce ablöschen, mit Sesam bestreuen."]},
+        "Abend": {dish:"Seitan-Gemüse-Ragout mit Blumenkohlpüree",
+          ing:[["Seitan","120 g"],["Paprika","30 g"],["Tomaten","30 g"],["Olivenöl","35 ml"],["Blumenkohl","120 g"],["Kokosöl","10 ml"]],
+          macros:"P 89g · F 44g · KH 12g · 784 kcal",
+          steps:["Seitan würfeln, Paprika und Tomaten hinzufügen, mit Öl anbraten, 10-12 Min. köcheln.","Blumenkohl weich dämpfen, mit Kokosöl fein pürieren, salzen.","Ragout auf dem Püree anrichten."]},
+      }, dayTotal:"P 168g · F 150g · KH 30g · 2.146 kcal",
       selenNote:true
     },
   ];
 
   const ARCHIVE = [
-    { week:7, planStart:"2026-08-10", days:[
-    { name:"Montag", date:"2026-08-10", meals:{
-        "Früh": {dish:"Vanille-Mandel-Chiapudding",
-          ing:[["Chiasamen","25 g"],["Kokosmilch (Dose)","80 ml"],["Kokosöl","20 ml"],["Veganes Proteinpulver","30 g"],["Mandeln","15 g"]],
-          macros:"P 33g · F 56g · KH 7g · 666 kcal",
-          steps:["Chiasamen mit Kokosmilch und Kokosöl verrühren, 5 Min. quellen lassen, nochmal umrühren.","Proteinpulver und etwas Vanille einrühren, glattrühren.","Mind. 2h (am besten über Nacht) im Kühlschrank quellen lassen.","Mit gehackten Mandeln toppen."]},
-        "Mittag": {dish:"Tofu-Brokkoli-Pfanne mit Sesam-Sauce",
-          ing:[["Tofu (fest/natur)","250 g"],["Brokkoli","150 g"],["Sesam","15 g"],["Sojasauce","10 ml"],["Olivenöl","25 ml"]],
-          macros:"P 46g · F 53g · KH 12g · 712 kcal",
-          steps:["Tofu würfeln, Brokkoli in Röschen teilen.","Olivenöl erhitzen, Tofu darin knusprig anbraten (5-6 Min.).","Brokkoli dazugeben, 5-6 Min. mitbraten (bissfest).","Mit Sojasauce ablöschen, mit Sesam bestreuen."]},
-        "Abend": {dish:"Seitan-Paprika-Auflauf mit Kokos-Kruste",
-          ing:[["Seitan","120 g"],["Paprika","40 g"],["Hefeflocken","10 g"],["Kokosöl","15 ml"],["Olivenöl","15 ml"]],
-          macros:"P 95g · F 33g · KH 12g · 728 kcal",
-          steps:["Backofen auf 190°C vorheizen. Seitan und Paprika würfeln.","In einer Auflaufform verteilen, mit Öl beträufeln.","Mit Hefeflocken bestreuen.","20-25 Min. backen bis leicht gebräunt."]},
-      }, dayTotal:"P 175g · F 142g · KH 32g · 2.106 kcal"
-    },
-    { name:"Dienstag", date:"2026-08-11", meals:{
-        "Früh": {dish:"Tofu-Kräuter-Omelett-Style",
-          ing:[["Tofu (fest/natur)","250 g"],["Spinat","60 g"],["Hefeflocken","10 g"],["Olivenöl","25 ml"]],
-          macros:"P 46g · F 46g · KH 7g · 621 kcal",
-          steps:["Tofu mit Hefeflocken und etwas Wasser im Mixer cremig pürieren, würzen.","Olivenöl erhitzen, Spinat kurz zusammenfallen lassen.","Tofu-Masse dazugeben, bei mittlerer Hitze 8-10 Min. stocken lassen."]},
-        "Mittag": {dish:"Tempeh-Zucchini-Curry rot",
-          ing:[["Tempeh","150 g"],["Zucchini","150 g"],["Tomaten","30 g"],["Kokosmilch (Dose)","70 ml"],["Olivenöl","15 ml"]],
-          macros:"P 34g · F 49g · KH 16g · 640 kcal",
-          steps:["Tempeh würfeln, Zucchini in Scheiben schneiden.","Olivenöl erhitzen, Tempeh 5 Min. anbraten.","Zucchini und gehackte Tomaten dazugeben, 5-6 Min. mitbraten.","Kokosmilch dazugeben, 6-8 Min. köcheln lassen."]},
-        "Abend": {dish:"Gebackener Tofu mit Champignon-Sahne & Rucola",
-          ing:[["Tofu (fest/natur)","220 g"],["Champignons","120 g"],["Kokosmilch (Dose)","60 ml"],["Olivenöl","20 ml"],["Rucola","80 g"]],
-          macros:"P 40g · F 52g · KH 10g · 675 kcal",
-          steps:["Tofu in dicke Scheiben schneiden, in etwas Öl goldbraun braten (4-5 Min./Seite).","Champignons in Scheiben in restlichem Öl anbraten, mit Kokosmilch ablöschen, 5 Min. köcheln.","Mit frischem Rucola servieren."]},
-      }, dayTotal:"P 120g · F 147g · KH 33g · 1.936 kcal"
-    },
-    { name:"Mittwoch", date:"2026-08-12", meals:{
-        "Früh": {dish:"Beeren-Kokos-Proteinshake",
-          ing:[["Veganes Proteinpulver","35 g"],["Himbeeren","25 g"],["Kokosmilch (Dose)","120 ml"],["Kokosöl","10 ml"]],
-          macros:"P 31g · F 41g · KH 6g · 514 kcal",
-          steps:["Alle Zutaten in den Mixer geben.","Glatt cremig mixen (30-45 Sek.), bei Bedarf Wasser/Eis dazugeben."]},
-        "Mittag": {dish:"Seitan-Gemüse-Spieße mediterran",
-          ing:[["Seitan","120 g"],["Zucchini","120 g"],["Paprika","40 g"],["Olivenöl","35 ml"]],
-          macros:"P 92g · F 38g · KH 14g · 763 kcal",
-          steps:["Seitan und Zucchini/Paprika würfeln, auf Spieße stecken.","In Olivenöl von allen Seiten anbraten (6-8 Min.) oder im Ofen grillen.","Mit mediterranen Kräutern würzen."]},
-        "Abend": {dish:"Tofu-Blumenkohl-Curry gelb",
-          ing:[["Tofu (fest/natur)","250 g"],["Blumenkohl","130 g"],["Kokosmilch (Dose)","80 ml"],["Olivenöl","25 ml"]],
-          macros:"P 43g · F 65g · KH 11g · 799 kcal",
-          steps:["Tofu würfeln, in etwas Öl anbraten.","Blumenkohl in Röschen dazugeben, kurz mitbraten.","Kokosmilch und Currypulver dazugeben, 8-10 Min. köcheln lassen."]},
-      }, dayTotal:"P 166g · F 143g · KH 31g · 2.076 kcal"
-    },
-    { name:"Donnerstag", date:"2026-08-13", meals:{
-        "Früh": {dish:"Avocado-Schoko-Chiapudding",
-          ing:[["Avocado","130 g"],["Kakaopulver","10 g"],["Chiasamen","15 g"],["Veganes Proteinpulver","30 g"],["Kokosmilch (Dose)","60 ml"]],
-          macros:"P 32g · F 41g · KH 8g · 536 kcal",
-          steps:["Avocado, Kakaopulver, Proteinpulver und Kokosmilch im Mixer glatt pürieren.","In eine Schale füllen, mit Chiasamen bestreuen.","15-20 Min. kühl stellen (optional)."]},
-        "Mittag": {dish:"Tempeh-Salat mit Sonnenblumenkern-Dressing",
-          ing:[["Tempeh","150 g"],["Rucola","100 g"],["Gurke","80 g"],["Sonnenblumenkerne","25 g"],["Olivenöl","25 ml"]],
-          macros:"P 37g · F 54g · KH 17g · 704 kcal",
-          steps:["Tempeh würfeln, in etwas vom Öl kurz anbraten.","Rucola und Gurke anrichten, Tempeh darauf verteilen.","Sonnenblumenkerne rösten, über den Salat streuen, mit restlichem Öl beträufeln."]},
-        "Abend": {dish:"Seitan-Champignon-Auflauf",
-          ing:[["Seitan","120 g"],["Champignons","120 g"],["Hefeflocken","10 g"],["Olivenöl","35 ml"]],
-          macros:"P 99g · F 38g · KH 13g · 793 kcal",
-          steps:["Backofen auf 190°C vorheizen. Seitan würfeln, Champignons in Scheiben.","In einer Auflaufform verteilen, mit Öl beträufeln, Hefeflocken bestreuen.","20-25 Min. backen bis leicht gebräunt."]},
-      }, dayTotal:"P 168g · F 134g · KH 38g · 2.033 kcal"
-    },
-    { name:"Freitag", date:"2026-08-14", meals:{
-        "Früh": {dish:"Tofu-Gemüse-Rührei mit Kräutern",
-          ing:[["Tofu (fest/natur)","250 g"],["Zucchini","100 g"],["Spinat","50 g"],["Olivenöl","30 ml"]],
-          macros:"P 41g · F 50g · KH 8g · 651 kcal",
-          steps:["Tofu grob zerbröseln, Zucchini würfeln.","Olivenöl erhitzen, Zucchini 3-4 Min. andünsten.","Tofu dazugeben, mit Kräutern und Salz würzen, 5-6 Min. braten.","Spinat zum Schluss unterheben."]},
-        "Mittag": {dish:"Tofu-Auberginen-Bowl mit Tahin-Sauce",
-          ing:[["Tofu (fest/natur)","220 g"],["Aubergine","150 g"],["Tahini","20 g"],["Olivenöl","25 ml"]],
-          macros:"P 39g · F 54g · KH 13g · 690 kcal",
-          steps:["Tofu würfeln, in etwas Öl anbraten.","Aubergine in Stücke schneiden, dazugeben, 8-10 Min. weich braten.","Tahini mit Wasser und Zitronensaft glattrühren, über die Bowl geben."]},
-        "Abend": {dish:"Seitan-Wok mit Paprika und Sesam",
-          ing:[["Seitan","120 g"],["Paprika","50 g"],["Sesam","15 g"],["Sojasauce","10 ml"],["Olivenöl","30 ml"]],
-          macros:"P 94g · F 40g · KH 13g · 788 kcal",
-          steps:["Seitan in Streifen schneiden, Paprika in Streifen.","In Olivenöl scharf anbraten, Paprika dazugeben, 6-8 Min. mitbraten.","Mit Sojasauce ablöschen, mit Sesam bestreuen."]},
-      }, dayTotal:"P 174g · F 144g · KH 33g · 2.129 kcal",
-      nextDayPrep:{ dish:"Schoko-Mandel-Chiapudding (Samstag-Frühstück)",
-        note:"Chiasamen mit Kakaopulver, Kokosmilch und Kokosöl verrühren, Proteinpulver einrühren – heute Abend im Kühlschrank quellen lassen (über Nacht)." }
-    },
-    { name:"Samstag", date:"2026-08-15", meals:{
-        "Früh": {dish:"Schoko-Mandel-Chiapudding",
-          ing:[["Chiasamen","25 g"],["Kakaopulver","10 g"],["Mandeln","20 g"],["Kokosmilch (Dose)","80 ml"],["Kokosöl","10 ml"],["Veganes Proteinpulver","30 g"]],
-          macros:"P 36g · F 50g · KH 9g · 629 kcal",
-          steps:["(Gestern Abend vorbereitet) Aus dem Kühlschrank nehmen.","Mit gehackten Mandeln bestreuen."]},
-        "Mittag": {dish:"Tempeh-Gemüse-Curry grün",
-          ing:[["Tempeh","150 g"],["Brokkoli","100 g"],["Zucchini","100 g"],["Kokosmilch (Dose)","80 ml"],["Olivenöl","15 ml"]],
-          macros:"P 36g · F 51g · KH 19g · 682 kcal",
-          steps:["Tempeh würfeln, Brokkoli und Zucchini in Stücke schneiden.","Olivenöl erhitzen, Tempeh 5 Min. anbraten.","Gemüse dazugeben, 5-6 Min. mitbraten.","Kokosmilch dazugeben, mit grünen Kräutern, 6-8 Min. köcheln lassen."]},
-        "Abend": {dish:"Tofu-Steak mit Avocado-Salsa",
-          ing:[["Tofu (fest/natur)","250 g"],["Avocado","100 g"],["Gurke","80 g"],["Tomaten","40 g"],["Olivenöl","20 ml"]],
-          macros:"P 42g · F 55g · KH 10g · 705 kcal",
-          steps:["Tofu in dicke Scheiben schneiden, in etwas Öl kräftig anbraten.","Avocado, Gurke und Tomaten würfeln, mit Limette und Salz zur Salsa vermengen.","Tofu-Steak mit Salsa servieren."]},
-      }, dayTotal:"P 114g · F 156g · KH 38g · 2.016 kcal"
-    },
-    { name:"Sonntag", date:"2026-08-16", meals:{
-        "Früh": {dish:"Beeren-Protein-Kokosjoghurt",
-          ing:[["Kokosjoghurt (ungesüßt)","150 g"],["Himbeeren","20 g"],["Chiasamen","15 g"],["Veganes Proteinpulver","25 g"],["Mandeln","25 g"]],
-          macros:"P 31g · F 40g · KH 11g · 525 kcal",
-          steps:["Kokosjoghurt mit Proteinpulver glattrühren.","Chiasamen einrühren, 10 Min. quellen lassen.","Mit Himbeeren und gehackten Mandeln toppen."]},
-        "Mittag": {dish:"Tofu-Gemüse-Wok asiatisch",
-          ing:[["Tofu (fest/natur)","250 g"],["Zucchini","120 g"],["Paprika","40 g"],["Sesam","15 g"],["Sojasauce","10 ml"],["Olivenöl","30 ml"]],
-          macros:"P 44g · F 58g · KH 10g · 739 kcal",
-          steps:["Tofu würfeln, Zucchini und Paprika in Streifen schneiden.","Olivenöl erhitzen, Tofu knusprig anbraten (5-6 Min.).","Gemüse dazugeben, 5-6 Min. bei hoher Hitze mitbraten.","Mit Sojasauce ablöschen, mit Sesam bestreuen."]},
-        "Abend": {dish:"Seitan-Rotes-Curry mit Blumenkohlreis",
-          ing:[["Seitan","120 g"],["Kokosmilch (Dose)","80 ml"],["Blumenkohl","130 g"],["Paprika","30 g"],["Olivenöl","30 ml"]],
-          macros:"P 95g · F 52g · KH 17g · 916 kcal",
-          steps:["Seitan würfeln, Paprika in Streifen.","In etwas Öl anbraten, Paprika dazugeben, 5-6 Min. mitbraten.","Kokosmilch dazugeben, mit Currypaste/Chili würzen, 8-10 Min. köcheln lassen.","Blumenkohl fein raspeln, roh oder kurz gedünstet als 'Reis' dazu servieren."]},
-      }, dayTotal:"P 170g · F 150g · KH 39g · 2.180 kcal"
-    },
-    ]},
-    { week:6, planStart:"2026-08-03", days:[
-    { name:"Montag", date:"2026-08-03", meals:{
-        "Früh": {dish:"Kokos-Zimt-Chiapudding mit Mandeln",
-          ing:[["Chiasamen","25 g"],["Kokosmilch (Dose)","80 ml"],["Kokosöl","20 ml"],["Veganes Proteinpulver","30 g"],["Mandeln","15 g"]],
-          macros:"P 33g · F 56g · KH 5g · 671 kcal",
-          steps:["Chiasamen mit Kokosmilch und Kokosöl verrühren, 5 Min. quellen lassen, nochmal umrühren.","Proteinpulver und eine Prise Zimt einrühren, glattrühren.","Mind. 2h (am besten über Nacht) im Kühlschrank quellen lassen.","Mit gehackten Mandeln toppen."]},
-        "Mittag": {dish:"Tofu mit Zucchini-Bandnudeln",
-          ing:[["Tofu (fest/natur)","250 g"],["Zucchini","180 g"],["Tomaten","30 g"],["Olivenöl","30 ml"],["Zwiebel","10 g"],["Hefeflocken","5 g"]],
-          macros:"P 44g · F 52g · KH 12g · 693 kcal",
-          steps:["Zucchini mit dem Sparschäler in breite 'Bandnudeln' hobeln.","Tofu würfeln, Zwiebel fein hacken.","Olivenöl erhitzen, Tofu darin knusprig anbraten (5-6 Min.), Zwiebel dazugeben.","Gehackte Tomaten und Hefeflocken einrühren, kurz köcheln.","Zucchini-Bandnudeln unterheben, 2 Min. warm ziehen lassen."]},
-        "Abend": {dish:"Seitan-Schaschlik-Spieße mit Erdnuss-Dip",
-          ing:[["Seitan","120 g"],["Paprika","40 g"],["Zwiebel","10 g"],["Olivenöl","20 ml"],["Erdnussmus","20 g"],["Sojasauce","10 ml"]],
-          macros:"P 97g · F 32g · KH 17g · 718 kcal",
-          steps:["Seitan und Paprika würfeln, auf Spieße stecken (oder als Pfannengericht).","In Olivenöl von allen Seiten kross anbraten (6-8 Min.), Zwiebel mit andünsten.","Erdnussmus mit Sojasauce und etwas Wasser glattrühren zum Dip.","Spieße mit Dip servieren."]},
-      }, dayTotal:"P 173g · F 139g · KH 34g · 2.081 kcal"
-    },
-    { name:"Dienstag", date:"2026-08-04", meals:{
-        "Früh": {dish:"Tofu-Scramble mit Zucchini & Paprika",
-          ing:[["Tofu (fest/natur)","250 g"],["Zucchini","100 g"],["Paprika","40 g"],["Kokosöl","20 ml"],["Hefeflocken","5 g"]],
-          macros:"P 41g · F 42g · KH 9g · 594 kcal",
-          steps:["Tofu grob zerbröseln, Zucchini und Paprika würfeln.","Kokosöl erhitzen, Gemüse 3-4 Min. andünsten.","Tofu dazugeben, mit Kurkuma, Salz und Pfeffer würzen, 5-6 Min. braten.","Hefeflocken unterrühren."]},
-        "Mittag": {dish:"Tempeh-Gemüse-Wok mit Sesam-Sojasauce",
-          ing:[["Tempeh","130 g"],["Zucchini","120 g"],["Brokkoli","80 g"],["Sesam","15 g"],["Sojasauce","10 ml"],["Olivenöl","25 ml"]],
-          macros:"P 34g · F 62g · KH 15g · 731 kcal",
-          steps:["Tempeh würfeln, Zucchini und Brokkoli in mundgerechte Stücke schneiden.","Olivenöl erhitzen, Tempeh 5 Min. anbraten.","Gemüse dazugeben, 5-6 Min. bei hoher Hitze braten.","Mit Sojasauce ablöschen, mit Sesam bestreuen."]},
-        "Abend": {dish:"Tofu-Auberginen-Curry (Kokos-Tomaten-Basis)",
-          ing:[["Tofu (fest/natur)","220 g"],["Aubergine","120 g"],["Tomaten","30 g"],["Kokosmilch (Dose)","60 ml"],["Kokosöl","15 ml"],["Olivenöl","15 ml"],["Zwiebel","10 g"]],
-          macros:"P 38g · F 46g · KH 14g · 632 kcal",
-          steps:["Tofu würfeln, Aubergine in Stücke schneiden, Zwiebel fein hacken.","Öl erhitzen, Zwiebel und Aubergine 6-8 Min. anbraten.","Gehackte Tomaten und Currypulver dazugeben, kurz mitdünsten.","Kokosmilch dazugeben, 8-10 Min. köcheln lassen, Tofu zum Schluss unterheben."]},
-      }, dayTotal:"P 113g · F 151g · KH 38g · 1.957 kcal"
-    },
-    { name:"Mittwoch", date:"2026-08-05", meals:{
-        "Früh": {dish:"Avocado-Kakao-Mousse mit Chiasamen",
-          ing:[["Avocado","130 g"],["Kakaopulver","10 g"],["Veganes Proteinpulver","30 g"],["Kokosmilch (Dose)","60 ml"],["Chiasamen","15 g"]],
-          macros:"P 30g · F 44g · KH 9g · 592 kcal",
-          steps:["Avocado, Kakaopulver, Proteinpulver und Kokosmilch im Mixer glatt pürieren.","In eine Schale füllen, mit Chiasamen bestreuen.","15-20 Min. kühl stellen für festere Konsistenz (optional)."]},
-        "Mittag": {dish:"Tofu-Zucchini-Frittata-Style",
-          ing:[["Tofu (fest/natur)","250 g"],["Zucchini","120 g"],["Hefeflocken","10 g"],["Olivenöl","35 ml"]],
-          macros:"P 44g · F 57g · KH 8g · 693 kcal",
-          steps:["Tofu mit Hefeflocken und etwas Wasser im Mixer cremig pürieren, würzen.","Zucchini in dünne Scheiben schneiden.","Olivenöl in einer ofenfesten Pfanne erhitzen, Zucchini kurz andünsten.","Tofu-Masse darüber gießen, bei mittlerer Hitze 10-12 Min. stocken lassen (Deckel drauf)."]},
-        "Abend": {dish:"Seitan-Steak mit Champignon-Öl und Rucola",
-          ing:[["Seitan","120 g"],["Champignons","100 g"],["Olivenöl","35 ml"],["Rucola","100 g"]],
-          macros:"P 98g · F 35g · KH 13g · 741 kcal",
-          steps:["Seitan in dicke Scheiben schneiden, in etwas Öl von beiden Seiten kräftig anbraten (4-5 Min./Seite).","Champignons in Scheiben in restlichem Öl separat anbraten, würzen.","Mit frischem Rucola servieren."]},
-      }, dayTotal:"P 172g · F 135g · KH 30g · 2.026 kcal"
-    },
-    { name:"Donnerstag", date:"2026-08-06", meals:{
-        "Früh": {dish:"Gurken-Spinat-Protein-Smoothie",
-          ing:[["Veganes Proteinpulver","35 g"],["Gurke","80 g"],["Spinat","50 g"],["Kokosmilch (Dose)","130 ml"],["Kokosöl","10 ml"]],
-          macros:"P 32g · F 46g · KH 8g · 570 kcal",
-          steps:["Alle Zutaten in den Mixer geben.","Glatt cremig mixen (30-45 Sek.), bei Bedarf Wasser/Eis dazugeben."]},
-        "Mittag": {dish:"Gebackene Blumenkohl-Steaks mit Tahin-Sauce und Tofu",
-          ing:[["Blumenkohl","150 g"],["Tofu (fest/natur)","220 g"],["Tahini","20 g"],["Olivenöl","20 ml"]],
-          macros:"P 41g · F 57g · KH 13g · 704 kcal",
-          steps:["Backofen auf 200°C vorheizen. Blumenkohl in dicke Scheiben ('Steaks') schneiden.","Mit etwas Öl bestreichen, 20-25 Min. backen bis goldbraun (halbe Zeit wenden).","Tofu würfeln, in etwas Öl separat anbraten.","Tahini mit Wasser und Zitronensaft glattrühren, über Blumenkohl und Tofu geben."]},
-        "Abend": {dish:"Tempeh-Paprika-Spieße mit Avocado-Dip",
-          ing:[["Tempeh","180 g"],["Paprika","50 g"],["Olivenöl","25 ml"],["Avocado","100 g"]],
-          macros:"P 39g · F 49g · KH 16g · 688 kcal",
-          steps:["Tempeh und Paprika würfeln, auf Spieße stecken.","In Olivenöl von allen Seiten anbraten (6-8 Min.) oder im Ofen grillen.","Avocado zerdrücken, mit Salz, Limette und Kräutern zum Dip verarbeiten.","Spieße mit Dip servieren."]},
-      }, dayTotal:"P 112g · F 152g · KH 37g · 1.962 kcal",
-      nextDayPrep:{ dish:"Beeren-Mandel-Chiapudding (Freitag-Frühstück)",
-        note:"Chiasamen mit Kokosmilch und Kokosöl verrühren, Proteinpulver einrühren – heute Abend im Kühlschrank quellen lassen (über Nacht)." }
-    },
-    { name:"Freitag", date:"2026-08-07", meals:{
-        "Früh": {dish:"Beeren-Mandel-Chiapudding",
-          ing:[["Chiasamen","25 g"],["Kokosmilch (Dose)","80 ml"],["Kokosöl","15 ml"],["Veganes Proteinpulver","30 g"],["Himbeeren","15 g"],["Mandeln","15 g"]],
-          macros:"P 33g · F 51g · KH 8g · 630 kcal",
-          steps:["(Gestern Abend vorbereitet) Aus dem Kühlschrank nehmen.","Mit Himbeeren und gehackten Mandeln toppen."]},
-        "Mittag": {dish:"Tofu-Gemüse-Curry gelb (Kurkuma-Kokos)",
-          ing:[["Tofu (fest/natur)","250 g"],["Zucchini","120 g"],["Brokkoli","80 g"],["Kokosmilch (Dose)","80 ml"],["Olivenöl","15 ml"]],
-          macros:"P 44g · F 52g · KH 12g · 691 kcal",
-          steps:["Tofu würfeln, in etwas Öl anbraten.","Zucchini und Brokkoli dazugeben, kurz mitbraten.","Kokosmilch und Kurkuma dazugeben, 8-10 Min. köcheln lassen."]},
-        "Abend": {dish:"Seitan-Gyros-Pfanne mit Gurken-Joghurt-Sauce",
-          ing:[["Seitan","120 g"],["Zwiebel","10 g"],["Olivenöl","30 ml"],["Gurke","100 g"],["Kokosjoghurt (ungesüßt)","80 g"]],
-          macros:"P 93g · F 47g · KH 17g · 855 kcal",
-          steps:["Seitan in Streifen schneiden, mit Gyros-Gewürzen marinieren.","In Olivenöl scharf anbraten, Zwiebel dazugeben, 6-8 Min. mitbraten.","Gurke fein reiben/würfeln, mit Kokosjoghurt und etwas Öl zur Sauce verrühren.","Mit Gurken-Joghurt-Sauce servieren."]},
-      }, dayTotal:"P 170g · F 150g · KH 37g · 2.176 kcal"
-    },
-    { name:"Samstag", date:"2026-08-08", meals:{
-        "Früh": {dish:"Tofu-Gemüse-Frühstückspfanne",
-          ing:[["Tofu (fest/natur)","250 g"],["Zucchini","100 g"],["Paprika","30 g"],["Spinat","50 g"],["Olivenöl","20 ml"]],
-          macros:"P 41g · F 40g · KH 8g · 576 kcal",
-          steps:["Tofu grob zerbröseln, Zucchini und Paprika würfeln.","Olivenöl erhitzen, Gemüse 4-5 Min. andünsten.","Tofu dazugeben, mit Kurkuma und Salz würzen, 5-6 Min. braten.","Spinat zum Schluss unterheben, kurz zusammenfallen lassen."]},
-        "Mittag": {dish:"Tofu-Salat mit gerösteten Sonnenblumenkernen",
-          ing:[["Tofu (fest/natur)","220 g"],["Rucola","100 g"],["Gurke","100 g"],["Sonnenblumenkerne","25 g"],["Olivenöl","20 ml"]],
-          macros:"P 43g · F 43g · KH 12g · 631 kcal",
-          steps:["Sonnenblumenkerne in einer trockenen Pfanne kurz rösten, beiseitestellen.","Tofu würfeln, in etwas Öl knusprig anbraten.","Rucola und Gurke anrichten, Tofu darauf verteilen.","Mit gerösteten Sonnenblumenkernen bestreuen, mit Öl beträufeln."]},
-        "Abend": {dish:"Seitan-Chili sin Carne-Style mit Avocado-Topping",
-          ing:[["Seitan","120 g"],["Tomaten","50 g"],["Zwiebel","15 g"],["Paprika","30 g"],["Olivenöl","20 ml"],["Avocado","100 g"]],
-          macros:"P 92g · F 46g · KH 16g · 796 kcal",
-          steps:["Seitan im Mixer grob häckseln, Zwiebel und Paprika fein würfeln.","In Olivenöl anbraten, Zwiebel und Paprika dazugeben, 5-6 Min. mitbraten.","Gehackte Tomaten und Chili-/Paprikapulver dazugeben, 10-12 Min. köcheln lassen.","Mit gewürfelter Avocado toppen."]},
-      }, dayTotal:"P 176g · F 129g · KH 36g · 2.003 kcal"
-    },
-    { name:"Sonntag", date:"2026-08-09", meals:{
-        "Früh": {dish:"Schoko-Mandel-Proteinshake",
-          ing:[["Veganes Proteinpulver","35 g"],["Kakaopulver","10 g"],["Mandeln","20 g"],["Kokosmilch (Dose)","100 ml"],["Kokosöl","15 ml"]],
-          macros:"P 39g · F 49g · KH 9g · 611 kcal",
-          steps:["Alle Zutaten (Proteinpulver, Kakaopulver, Mandeln, Kokosmilch, Kokosöl) in den Mixer geben.","Glatt cremig mixen, bei Bedarf etwas Wasser/Eis dazugeben."]},
-        "Mittag": {dish:"Tofu-Blumenkohl-Bowl mit Avocado und Sesam",
-          ing:[["Tofu (fest/natur)","250 g"],["Blumenkohl","130 g"],["Avocado","120 g"],["Sesam","15 g"],["Gurke","80 g"]],
-          macros:"P 45g · F 55g · KH 13g · 733 kcal",
-          steps:["Tofu würfeln, in etwas Öl anbraten oder marinieren.","Blumenkohl fein raspeln ('Reis'), roh oder kurz gedünstet in die Schüssel geben.","Avocado und Gurke schneiden, dazu anrichten.","Tofu darauf verteilen, mit Sesam bestreuen."]},
-        "Abend": {dish:"Champignon-Tempeh-Pfanne in cremiger Kokossauce",
-          ing:[["Tempeh","150 g"],["Champignons","120 g"],["Kokosmilch (Dose)","80 ml"],["Olivenöl","20 ml"]],
-          macros:"P 35g · F 50g · KH 15g · 669 kcal",
-          steps:["Tempeh würfeln, in Olivenöl anbraten (5 Min.).","Champignons in Scheiben dazugeben, 5-6 Min. mitbraten.","Mit Kokosmilch ablöschen, 5-6 Min. köcheln lassen bis leicht eingedickt."]},
-      }, dayTotal:"P 119g · F 154g · KH 38g · 2.013 kcal"
-    },
-    ]},
     { week:5, planStart:"2026-07-27", days:[
     { name:"Montag", date:"2026-07-27", meals:{
         "Früh": {dish:"Beeren-Chia-Kokos-Pudding",
@@ -534,16 +324,348 @@
       },
       dayTotal:"P 126g · F 148g · KH 37g · 1.989 kcal"
     },
-    ]},
+  ] },
+    { week:6, planStart:"2026-08-03", days:[
+    { name:"Montag", date:"2026-08-03", meals:{
+        "Früh": {dish:"Kokos-Zimt-Chiapudding mit Mandeln",
+          ing:[["Chiasamen","25 g"],["Kokosmilch (Dose)","80 ml"],["Kokosöl","20 ml"],["Veganes Proteinpulver","30 g"],["Mandeln","15 g"]],
+          macros:"P 33g · F 56g · KH 5g · 671 kcal",
+          steps:["Chiasamen mit Kokosmilch und Kokosöl verrühren, 5 Min. quellen lassen, nochmal umrühren.","Proteinpulver und eine Prise Zimt einrühren, glattrühren.","Mind. 2h (am besten über Nacht) im Kühlschrank quellen lassen.","Mit gehackten Mandeln toppen."]},
+        "Mittag": {dish:"Tofu mit Zucchini-Bandnudeln",
+          ing:[["Tofu (fest/natur)","250 g"],["Zucchini","180 g"],["Tomaten","30 g"],["Olivenöl","30 ml"],["Zwiebel","10 g"],["Hefeflocken","5 g"]],
+          macros:"P 44g · F 52g · KH 12g · 693 kcal",
+          steps:["Zucchini mit dem Sparschäler in breite 'Bandnudeln' hobeln.","Tofu würfeln, Zwiebel fein hacken.","Olivenöl erhitzen, Tofu darin knusprig anbraten (5-6 Min.), Zwiebel dazugeben.","Gehackte Tomaten und Hefeflocken einrühren, kurz köcheln.","Zucchini-Bandnudeln unterheben, 2 Min. warm ziehen lassen."]},
+        "Abend": {dish:"Seitan-Schaschlik-Spieße mit Erdnuss-Dip",
+          ing:[["Seitan","120 g"],["Paprika","40 g"],["Zwiebel","10 g"],["Olivenöl","20 ml"],["Erdnussmus","20 g"],["Sojasauce","10 ml"]],
+          macros:"P 97g · F 32g · KH 17g · 718 kcal",
+          steps:["Seitan und Paprika würfeln, auf Spieße stecken (oder als Pfannengericht).","In Olivenöl von allen Seiten kross anbraten (6-8 Min.), Zwiebel mit andünsten.","Erdnussmus mit Sojasauce und etwas Wasser glattrühren zum Dip.","Spieße mit Dip servieren."]},
+      }, dayTotal:"P 173g · F 139g · KH 34g · 2.081 kcal"
+    },
+    { name:"Dienstag", date:"2026-08-04", meals:{
+        "Früh": {dish:"Tofu-Scramble mit Zucchini & Paprika",
+          ing:[["Tofu (fest/natur)","250 g"],["Zucchini","100 g"],["Paprika","40 g"],["Kokosöl","20 ml"],["Hefeflocken","5 g"]],
+          macros:"P 41g · F 42g · KH 9g · 594 kcal",
+          steps:["Tofu grob zerbröseln, Zucchini und Paprika würfeln.","Kokosöl erhitzen, Gemüse 3-4 Min. andünsten.","Tofu dazugeben, mit Kurkuma, Salz und Pfeffer würzen, 5-6 Min. braten.","Hefeflocken unterrühren."]},
+        "Mittag": {dish:"Tempeh-Gemüse-Wok mit Sesam-Sojasauce",
+          ing:[["Tempeh","130 g"],["Zucchini","120 g"],["Brokkoli","80 g"],["Sesam","15 g"],["Sojasauce","10 ml"],["Olivenöl","25 ml"]],
+          macros:"P 34g · F 62g · KH 15g · 731 kcal",
+          steps:["Tempeh würfeln, Zucchini und Brokkoli in mundgerechte Stücke schneiden.","Olivenöl erhitzen, Tempeh 5 Min. anbraten.","Gemüse dazugeben, 5-6 Min. bei hoher Hitze braten.","Mit Sojasauce ablöschen, mit Sesam bestreuen."]},
+        "Abend": {dish:"Tofu-Auberginen-Curry (Kokos-Tomaten-Basis)",
+          ing:[["Tofu (fest/natur)","220 g"],["Aubergine","120 g"],["Tomaten","30 g"],["Kokosmilch (Dose)","60 ml"],["Kokosöl","15 ml"],["Olivenöl","15 ml"],["Zwiebel","10 g"]],
+          macros:"P 38g · F 46g · KH 14g · 632 kcal",
+          steps:["Tofu würfeln, Aubergine in Stücke schneiden, Zwiebel fein hacken.","Öl erhitzen, Zwiebel und Aubergine 6-8 Min. anbraten.","Gehackte Tomaten und Currypulver dazugeben, kurz mitdünsten.","Kokosmilch dazugeben, 8-10 Min. köcheln lassen, Tofu zum Schluss unterheben."]},
+      }, dayTotal:"P 113g · F 151g · KH 38g · 1.957 kcal"
+    },
+    { name:"Mittwoch", date:"2026-08-05", meals:{
+        "Früh": {dish:"Avocado-Kakao-Mousse mit Chiasamen",
+          ing:[["Avocado","130 g"],["Kakaopulver","10 g"],["Veganes Proteinpulver","30 g"],["Kokosmilch (Dose)","60 ml"],["Chiasamen","15 g"]],
+          macros:"P 30g · F 44g · KH 9g · 592 kcal",
+          steps:["Avocado, Kakaopulver, Proteinpulver und Kokosmilch im Mixer glatt pürieren.","In eine Schale füllen, mit Chiasamen bestreuen.","15-20 Min. kühl stellen für festere Konsistenz (optional)."]},
+        "Mittag": {dish:"Tofu-Zucchini-Frittata-Style",
+          ing:[["Tofu (fest/natur)","250 g"],["Zucchini","120 g"],["Hefeflocken","10 g"],["Olivenöl","35 ml"]],
+          macros:"P 44g · F 57g · KH 8g · 693 kcal",
+          steps:["Tofu mit Hefeflocken und etwas Wasser im Mixer cremig pürieren, würzen.","Zucchini in dünne Scheiben schneiden.","Olivenöl in einer ofenfesten Pfanne erhitzen, Zucchini kurz andünsten.","Tofu-Masse darüber gießen, bei mittlerer Hitze 10-12 Min. stocken lassen (Deckel drauf)."]},
+        "Abend": {dish:"Seitan-Steak mit Champignon-Öl und Rucola",
+          ing:[["Seitan","120 g"],["Champignons","100 g"],["Olivenöl","35 ml"],["Rucola","100 g"]],
+          macros:"P 98g · F 35g · KH 13g · 741 kcal",
+          steps:["Seitan in dicke Scheiben schneiden, in etwas Öl von beiden Seiten kräftig anbraten (4-5 Min./Seite).","Champignons in Scheiben in restlichem Öl separat anbraten, würzen.","Mit frischem Rucola servieren."]},
+      }, dayTotal:"P 172g · F 135g · KH 30g · 2.026 kcal"
+    },
+    { name:"Donnerstag", date:"2026-08-06", meals:{
+        "Früh": {dish:"Gurken-Spinat-Protein-Smoothie",
+          ing:[["Veganes Proteinpulver","35 g"],["Gurke","80 g"],["Spinat","50 g"],["Kokosmilch (Dose)","130 ml"],["Kokosöl","10 ml"]],
+          macros:"P 32g · F 46g · KH 8g · 570 kcal",
+          steps:["Alle Zutaten in den Mixer geben.","Glatt cremig mixen (30-45 Sek.), bei Bedarf Wasser/Eis dazugeben."]},
+        "Mittag": {dish:"Gebackene Blumenkohl-Steaks mit Tahin-Sauce und Tofu",
+          ing:[["Blumenkohl","150 g"],["Tofu (fest/natur)","220 g"],["Tahini","20 g"],["Olivenöl","20 ml"]],
+          macros:"P 41g · F 57g · KH 13g · 704 kcal",
+          steps:["Backofen auf 200°C vorheizen. Blumenkohl in dicke Scheiben ('Steaks') schneiden.","Mit etwas Öl bestreichen, 20-25 Min. backen bis goldbraun (halbe Zeit wenden).","Tofu würfeln, in etwas Öl separat anbraten.","Tahini mit Wasser und Zitronensaft glattrühren, über Blumenkohl und Tofu geben."]},
+        "Abend": {dish:"Tempeh-Paprika-Spieße mit Avocado-Dip",
+          ing:[["Tempeh","180 g"],["Paprika","50 g"],["Olivenöl","25 ml"],["Avocado","100 g"]],
+          macros:"P 39g · F 49g · KH 16g · 688 kcal",
+          steps:["Tempeh und Paprika würfeln, auf Spieße stecken.","In Olivenöl von allen Seiten anbraten (6-8 Min.) oder im Ofen grillen.","Avocado zerdrücken, mit Salz, Limette und Kräutern zum Dip verarbeiten.","Spieße mit Dip servieren."]},
+      }, dayTotal:"P 112g · F 152g · KH 37g · 1.962 kcal",
+      nextDayPrep:{ dish:"Beeren-Mandel-Chiapudding (Freitag-Frühstück)",
+        note:"Chiasamen mit Kokosmilch und Kokosöl verrühren, Proteinpulver einrühren – heute Abend im Kühlschrank quellen lassen (über Nacht)." }
+    },
+    { name:"Freitag", date:"2026-08-07", meals:{
+        "Früh": {dish:"Beeren-Mandel-Chiapudding",
+          ing:[["Chiasamen","25 g"],["Kokosmilch (Dose)","80 ml"],["Kokosöl","15 ml"],["Veganes Proteinpulver","30 g"],["Himbeeren","15 g"],["Mandeln","15 g"]],
+          macros:"P 33g · F 51g · KH 8g · 630 kcal",
+          steps:["(Gestern Abend vorbereitet) Aus dem Kühlschrank nehmen.","Mit Himbeeren und gehackten Mandeln toppen."]},
+        "Mittag": {dish:"Tofu-Gemüse-Curry gelb (Kurkuma-Kokos)",
+          ing:[["Tofu (fest/natur)","250 g"],["Zucchini","120 g"],["Brokkoli","80 g"],["Kokosmilch (Dose)","80 ml"],["Olivenöl","15 ml"]],
+          macros:"P 44g · F 52g · KH 12g · 691 kcal",
+          steps:["Tofu würfeln, in etwas Öl anbraten.","Zucchini und Brokkoli dazugeben, kurz mitbraten.","Kokosmilch und Kurkuma dazugeben, 8-10 Min. köcheln lassen."]},
+        "Abend": {dish:"Seitan-Gyros-Pfanne mit Gurken-Joghurt-Sauce",
+          ing:[["Seitan","120 g"],["Zwiebel","10 g"],["Olivenöl","30 ml"],["Gurke","100 g"],["Kokosjoghurt (ungesüßt)","80 g"]],
+          macros:"P 93g · F 47g · KH 17g · 855 kcal",
+          steps:["Seitan in Streifen schneiden, mit Gyros-Gewürzen marinieren.","In Olivenöl scharf anbraten, Zwiebel dazugeben, 6-8 Min. mitbraten.","Gurke fein reiben/würfeln, mit Kokosjoghurt und etwas Öl zur Sauce verrühren.","Mit Gurken-Joghurt-Sauce servieren."]},
+      }, dayTotal:"P 170g · F 150g · KH 37g · 2.176 kcal"
+    },
+    { name:"Samstag", date:"2026-08-08", meals:{
+        "Früh": {dish:"Tofu-Gemüse-Frühstückspfanne",
+          ing:[["Tofu (fest/natur)","250 g"],["Zucchini","100 g"],["Paprika","30 g"],["Spinat","50 g"],["Olivenöl","20 ml"]],
+          macros:"P 41g · F 40g · KH 8g · 576 kcal",
+          steps:["Tofu grob zerbröseln, Zucchini und Paprika würfeln.","Olivenöl erhitzen, Gemüse 4-5 Min. andünsten.","Tofu dazugeben, mit Kurkuma und Salz würzen, 5-6 Min. braten.","Spinat zum Schluss unterheben, kurz zusammenfallen lassen."]},
+        "Mittag": {dish:"Tofu-Salat mit gerösteten Sonnenblumenkernen",
+          ing:[["Tofu (fest/natur)","220 g"],["Rucola","100 g"],["Gurke","100 g"],["Sonnenblumenkerne","25 g"],["Olivenöl","20 ml"]],
+          macros:"P 43g · F 43g · KH 12g · 631 kcal",
+          steps:["Sonnenblumenkerne in einer trockenen Pfanne kurz rösten, beiseitestellen.","Tofu würfeln, in etwas Öl knusprig anbraten.","Rucola und Gurke anrichten, Tofu darauf verteilen.","Mit gerösteten Sonnenblumenkernen bestreuen, mit Öl beträufeln."]},
+        "Abend": {dish:"Seitan-Chili sin Carne-Style mit Avocado-Topping",
+          ing:[["Seitan","120 g"],["Tomaten","50 g"],["Zwiebel","15 g"],["Paprika","30 g"],["Olivenöl","20 ml"],["Avocado","100 g"]],
+          macros:"P 92g · F 46g · KH 16g · 796 kcal",
+          steps:["Seitan im Mixer grob häckseln, Zwiebel und Paprika fein würfeln.","In Olivenöl anbraten, Zwiebel und Paprika dazugeben, 5-6 Min. mitbraten.","Gehackte Tomaten und Chili-/Paprikapulver dazugeben, 10-12 Min. köcheln lassen.","Mit gewürfelter Avocado toppen."]},
+      }, dayTotal:"P 176g · F 129g · KH 36g · 2.003 kcal"
+    },
+    { name:"Sonntag", date:"2026-08-09", meals:{
+        "Früh": {dish:"Schoko-Mandel-Proteinshake",
+          ing:[["Veganes Proteinpulver","35 g"],["Kakaopulver","10 g"],["Mandeln","20 g"],["Kokosmilch (Dose)","100 ml"],["Kokosöl","15 ml"]],
+          macros:"P 39g · F 49g · KH 9g · 611 kcal",
+          steps:["Alle Zutaten (Proteinpulver, Kakaopulver, Mandeln, Kokosmilch, Kokosöl) in den Mixer geben.","Glatt cremig mixen, bei Bedarf etwas Wasser/Eis dazugeben."]},
+        "Mittag": {dish:"Tofu-Blumenkohl-Bowl mit Avocado und Sesam",
+          ing:[["Tofu (fest/natur)","250 g"],["Blumenkohl","130 g"],["Avocado","120 g"],["Sesam","15 g"],["Gurke","80 g"]],
+          macros:"P 45g · F 55g · KH 13g · 733 kcal",
+          steps:["Tofu würfeln, in etwas Öl anbraten oder marinieren.","Blumenkohl fein raspeln ('Reis'), roh oder kurz gedünstet in die Schüssel geben.","Avocado und Gurke schneiden, dazu anrichten.","Tofu darauf verteilen, mit Sesam bestreuen."]},
+        "Abend": {dish:"Champignon-Tempeh-Pfanne in cremiger Kokossauce",
+          ing:[["Tempeh","150 g"],["Champignons","120 g"],["Kokosmilch (Dose)","80 ml"],["Olivenöl","20 ml"]],
+          macros:"P 35g · F 50g · KH 15g · 669 kcal",
+          steps:["Tempeh würfeln, in Olivenöl anbraten (5 Min.).","Champignons in Scheiben dazugeben, 5-6 Min. mitbraten.","Mit Kokosmilch ablöschen, 5-6 Min. köcheln lassen bis leicht eingedickt."]},
+      }, dayTotal:"P 119g · F 154g · KH 38g · 2.013 kcal"
+    },
+  ] },
+    { week:7, planStart:"2026-08-10", days:[
+    { name:"Montag", date:"2026-08-10", meals:{
+        "Früh": {dish:"Vanille-Mandel-Chiapudding",
+          ing:[["Chiasamen","25 g"],["Kokosmilch (Dose)","80 ml"],["Kokosöl","20 ml"],["Veganes Proteinpulver","30 g"],["Mandeln","15 g"]],
+          macros:"P 33g · F 56g · KH 7g · 666 kcal",
+          steps:["Chiasamen mit Kokosmilch und Kokosöl verrühren, 5 Min. quellen lassen, nochmal umrühren.","Proteinpulver und etwas Vanille einrühren, glattrühren.","Mind. 2h (am besten über Nacht) im Kühlschrank quellen lassen.","Mit gehackten Mandeln toppen."]},
+        "Mittag": {dish:"Tofu-Brokkoli-Pfanne mit Sesam-Sauce",
+          ing:[["Tofu (fest/natur)","250 g"],["Brokkoli","150 g"],["Sesam","15 g"],["Sojasauce","10 ml"],["Olivenöl","25 ml"]],
+          macros:"P 46g · F 53g · KH 12g · 712 kcal",
+          steps:["Tofu würfeln, Brokkoli in Röschen teilen.","Olivenöl erhitzen, Tofu darin knusprig anbraten (5-6 Min.).","Brokkoli dazugeben, 5-6 Min. mitbraten (bissfest).","Mit Sojasauce ablöschen, mit Sesam bestreuen."]},
+        "Abend": {dish:"Seitan-Paprika-Auflauf mit Kokos-Kruste",
+          ing:[["Seitan","120 g"],["Paprika","40 g"],["Hefeflocken","10 g"],["Kokosöl","15 ml"],["Olivenöl","15 ml"]],
+          macros:"P 95g · F 33g · KH 12g · 728 kcal",
+          steps:["Backofen auf 190°C vorheizen. Seitan und Paprika würfeln.","In einer Auflaufform verteilen, mit Öl beträufeln.","Mit Hefeflocken bestreuen.","20-25 Min. backen bis leicht gebräunt."]},
+      }, dayTotal:"P 175g · F 142g · KH 32g · 2.106 kcal"
+    },
+    { name:"Dienstag", date:"2026-08-11", meals:{
+        "Früh": {dish:"Tofu-Kräuter-Omelett-Style",
+          ing:[["Tofu (fest/natur)","250 g"],["Spinat","60 g"],["Hefeflocken","10 g"],["Olivenöl","25 ml"]],
+          macros:"P 46g · F 46g · KH 7g · 621 kcal",
+          steps:["Tofu mit Hefeflocken und etwas Wasser im Mixer cremig pürieren, würzen.","Olivenöl erhitzen, Spinat kurz zusammenfallen lassen.","Tofu-Masse dazugeben, bei mittlerer Hitze 8-10 Min. stocken lassen."]},
+        "Mittag": {dish:"Tempeh-Zucchini-Curry rot",
+          ing:[["Tempeh","150 g"],["Zucchini","150 g"],["Tomaten","30 g"],["Kokosmilch (Dose)","70 ml"],["Olivenöl","15 ml"]],
+          macros:"P 34g · F 49g · KH 16g · 640 kcal",
+          steps:["Tempeh würfeln, Zucchini in Scheiben schneiden.","Olivenöl erhitzen, Tempeh 5 Min. anbraten.","Zucchini und gehackte Tomaten dazugeben, 5-6 Min. mitbraten.","Kokosmilch dazugeben, 6-8 Min. köcheln lassen."]},
+        "Abend": {dish:"Gebackener Tofu mit Champignon-Sahne & Rucola",
+          ing:[["Tofu (fest/natur)","220 g"],["Champignons","120 g"],["Kokosmilch (Dose)","60 ml"],["Olivenöl","20 ml"],["Rucola","80 g"]],
+          macros:"P 40g · F 52g · KH 10g · 675 kcal",
+          steps:["Tofu in dicke Scheiben schneiden, in etwas Öl goldbraun braten (4-5 Min./Seite).","Champignons in Scheiben in restlichem Öl anbraten, mit Kokosmilch ablöschen, 5 Min. köcheln.","Mit frischem Rucola servieren."]},
+      }, dayTotal:"P 120g · F 147g · KH 33g · 1.936 kcal"
+    },
+    { name:"Mittwoch", date:"2026-08-12", meals:{
+        "Früh": {dish:"Beeren-Kokos-Proteinshake",
+          ing:[["Veganes Proteinpulver","35 g"],["Himbeeren","25 g"],["Kokosmilch (Dose)","120 ml"],["Kokosöl","10 ml"]],
+          macros:"P 31g · F 41g · KH 6g · 514 kcal",
+          steps:["Alle Zutaten in den Mixer geben.","Glatt cremig mixen (30-45 Sek.), bei Bedarf Wasser/Eis dazugeben."]},
+        "Mittag": {dish:"Seitan-Gemüse-Spieße mediterran",
+          ing:[["Seitan","120 g"],["Zucchini","120 g"],["Paprika","40 g"],["Olivenöl","35 ml"]],
+          macros:"P 92g · F 38g · KH 14g · 763 kcal",
+          steps:["Seitan und Zucchini/Paprika würfeln, auf Spieße stecken.","In Olivenöl von allen Seiten anbraten (6-8 Min.) oder im Ofen grillen.","Mit mediterranen Kräutern würzen."]},
+        "Abend": {dish:"Tofu-Blumenkohl-Curry gelb",
+          ing:[["Tofu (fest/natur)","250 g"],["Blumenkohl","130 g"],["Kokosmilch (Dose)","80 ml"],["Olivenöl","25 ml"]],
+          macros:"P 43g · F 65g · KH 11g · 799 kcal",
+          steps:["Tofu würfeln, in etwas Öl anbraten.","Blumenkohl in Röschen dazugeben, kurz mitbraten.","Kokosmilch und Currypulver dazugeben, 8-10 Min. köcheln lassen."]},
+      }, dayTotal:"P 166g · F 143g · KH 31g · 2.076 kcal"
+    },
+    { name:"Donnerstag", date:"2026-08-13", meals:{
+        "Früh": {dish:"Avocado-Schoko-Chiapudding",
+          ing:[["Avocado","130 g"],["Kakaopulver","10 g"],["Chiasamen","15 g"],["Veganes Proteinpulver","30 g"],["Kokosmilch (Dose)","60 ml"]],
+          macros:"P 32g · F 41g · KH 8g · 536 kcal",
+          steps:["Avocado, Kakaopulver, Proteinpulver und Kokosmilch im Mixer glatt pürieren.","In eine Schale füllen, mit Chiasamen bestreuen.","15-20 Min. kühl stellen (optional)."]},
+        "Mittag": {dish:"Tempeh-Salat mit Sonnenblumenkern-Dressing",
+          ing:[["Tempeh","150 g"],["Rucola","100 g"],["Gurke","80 g"],["Sonnenblumenkerne","25 g"],["Olivenöl","25 ml"]],
+          macros:"P 37g · F 54g · KH 17g · 704 kcal",
+          steps:["Tempeh würfeln, in etwas vom Öl kurz anbraten.","Rucola und Gurke anrichten, Tempeh darauf verteilen.","Sonnenblumenkerne rösten, über den Salat streuen, mit restlichem Öl beträufeln."]},
+        "Abend": {dish:"Seitan-Champignon-Auflauf",
+          ing:[["Seitan","120 g"],["Champignons","120 g"],["Hefeflocken","10 g"],["Olivenöl","35 ml"]],
+          macros:"P 99g · F 38g · KH 13g · 793 kcal",
+          steps:["Backofen auf 190°C vorheizen. Seitan würfeln, Champignons in Scheiben.","In einer Auflaufform verteilen, mit Öl beträufeln, Hefeflocken bestreuen.","20-25 Min. backen bis leicht gebräunt."]},
+      }, dayTotal:"P 168g · F 134g · KH 38g · 2.033 kcal"
+    },
+    { name:"Freitag", date:"2026-08-14", meals:{
+        "Früh": {dish:"Tofu-Gemüse-Rührei mit Kräutern",
+          ing:[["Tofu (fest/natur)","250 g"],["Zucchini","100 g"],["Spinat","50 g"],["Olivenöl","30 ml"]],
+          macros:"P 41g · F 50g · KH 8g · 651 kcal",
+          steps:["Tofu grob zerbröseln, Zucchini würfeln.","Olivenöl erhitzen, Zucchini 3-4 Min. andünsten.","Tofu dazugeben, mit Kräutern und Salz würzen, 5-6 Min. braten.","Spinat zum Schluss unterheben."]},
+        "Mittag": {dish:"Tofu-Auberginen-Bowl mit Tahin-Sauce",
+          ing:[["Tofu (fest/natur)","220 g"],["Aubergine","150 g"],["Tahini","20 g"],["Olivenöl","25 ml"]],
+          macros:"P 39g · F 54g · KH 13g · 690 kcal",
+          steps:["Tofu würfeln, in etwas Öl anbraten.","Aubergine in Stücke schneiden, dazugeben, 8-10 Min. weich braten.","Tahini mit Wasser und Zitronensaft glattrühren, über die Bowl geben."]},
+        "Abend": {dish:"Seitan-Wok mit Paprika und Sesam",
+          ing:[["Seitan","120 g"],["Paprika","50 g"],["Sesam","15 g"],["Sojasauce","10 ml"],["Olivenöl","30 ml"]],
+          macros:"P 94g · F 40g · KH 13g · 788 kcal",
+          steps:["Seitan in Streifen schneiden, Paprika in Streifen.","In Olivenöl scharf anbraten, Paprika dazugeben, 6-8 Min. mitbraten.","Mit Sojasauce ablöschen, mit Sesam bestreuen."]},
+      }, dayTotal:"P 174g · F 144g · KH 33g · 2.129 kcal",
+      nextDayPrep:{ dish:"Schoko-Mandel-Chiapudding (Samstag-Frühstück)",
+        note:"Chiasamen mit Kakaopulver, Kokosmilch und Kokosöl verrühren, Proteinpulver einrühren – heute Abend im Kühlschrank quellen lassen (über Nacht)." }
+    },
+    { name:"Samstag", date:"2026-08-15", meals:{
+        "Früh": {dish:"Schoko-Mandel-Chiapudding",
+          ing:[["Chiasamen","25 g"],["Kakaopulver","10 g"],["Mandeln","20 g"],["Kokosmilch (Dose)","80 ml"],["Kokosöl","10 ml"],["Veganes Proteinpulver","30 g"]],
+          macros:"P 36g · F 50g · KH 9g · 629 kcal",
+          steps:["(Gestern Abend vorbereitet) Aus dem Kühlschrank nehmen.","Mit gehackten Mandeln bestreuen."]},
+        "Mittag": {dish:"Tempeh-Gemüse-Curry grün",
+          ing:[["Tempeh","150 g"],["Brokkoli","100 g"],["Zucchini","100 g"],["Kokosmilch (Dose)","80 ml"],["Olivenöl","15 ml"]],
+          macros:"P 36g · F 51g · KH 19g · 682 kcal",
+          steps:["Tempeh würfeln, Brokkoli und Zucchini in Stücke schneiden.","Olivenöl erhitzen, Tempeh 5 Min. anbraten.","Gemüse dazugeben, 5-6 Min. mitbraten.","Kokosmilch dazugeben, mit grünen Kräutern, 6-8 Min. köcheln lassen."]},
+        "Abend": {dish:"Tofu-Steak mit Avocado-Salsa",
+          ing:[["Tofu (fest/natur)","250 g"],["Avocado","100 g"],["Gurke","80 g"],["Tomaten","40 g"],["Olivenöl","20 ml"]],
+          macros:"P 42g · F 55g · KH 10g · 705 kcal",
+          steps:["Tofu in dicke Scheiben schneiden, in etwas Öl kräftig anbraten.","Avocado, Gurke und Tomaten würfeln, mit Limette und Salz zur Salsa vermengen.","Tofu-Steak mit Salsa servieren."]},
+      }, dayTotal:"P 114g · F 156g · KH 38g · 2.016 kcal"
+    },
+    { name:"Sonntag", date:"2026-08-16", meals:{
+        "Früh": {dish:"Beeren-Protein-Kokosjoghurt",
+          ing:[["Kokosjoghurt (ungesüßt)","150 g"],["Himbeeren","20 g"],["Chiasamen","15 g"],["Veganes Proteinpulver","25 g"],["Mandeln","25 g"]],
+          macros:"P 31g · F 40g · KH 11g · 525 kcal",
+          steps:["Kokosjoghurt mit Proteinpulver glattrühren.","Chiasamen einrühren, 10 Min. quellen lassen.","Mit Himbeeren und gehackten Mandeln toppen."]},
+        "Mittag": {dish:"Tofu-Gemüse-Wok asiatisch",
+          ing:[["Tofu (fest/natur)","250 g"],["Zucchini","120 g"],["Paprika","40 g"],["Sesam","15 g"],["Sojasauce","10 ml"],["Olivenöl","30 ml"]],
+          macros:"P 44g · F 58g · KH 10g · 739 kcal",
+          steps:["Tofu würfeln, Zucchini und Paprika in Streifen schneiden.","Olivenöl erhitzen, Tofu knusprig anbraten (5-6 Min.).","Gemüse dazugeben, 5-6 Min. bei hoher Hitze mitbraten.","Mit Sojasauce ablöschen, mit Sesam bestreuen."]},
+        "Abend": {dish:"Seitan-Rotes-Curry mit Blumenkohlreis",
+          ing:[["Seitan","120 g"],["Kokosmilch (Dose)","80 ml"],["Blumenkohl","130 g"],["Paprika","30 g"],["Olivenöl","30 ml"]],
+          macros:"P 95g · F 52g · KH 17g · 916 kcal",
+          steps:["Seitan würfeln, Paprika in Streifen.","In etwas Öl anbraten, Paprika dazugeben, 5-6 Min. mitbraten.","Kokosmilch dazugeben, mit Currypaste/Chili würzen, 8-10 Min. köcheln lassen.","Blumenkohl fein raspeln, roh oder kurz gedünstet als 'Reis' dazu servieren."]},
+      }, dayTotal:"P 170g · F 150g · KH 39g · 2.180 kcal"
+    },
+  ] },
+    { week:8, planStart:"2026-08-17", days:[
+    { name:"Montag", date:"2026-08-17", meals:{
+        "Früh": {dish:"Erdnuss-Kakao-Chiapudding",
+          ing:[["Chiasamen","25 g"],["Kakaopulver","8 g"],["Erdnussmus","15 g"],["Kokosmilch (Dose)","80 ml"],["Veganes Proteinpulver","30 g"]],
+          macros:"P 34g · F 34g · KH 10g · 486 kcal",
+          steps:["Chiasamen mit Kakaopulver, Erdnussmus und Kokosmilch verrühren, 5 Min. quellen lassen.","Proteinpulver einrühren, glattrühren.","Mind. 2h (am besten über Nacht) im Kühlschrank quellen lassen."]},
+        "Mittag": {dish:"Tofu-Paprika-Curry rot mit Sesam",
+          ing:[["Tofu (fest/natur)","250 g"],["Paprika","50 g"],["Kokosmilch (Dose)","70 ml"],["Sesam","10 g"],["Olivenöl","15 ml"]],
+          macros:"P 43g · F 41g · KH 10g · 585 kcal",
+          steps:["Tofu würfeln, Paprika in Streifen schneiden.","Olivenöl erhitzen, Tofu knusprig anbraten (5-6 Min.).","Paprika dazugeben, mit Kokosmilch ablöschen, 8-10 Min. köcheln lassen.","Mit Sesam bestreuen."]},
+        "Abend": {dish:"Seitan-Zucchini-Auflauf mit Kruste",
+          ing:[["Seitan","120 g"],["Zucchini","120 g"],["Hefeflocken","10 g"],["Olivenöl","40 ml"]],
+          macros:"P 98g · F 42g · KH 12g · 838 kcal",
+          steps:["Backofen auf 190°C vorheizen. Seitan und Zucchini würfeln.","In einer Auflaufform verteilen, mit Öl beträufeln.","Mit Hefeflocken bestreuen.","20-25 Min. backen bis leicht gebräunt."]},
+      }, dayTotal:"P 175g · F 137g · KH 31g · 2.059 kcal",
+      selenNote:true
+    },
+    { name:"Dienstag", date:"2026-08-18", meals:{
+        "Früh": {dish:"Tofu-Rührei mit Champignons",
+          ing:[["Tofu (fest/natur)","250 g"],["Champignons","100 g"],["Olivenöl","20 ml"],["Hefeflocken","5 g"]],
+          macros:"P 44g · F 43g · KH 8g · 610 kcal",
+          steps:["Tofu grob zerbröseln, Champignons in Scheiben.","Olivenöl erhitzen, Champignons 3-4 Min. anbraten.","Tofu dazugeben, mit Kurkuma und Salz würzen, 5-6 Min. braten.","Hefeflocken unterrühren."]},
+        "Mittag": {dish:"Tempeh-Brokkoli-Pfanne mit Tahin-Sauce",
+          ing:[["Tempeh","150 g"],["Brokkoli","130 g"],["Tahini","15 g"],["Olivenöl","15 ml"]],
+          macros:"P 36g · F 46g · KH 16g · 618 kcal",
+          steps:["Tempeh würfeln, Brokkoli in Röschen teilen.","Olivenöl erhitzen, Tempeh 5 Min. anbraten.","Brokkoli dazugeben, 5-6 Min. mitbraten.","Tahini mit etwas Wasser glattrühren, über die Pfanne geben."]},
+        "Abend": {dish:"Tofu-Gemüse-Curry grün mit Spinat",
+          ing:[["Tofu (fest/natur)","220 g"],["Spinat","80 g"],["Zucchini","100 g"],["Kokosmilch (Dose)","80 ml"],["Olivenöl","30 ml"]],
+          macros:"P 40g · F 59g · KH 11g · 726 kcal",
+          steps:["Tofu würfeln, Zucchini in Scheiben schneiden.","Olivenöl erhitzen, Tofu und Zucchini 5-6 Min. anbraten.","Kokosmilch dazugeben, mit Currypaste würzen, 8-10 Min. köcheln lassen.","Spinat zum Schluss unterrühren."]},
+      }, dayTotal:"P 120g · F 148g · KH 35g · 1.954 kcal"
+    },
+    { name:"Mittwoch", date:"2026-08-19", meals:{
+        "Früh": {dish:"Mandel-Kokos-Protein-Smoothie",
+          ing:[["Veganes Proteinpulver","35 g"],["Mandeln","20 g"],["Kokosmilch (Dose)","100 ml"],["Kokosöl","10 ml"]],
+          macros:"P 34g · F 43g · KH 8g · 574 kcal",
+          steps:["Alle Zutaten in den Mixer geben.","Glatt cremig mixen, bei Bedarf Wasser/Eis dazugeben."]},
+        "Mittag": {dish:"Seitan-Zucchini-Spieße mit Avocado-Dip",
+          ing:[["Seitan","120 g"],["Zucchini","120 g"],["Olivenöl","20 ml"],["Avocado","100 g"]],
+          macros:"P 94g · F 41g · KH 12g · 748 kcal",
+          steps:["Seitan und Zucchini würfeln, auf Spieße stecken.","In Olivenöl von allen Seiten anbraten (6-8 Min.) oder im Ofen grillen.","Avocado zerdrücken, mit Salz, Limette und Kräutern zum Dip verarbeiten."]},
+        "Abend": {dish:"Tofu-Auberginen-Auflauf mit Tomaten",
+          ing:[["Tofu (fest/natur)","220 g"],["Aubergine","150 g"],["Tomaten","30 g"],["Hefeflocken","10 g"],["Olivenöl","40 ml"]],
+          macros:"P 41g · F 58g · KH 13g · 762 kcal",
+          steps:["Backofen auf 190°C vorheizen. Aubergine in Scheiben, Tofu würfeln.","In einer Auflaufform schichten, gehackte Tomaten und Öl darüber, Hefeflocken bestreuen.","25-30 Min. backen bis die Aubergine weich ist."]},
+      }, dayTotal:"P 169g · F 142g · KH 33g · 2.085 kcal",
+      selenNote:true
+    },
+    { name:"Donnerstag", date:"2026-08-20", meals:{
+        "Früh": {dish:"Beeren-Sonnenblumenkern-Chiapudding",
+          ing:[["Chiasamen","25 g"],["Sonnenblumenkerne","20 g"],["Kokosmilch (Dose)","80 ml"],["Veganes Proteinpulver","30 g"],["Himbeeren","20 g"]],
+          macros:"P 36g · F 40g · KH 12g · 585 kcal",
+          steps:["Chiasamen mit Kokosmilch verrühren, 5 Min. quellen lassen.","Proteinpulver einrühren, glattrühren.","Mind. 2h (am besten über Nacht) im Kühlschrank quellen lassen.","Mit Himbeeren und gerösteten Sonnenblumenkernen toppen."]},
+        "Mittag": {dish:"Tempeh-Gurken-Salat mit Sesam-Dressing",
+          ing:[["Tempeh","150 g"],["Gurke","80 g"],["Rucola","80 g"],["Sesam","15 g"],["Olivenöl","20 ml"]],
+          macros:"P 36g · F 51g · KH 15g · 660 kcal",
+          steps:["Tempeh würfeln, in etwas vom Öl anbraten.","Rucola und Gurke anrichten, Tempeh darauf verteilen.","Sesam mit restlichem Öl und etwas Sojasauce zum Dressing verrühren."]},
+        "Abend": {dish:"Seitan-Pilz-Ragout mit Blumenkohlpüree",
+          ing:[["Seitan","120 g"],["Champignons","120 g"],["Blumenkohl","100 g"],["Olivenöl","40 ml"],["Kokosöl","10 ml"]],
+          macros:"P 92g · F 45g · KH 12g · 789 kcal",
+          steps:["Seitan würfeln, Champignons in Scheiben.","Olivenöl erhitzen, Seitan anbraten (5 Min.), Champignons dazugeben, 5-6 Min. mitbraten.","Blumenkohl weich dämpfen, mit Kokosöl fein pürieren, salzen.","Ragout auf dem Püree anrichten."]},
+      }, dayTotal:"P 164g · F 136g · KH 39g · 2.034 kcal"
+    },
+    { name:"Freitag", date:"2026-08-21", meals:{
+        "Früh": {dish:"Avocado-Beeren-Bowl mit Chiasamen",
+          ing:[["Avocado","100 g"],["Himbeeren","25 g"],["Chiasamen","15 g"],["Veganes Proteinpulver","30 g"],["Kokosmilch (Dose)","40 ml"]],
+          macros:"P 31g · F 27g · KH 8g · 386 kcal",
+          steps:["Avocado mit Proteinpulver und Kokosmilch verrühren oder pürieren.","Mit Himbeeren und Chiasamen toppen."]},
+        "Mittag": {dish:"Tofu-Zucchini-Curry gelb",
+          ing:[["Tofu (fest/natur)","250 g"],["Zucchini","130 g"],["Kokosmilch (Dose)","80 ml"],["Olivenöl","35 ml"]],
+          macros:"P 45g · F 63g · KH 11g · 799 kcal",
+          steps:["Tofu würfeln, in etwas Öl anbraten.","Zucchini dazugeben, kurz mitbraten.","Kokosmilch und Kurkuma dazugeben, 8-10 Min. köcheln lassen."]},
+        "Abend": {dish:"Seitan-Gemüse-Pfanne mit Erdnuss-Sauce",
+          ing:[["Seitan","120 g"],["Paprika","40 g"],["Erdnussmus","20 g"],["Sojasauce","10 ml"],["Olivenöl","15 ml"]],
+          macros:"P 92g · F 43g · KH 12g · 809 kcal",
+          steps:["Seitan in Streifen schneiden, Paprika in Streifen.","In Olivenöl anbraten, Paprika dazugeben, 6-8 Min. mitbraten.","Erdnussmus mit Sojasauce und etwas Wasser glattrühren, über die Pfanne geben."]},
+      }, dayTotal:"P 168g · F 133g · KH 31g · 1.994 kcal"
+    },
+    { name:"Samstag", date:"2026-08-22", meals:{
+        "Früh": {dish:"Tofu-Spinat-Frühstückspfanne mit Champignons",
+          ing:[["Tofu (fest/natur)","250 g"],["Spinat","60 g"],["Champignons","80 g"],["Olivenöl","20 ml"]],
+          macros:"P 42g · F 42g · KH 8g · 610 kcal",
+          steps:["Tofu grob zerbröseln, Champignons in Scheiben.","Olivenöl erhitzen, Champignons 3-4 Min. anbraten.","Tofu dazugeben, mit Kurkuma und Salz würzen, 5-6 Min. braten.","Spinat zum Schluss unterheben."]},
+        "Mittag": {dish:"Tofu-Rucola-Salat mit gerösteten Mandeln",
+          ing:[["Tofu (fest/natur)","220 g"],["Rucola","100 g"],["Gurke","100 g"],["Mandeln","25 g"],["Olivenöl","20 ml"]],
+          macros:"P 43g · F 51g · KH 13g · 691 kcal",
+          steps:["Mandeln in einer trockenen Pfanne kurz rösten.","Tofu würfeln, in etwas vom Öl knusprig anbraten.","Rucola und Gurke anrichten, Tofu darauf verteilen.","Mit gerösteten Mandeln bestreuen, mit Öl beträufeln."]},
+        "Abend": {dish:"Tempeh-Paprika-Curry rot",
+          ing:[["Tempeh","150 g"],["Paprika","50 g"],["Kokosmilch (Dose)","80 ml"],["Olivenöl","30 ml"]],
+          macros:"P 32g · F 64g · KH 13g · 780 kcal",
+          steps:["Tempeh würfeln, Paprika in Streifen.","Olivenöl erhitzen, Tempeh 5 Min. anbraten.","Paprika dazugeben, kurz mitbraten.","Kokosmilch dazugeben, 8-10 Min. köcheln lassen."]},
+      }, dayTotal:"P 117g · F 157g · KH 34g · 2.014 kcal"
+    },
+    { name:"Sonntag", date:"2026-08-23", meals:{
+        "Früh": {dish:"Schoko-Chia-Pudding mit Paranüssen",
+          ing:[["Chiasamen","25 g"],["Kakaopulver","10 g"],["Kokosmilch (Dose)","80 ml"],["Kokosöl","10 ml"],["Veganes Proteinpulver","30 g"],["Paranüsse","2-3 Stk."]],
+          macros:"P 32g · F 41g · KH 9g · 555 kcal",
+          steps:["Chiasamen mit Kakaopulver, Kokosmilch und Kokosöl verrühren.","Proteinpulver einrühren, glattrühren.","Mind. 2h (am besten über Nacht) im Kühlschrank quellen lassen.","Mit 2-3 gehackten Paranüssen toppen (Selen)."]},
+        "Mittag": {dish:"Tofu-Blumenkohl-Wok mit Sesam",
+          ing:[["Tofu (fest/natur)","250 g"],["Blumenkohl","130 g"],["Sesam","15 g"],["Sojasauce","10 ml"],["Olivenöl","25 ml"]],
+          macros:"P 47g · F 55g · KH 11g · 730 kcal",
+          steps:["Tofu würfeln, Blumenkohl in kleine Röschen teilen.","Olivenöl erhitzen, Tofu knusprig anbraten (5-6 Min.).","Blumenkohl dazugeben, 5-6 Min. mitbraten.","Mit Sojasauce ablöschen, mit Sesam bestreuen."]},
+        "Abend": {dish:"Seitan-Auberginen-Curry mit Kokosmilch",
+          ing:[["Seitan","120 g"],["Aubergine","120 g"],["Kokosmilch (Dose)","80 ml"],["Olivenöl","35 ml"]],
+          macros:"P 91g · F 54g · KH 14g · 875 kcal",
+          steps:["Seitan würfeln, Aubergine in Stücke schneiden.","Olivenöl erhitzen, beides 6-8 Min. anbraten.","Kokosmilch dazugeben, 8-10 Min. köcheln lassen."]},
+      }, dayTotal:"P 170g · F 150g · KH 34g · 2.161 kcal",
+      selenNote:true
+    },
+  ] },
   ];
 
   function parseLocalDate(s){ const [y,m,d] = s.split("-").map(Number); return new Date(y, m-1, d); }
   function todayLocal(){ const n = new Date(); return new Date(n.getFullYear(), n.getMonth(), n.getDate()); }
+  function addDays(d, n){ const r = new Date(d); r.setDate(r.getDate()+n); return r; }
+  function fmtShort(d){ return String(d.getDate()).padStart(2,"0") + "." + String(d.getMonth()+1).padStart(2,"0"); }
+  function weekdayLabel(d){ return d.toLocaleDateString("de-DE",{weekday:"long", day:"2-digit", month:"2-digit"}); }
 
   const root = document.getElementById("tp-root");
   const today = todayLocal();
   const startDate = parseLocalDate(PLAN_START);
   const dayIndex = Math.round((today - startDate) / 86400000);
+  const todayIdx = (dayIndex >= 0 && dayIndex <= 6) ? dayIndex : null;
 
   function el(tag, cls, html){ const e = document.createElement(tag); if(cls) e.className = cls; if(html !== undefined) e.innerHTML = html; return e; }
 
@@ -570,72 +692,43 @@
 
   
 
-  function renderProgress(idx, viewIdx, dayList, onSelect){
+  function renderProgress(daysArr, activeIdx, liveIdx, onPick){
     const wrap = el("div","tp-progress");
-    for(let i=0;i<7;i++){
+    daysArr.forEach((d,i)=>{
       const s = el("span");
-      if(i < idx) s.classList.add("done");
-      if(i === idx) s.classList.add("today");
-      if(i === viewIdx) s.classList.add("viewing");
+      if(liveIdx !== null && i < liveIdx) s.classList.add("done");
+      if(liveIdx !== null && i === liveIdx) s.classList.add("today");
+      if(i === activeIdx) s.classList.add("viewing");
       s.setAttribute("role","button");
       s.setAttribute("tabindex","0");
-      s.setAttribute("aria-label", dayList[i].name);
-      s.addEventListener("click", ()=>{ onSelect(i); });
-      s.addEventListener("keydown", (e)=>{ if(e.key==="Enter" || e.key===" "){ e.preventDefault(); onSelect(i); } });
+      s.setAttribute("aria-label", d.name);
+      s.addEventListener("click", ()=> onPick(i));
+      s.addEventListener("keydown", (e)=>{ if(e.key==="Enter" || e.key===" "){ e.preventDefault(); onPick(i); } });
       wrap.appendChild(s);
-    }
+    });
     return wrap;
   }
 
-  function weekdayLabel(d){ return d.toLocaleDateString("de-DE",{weekday:"long", day:"2-digit", month:"2-digit"}); }
-  function fmtDayMonth(d){ return String(d.getDate()).padStart(2,"0") + "." + String(d.getMonth()+1).padStart(2,"0"); }
-  function weekRangeLabel(planStart){
-    const start = parseLocalDate(planStart);
-    const end = new Date(start.getFullYear(), start.getMonth(), start.getDate()+6);
-    return `${fmtDayMonth(start)}.–${fmtDayMonth(end)}.${end.getFullYear()}`;
-  }
-
-  function renderArchiveToggle(){
+  function renderNav(activeIdx, onPrev, onNext, todayBtnCfg){
     const nav = el("div","tp-nav");
-    const btn = el("button","tp-nav-btn", "📚 Archiv");
-    btn.addEventListener("click", ()=>{ mode = "archiveList"; render(); });
-    nav.appendChild(btn);
+    const prevBtn = el("button","tp-nav-btn","‹ Zurück");
+    prevBtn.disabled = activeIdx <= 0;
+    prevBtn.addEventListener("click", onPrev);
+    nav.appendChild(prevBtn);
+    if(todayBtnCfg){
+      const todayBtn = el("button","tp-nav-btn tp-nav-today","Heute");
+      todayBtn.style.visibility = todayBtnCfg.visible ? "visible" : "hidden";
+      todayBtn.addEventListener("click", todayBtnCfg.fn);
+      nav.appendChild(todayBtn);
+    }
+    const nextBtn = el("button","tp-nav-btn","Weiter ›");
+    nextBtn.disabled = activeIdx >= 6;
+    nextBtn.addEventListener("click", onNext);
+    nav.appendChild(nextBtn);
     return nav;
   }
 
-  let mode = "current"; // "current" | "archiveList" | "archiveWeek"
-  let viewIndex = dayIndex;
-  let archiveWeek = null;
-  let archiveViewIndex = 0;
-
-  function renderCurrentWeek(){
-    const day = days[viewIndex];
-    const dayDate = parseLocalDate(day.date);
-
-    const header = el("div","tp-header");
-    header.innerHTML = `<p class="tp-eyebrow">Woche 8 · Tag ${viewIndex+1} von 7</p><h1 class="tp-date">${weekdayLabel(dayDate)}</h1>`;
-    root.appendChild(header);
-
-    const nav = el("div","tp-nav");
-    const prevBtn = el("button","tp-nav-btn", "‹ Zurück");
-    prevBtn.disabled = viewIndex <= 0;
-    prevBtn.addEventListener("click", ()=>{ if(viewIndex>0){ viewIndex--; render(); } });
-    const todayBtn = el("button","tp-nav-btn tp-nav-today", "Heute");
-    todayBtn.style.visibility = (viewIndex === dayIndex) ? "hidden" : "visible";
-    todayBtn.addEventListener("click", ()=>{ viewIndex = dayIndex; render(); });
-    const nextBtn = el("button","tp-nav-btn", "Weiter ›");
-    nextBtn.disabled = viewIndex >= 6;
-    nextBtn.addEventListener("click", ()=>{ if(viewIndex<6){ viewIndex++; render(); } });
-    const archiveBtn = el("button","tp-nav-btn", "📚 Archiv");
-    archiveBtn.addEventListener("click", ()=>{ mode = "archiveList"; render(); });
-    nav.appendChild(prevBtn);
-    nav.appendChild(todayBtn);
-    nav.appendChild(nextBtn);
-    nav.appendChild(archiveBtn);
-    root.appendChild(nav);
-
-    root.appendChild(renderProgress(dayIndex, viewIndex, days, (i)=>{ viewIndex = i; render(); }));
-
+  function renderAlerts(day){
     if(day.nextDayPrep){
       const a = el("div","tp-alert");
       a.innerHTML = `<span class="tp-alert-icon">⏰</span><span><b>Für morgen vorbereiten:</b> ${day.nextDayPrep.dish}. ${day.nextDayPrep.note}</span>`;
@@ -644,113 +737,127 @@
     if(day.selenNote){
       root.appendChild(el("div","tp-note","🌰 Heute ist ein Paranuss-Tag: 2-3 Stück als Snack für den Selenbedarf (nicht öfter, sonst überdosiert)."));
     }
+  }
 
+  function renderTicket(day, macroLine){
     const ticket = el("div","tp-ticket");
     ["Früh","Mittag","Abend"].forEach(slot=>{
       if(day.meals[slot]) ticket.appendChild(renderMeal(slot, day.meals[slot]));
     });
     const totalRow = el("div","tp-total");
-    totalRow.innerHTML = `<span>Tagesziel ≈ 2.250 kcal / 150g P / 165g F / ~31-39g KH</span><b>${day.dayTotal}</b>`;
+    totalRow.innerHTML = `<span>${macroLine}</span><b>${day.dayTotal}</b>`;
     ticket.appendChild(totalRow);
-    root.appendChild(ticket);
+    return ticket;
+  }
 
-    const liveNote = (viewIndex === dayIndex) ? " · Aktualisiert sich automatisch anhand des heutigen Datums" : "";
-    root.appendChild(el("div","tp-footer", `Woche 8 · 17.08.–23.08.2026 · Jodiertes Salz für alle Rezepte verwenden (Jod-Lücke)${liveNote}`));
+  // ---------- state ----------
+  let mode = "current"; // "current" | "archiveList" | "archiveWeek"
+  let currentViewIndex = (todayIdx !== null) ? todayIdx : Math.min(Math.max(dayIndex,0),6);
+  let archiveWeekIdx = null;
+  let archiveViewIndex = 0;
+
+  function renderCurrent(){
+    root.innerHTML = "";
+    const day = days[currentViewIndex];
+    const dayDate = parseLocalDate(day.date);
+
+    const header = el("div","tp-header");
+    header.innerHTML = `<p class="tp-eyebrow">Woche ${CURRENT_WEEK} · Tag ${currentViewIndex+1} von 7</p><h1 class="tp-date">${weekdayLabel(dayDate)}</h1>`;
+    root.appendChild(header);
+
+    const topBar = el("div","tp-topbar");
+    const archiveBtn = el("button","tp-archive-btn","📚 Archiv");
+    archiveBtn.addEventListener("click", ()=>{ mode="archiveList"; render(); });
+    topBar.appendChild(archiveBtn);
+    root.appendChild(topBar);
+
+    root.appendChild(renderNav(currentViewIndex,
+      ()=>{ if(currentViewIndex>0){ currentViewIndex--; render(); } },
+      ()=>{ if(currentViewIndex<6){ currentViewIndex++; render(); } },
+      { visible: todayIdx !== null && currentViewIndex !== todayIdx, fn: ()=>{ currentViewIndex = todayIdx; render(); } }
+    ));
+
+    root.appendChild(renderProgress(days, currentViewIndex, todayIdx, (i)=>{ currentViewIndex=i; render(); }));
+
+    renderAlerts(day);
+    root.appendChild(renderTicket(day, "Tagesziel ≈ 2.250 kcal / 150g P / 165g F / ~31-39g KH"));
+
+    let liveNote = "";
+    if(todayIdx !== null && currentViewIndex === todayIdx){
+      liveNote = " · Aktualisiert sich automatisch anhand des heutigen Datums";
+    } else if(todayIdx === null){
+      liveNote = (dayIndex < 0) ? ` · Startet am ${fmtShort(startDate)}` : ` · Woche ${CURRENT_WEEK} ist abgeschlossen`;
+    }
+    root.appendChild(el("div","tp-footer", `Woche ${CURRENT_WEEK} · ${fmtShort(startDate)}.–${fmtShort(addDays(startDate,6))}.2026 · Jodiertes Salz für alle Rezepte verwenden (Jod-Lücke)${liveNote}`));
   }
 
   function renderArchiveList(){
+    root.innerHTML = "";
     const header = el("div","tp-header");
-    header.innerHTML = `<p class="tp-eyebrow">Archiv</p><h1 class="tp-date">Alle Wochen</h1><p class="tp-sub">${ARCHIVE.length} vergangene Woche${ARCHIVE.length===1?"":"n"}</p>`;
+    header.innerHTML = `<p class="tp-eyebrow">Archiv</p><h1 class="tp-date">Vergangene Wochen</h1><p class="tp-sub">${ARCHIVE.length} Woche${ARCHIVE.length===1?"":"n"} gespeichert</p>`;
     root.appendChild(header);
 
-    const nav = el("div","tp-nav");
-    const homeBtn = el("button","tp-nav-btn tp-nav-today", "🏠 Heute");
-    homeBtn.addEventListener("click", ()=>{ mode = "current"; render(); });
-    nav.appendChild(homeBtn);
-    root.appendChild(nav);
-
-    if(ARCHIVE.length === 0){
-      root.appendChild(el("div","tp-note","Noch keine archivierten Wochen."));
-      return;
-    }
+    const topBar = el("div","tp-topbar");
+    const backBtn = el("button","tp-archive-btn","‹ Zurück zu heute");
+    backBtn.addEventListener("click", ()=>{ mode="current"; render(); });
+    topBar.appendChild(backBtn);
+    root.appendChild(topBar);
 
     const list = el("div","tp-archive-list");
-    ARCHIVE.forEach((w)=>{
+    ARCHIVE.slice().reverse().forEach(w=>{
+      const start = parseLocalDate(w.planStart);
+      const end = addDays(start,6);
       const item = el("button","tp-archive-item");
-      item.innerHTML = `<span class="tp-archive-week">Woche ${w.week}</span><span class="tp-archive-range">${weekRangeLabel(w.planStart)}</span>`;
-      item.addEventListener("click", ()=>{ mode = "archiveWeek"; archiveWeek = w; archiveViewIndex = 0; render(); });
+      item.innerHTML = `<span class="tp-archive-week">Woche ${w.week}</span><span class="tp-archive-range">${fmtShort(start)}.–${fmtShort(end)}.2026</span>`;
+      item.addEventListener("click", ()=>{
+        archiveWeekIdx = ARCHIVE.indexOf(w);
+        archiveViewIndex = 0;
+        mode = "archiveWeek";
+        render();
+      });
       list.appendChild(item);
     });
     root.appendChild(list);
   }
 
   function renderArchiveWeek(){
-    const w = archiveWeek;
+    root.innerHTML = "";
+    const w = ARCHIVE[archiveWeekIdx];
     const day = w.days[archiveViewIndex];
     const dayDate = parseLocalDate(day.date);
 
     const header = el("div","tp-header");
-    header.innerHTML = `<p class="tp-eyebrow">Woche ${w.week} · Archiv · Tag ${archiveViewIndex+1} von 7</p><h1 class="tp-date">${weekdayLabel(dayDate)}</h1>`;
+    header.innerHTML = `<p class="tp-eyebrow">Archiv · Woche ${w.week} · Tag ${archiveViewIndex+1} von 7</p><h1 class="tp-date">${weekdayLabel(dayDate)}</h1>`;
     root.appendChild(header);
 
-    const nav = el("div","tp-nav");
-    const prevBtn = el("button","tp-nav-btn", "‹ Zurück");
-    prevBtn.disabled = archiveViewIndex <= 0;
-    prevBtn.addEventListener("click", ()=>{ if(archiveViewIndex>0){ archiveViewIndex--; render(); } });
-    const listBtn = el("button","tp-nav-btn tp-nav-today", "Alle Wochen");
-    listBtn.addEventListener("click", ()=>{ mode = "archiveList"; render(); });
-    const nextBtn = el("button","tp-nav-btn", "Weiter ›");
-    nextBtn.disabled = archiveViewIndex >= 6;
-    nextBtn.addEventListener("click", ()=>{ if(archiveViewIndex<6){ archiveViewIndex++; render(); } });
-    const homeBtn = el("button","tp-nav-btn", "🏠 Heute");
-    homeBtn.addEventListener("click", ()=>{ mode = "current"; render(); });
-    nav.appendChild(prevBtn);
-    nav.appendChild(listBtn);
-    nav.appendChild(nextBtn);
-    nav.appendChild(homeBtn);
-    root.appendChild(nav);
+    const topBar = el("div","tp-topbar");
+    const listBtn = el("button","tp-archive-btn","📚 Alle Wochen");
+    listBtn.addEventListener("click", ()=>{ mode="archiveList"; render(); });
+    const homeBtn = el("button","tp-archive-btn","🏠 Heute");
+    homeBtn.addEventListener("click", ()=>{ mode="current"; render(); });
+    topBar.appendChild(listBtn);
+    topBar.appendChild(homeBtn);
+    root.appendChild(topBar);
 
-    root.appendChild(renderProgress(7, archiveViewIndex, w.days, (i)=>{ archiveViewIndex = i; render(); }));
+    root.appendChild(renderNav(archiveViewIndex,
+      ()=>{ if(archiveViewIndex>0){ archiveViewIndex--; render(); } },
+      ()=>{ if(archiveViewIndex<6){ archiveViewIndex++; render(); } },
+      null
+    ));
 
-    if(day.nextDayPrep){
-      const a = el("div","tp-alert");
-      a.innerHTML = `<span class="tp-alert-icon">⏰</span><span><b>Für morgen vorbereiten:</b> ${day.nextDayPrep.dish}. ${day.nextDayPrep.note}</span>`;
-      root.appendChild(a);
-    }
-    if(day.selenNote){
-      root.appendChild(el("div","tp-note","🌰 Heute ist ein Paranuss-Tag: 2-3 Stück als Snack für den Selenbedarf (nicht öfter, sonst überdosiert)."));
-    }
+    root.appendChild(renderProgress(w.days, archiveViewIndex, null, (i)=>{ archiveViewIndex=i; render(); }));
 
-    const ticket = el("div","tp-ticket");
-    ["Früh","Mittag","Abend"].forEach(slot=>{
-      if(day.meals[slot]) ticket.appendChild(renderMeal(slot, day.meals[slot]));
-    });
-    const totalRow = el("div","tp-total");
-    totalRow.innerHTML = `<span>Tagesziel ≈ 2.250 kcal / 150g P / 165g F / ~31-39g KH</span><b>${day.dayTotal}</b>`;
-    ticket.appendChild(totalRow);
-    root.appendChild(ticket);
+    renderAlerts(day);
+    root.appendChild(renderTicket(day, "Tagesziel ≈ 2.250 kcal / 150g P / 165g F / ~30-39g KH"));
 
-    root.appendChild(el("div","tp-footer", `Woche ${w.week} · ${weekRangeLabel(w.planStart)} · Archiviert · Jodiertes Salz für alle Rezepte verwenden (Jod-Lücke)`));
+    const start = parseLocalDate(w.planStart);
+    root.appendChild(el("div","tp-footer", `Archiv · Woche ${w.week} · ${fmtShort(start)}.–${fmtShort(addDays(start,6))}.2026`));
   }
 
   function render(){
-    root.innerHTML = "";
-
-    if(mode === "archiveList"){ renderArchiveList(); return; }
-    if(mode === "archiveWeek"){ renderArchiveWeek(); return; }
-
-    if(dayIndex < 0){
-      root.appendChild(el("div","tp-header", `<p class="tp-eyebrow">Woche 8</p><h1 class="tp-date">Plan startet Montag, 17.08.2026</h1><p class="tp-sub">Schau am Starttag wieder vorbei.</p>`));
-      root.appendChild(renderArchiveToggle());
-      return;
-    }
-    if(dayIndex > 6){
-      root.appendChild(el("div","tp-header", `<p class="tp-eyebrow">Woche 8</p><h1 class="tp-date">Woche 8 ist abgeschlossen</h1><p class="tp-sub">Sag Bescheid, sobald Woche 9 steht — dann bekommt dieses Tool das Update.</p>`));
-      root.appendChild(renderArchiveToggle());
-      return;
-    }
-
-    renderCurrentWeek();
+    if(mode === "current") renderCurrent();
+    else if(mode === "archiveList") renderArchiveList();
+    else renderArchiveWeek();
   }
 
   render();
