@@ -93,683 +93,9 @@
 
 <script>
 (function(){
-  const CURRENT_LABEL = "Woche 12 + Woche 13";
-  const PLAN_START = "2026-09-21";
+  const CURRENT_LABEL = "Woche 13 + Woche 14";
+  const PLAN_START = "2026-09-28";
   const days = [
-  {
-    "name": "Montag",
-    "date": "2026-09-21",
-    "meals": {
-      "Früh": {
-        "dish": "Beeren-Chia-Kokosshake",
-        "ing": [
-          [
-            "Veganes Proteinpulver",
-            "35 g"
-          ],
-          [
-            "Kokosmilch (Dose)",
-            "100 ml"
-          ],
-          [
-            "Chiasamen",
-            "15 g"
-          ],
-          [
-            "Himbeeren",
-            "20 g"
-          ]
-        ],
-        "macros": "P 33g · F 31g · KH 8g · 435 kcal",
-        "steps": [
-          "Alle Zutaten in den Mixer geben.",
-          "Glatt cremig mixen, bei Bedarf Wasser/Eis dazugeben."
-        ]
-      },
-      "Mittag": {
-        "dish": "Tofu-Zucchini-Bolognese-Style",
-        "ing": [
-          [
-            "Tofu (fest/natur)",
-            "250 g"
-          ],
-          [
-            "Zucchini",
-            "150 g"
-          ],
-          [
-            "Tomaten",
-            "40 g"
-          ],
-          [
-            "Olivenöl",
-            "25 ml"
-          ],
-          [
-            "Hefeflocken",
-            "10 g"
-          ]
-        ],
-        "macros": "P 49g · F 46g · KH 11g · 654 kcal",
-        "steps": [
-          "Tofu grob zerbröseln ('Hack'), Zucchini spiralisieren oder in Streifen schneiden.",
-          "Olivenöl erhitzen, Tofu knusprig anbraten (5-6 Min.).",
-          "Gehackte Tomaten und Hefeflocken dazugeben, kurz köcheln.",
-          "Zucchininudeln unterheben, 2 Min. warm ziehen lassen."
-        ]
-      },
-      "Abend": {
-        "dish": "Seitan-Champignon-Rahmsauce mit Rucola",
-        "ing": [
-          [
-            "Seitan",
-            "120 g"
-          ],
-          [
-            "Champignons",
-            "120 g"
-          ],
-          [
-            "Kokosmilch (Dose)",
-            "70 ml"
-          ],
-          [
-            "Olivenöl",
-            "45 ml"
-          ],
-          [
-            "Rucola",
-            "80 g"
-          ]
-        ],
-        "macros": "P 94g · F 65g · KH 13g · 1012 kcal",
-        "steps": [
-          "Seitan würfeln, Champignons in Scheiben.",
-          "Olivenöl erhitzen, Seitan anbraten (5 Min.), Champignons dazugeben, 5-6 Min. mitbraten.",
-          "Mit Kokosmilch ablöschen, 5-6 Min. köcheln lassen.",
-          "Mit frischem Rucola servieren."
-        ]
-      }
-    },
-    "dayTotal": "P 176g · F 141g · KH 32g · 2.101 kcal",
-    "shopNote": "⚠ Rucola, Spinat und Champignons sind bewusst auf Montag/Dienstag konzentriert — jetzt frisch einkaufen und zuerst verbrauchen.",
-    "period": "Woche 12"
-  },
-  {
-    "name": "Dienstag",
-    "date": "2026-09-22",
-    "meals": {
-      "Früh": {
-        "dish": "Tofu-Rührei mit Paprika und Spinat",
-        "ing": [
-          [
-            "Tofu (fest/natur)",
-            "250 g"
-          ],
-          [
-            "Paprika",
-            "40 g"
-          ],
-          [
-            "Spinat",
-            "60 g"
-          ],
-          [
-            "Olivenöl",
-            "20 ml"
-          ]
-        ],
-        "macros": "P 41g · F 41g · KH 8g · 574 kcal",
-        "steps": [
-          "Tofu grob zerbröseln, Paprika würfeln.",
-          "Olivenöl erhitzen, Paprika kurz andünsten.",
-          "Tofu dazugeben, mit Kurkuma und Salz würzen, 5-6 Min. braten.",
-          "Spinat zum Schluss unterheben."
-        ]
-      },
-      "Mittag": {
-        "dish": "Tempeh-Gurken-Bowl mit Erdnuss-Sauce",
-        "ing": [
-          [
-            "Tempeh",
-            "150 g"
-          ],
-          [
-            "Gurke",
-            "100 g"
-          ],
-          [
-            "Erdnussmus",
-            "20 g"
-          ],
-          [
-            "Sojasauce",
-            "10 ml"
-          ],
-          [
-            "Olivenöl",
-            "15 ml"
-          ]
-        ],
-        "macros": "P 36g · F 41g · KH 20g · 601 kcal",
-        "steps": [
-          "Tempeh würfeln, in Olivenöl knusprig anbraten (5-6 Min.).",
-          "Gurke in Scheiben/Sticks schneiden.",
-          "Erdnussmus mit Sojasauce und etwas Wasser glattrühren zum Dip.",
-          "Zusammen servieren."
-        ]
-      },
-      "Abend": {
-        "dish": "Tofu-Blumenkohl-Curry rot",
-        "ing": [
-          [
-            "Tofu (fest/natur)",
-            "220 g"
-          ],
-          [
-            "Blumenkohl",
-            "130 g"
-          ],
-          [
-            "Kokosmilch (Dose)",
-            "80 ml"
-          ],
-          [
-            "Olivenöl",
-            "40 ml"
-          ]
-        ],
-        "macros": "P 39g · F 77g · KH 11g · 861 kcal",
-        "steps": [
-          "Tofu würfeln, in etwas Öl anbraten.",
-          "Blumenkohl in Röschen dazugeben, kurz mitbraten.",
-          "Kokosmilch und Currypaste dazugeben, 8-10 Min. köcheln lassen."
-        ]
-      }
-    },
-    "dayTotal": "P 116g · F 159g · KH 35g · 2.036 kcal",
-    "period": "Woche 12"
-  },
-  {
-    "name": "Mittwoch",
-    "date": "2026-09-23",
-    "meals": {
-      "Früh": {
-        "dish": "Mandel-Schoko-Proteinshake",
-        "ing": [
-          [
-            "Veganes Proteinpulver",
-            "35 g"
-          ],
-          [
-            "Mandeln",
-            "20 g"
-          ],
-          [
-            "Kakaopulver",
-            "10 g"
-          ],
-          [
-            "Kokosmilch (Dose)",
-            "90 ml"
-          ],
-          [
-            "Kokosöl",
-            "10 ml"
-          ]
-        ],
-        "macros": "P 34g · F 44g · KH 10g · 594 kcal",
-        "steps": [
-          "Alle Zutaten in den Mixer geben.",
-          "Glatt cremig mixen, bei Bedarf Wasser/Eis dazugeben."
-        ]
-      },
-      "Mittag": {
-        "dish": "Seitan-Zucchini-Curry gelb",
-        "ing": [
-          [
-            "Seitan",
-            "120 g"
-          ],
-          [
-            "Zucchini",
-            "130 g"
-          ],
-          [
-            "Kokosmilch (Dose)",
-            "70 ml"
-          ],
-          [
-            "Olivenöl",
-            "20 ml"
-          ]
-        ],
-        "macros": "P 93g · F 41g · KH 14g · 725 kcal",
-        "steps": [
-          "Seitan in Streifen schneiden, in Olivenöl anbraten.",
-          "Zucchini dazugeben, kurz mitbraten.",
-          "Kokosmilch und Currypulver dazugeben, 8-10 Min. köcheln lassen."
-        ]
-      },
-      "Abend": {
-        "dish": "Tempeh-Auberginen-Pfanne mit Sesam",
-        "ing": [
-          [
-            "Tempeh",
-            "150 g"
-          ],
-          [
-            "Aubergine",
-            "130 g"
-          ],
-          [
-            "Sesam",
-            "15 g"
-          ],
-          [
-            "Sojasauce",
-            "10 ml"
-          ],
-          [
-            "Olivenöl",
-            "35 ml"
-          ]
-        ],
-        "macros": "P 37g · F 59g · KH 15g · 785 kcal",
-        "steps": [
-          "Tempeh würfeln, Aubergine in Stücke schneiden.",
-          "Olivenöl erhitzen, Tempeh 5 Min. anbraten, Aubergine dazugeben, 6-8 Min. mitbraten.",
-          "Mit Sojasauce ablöschen, mit Sesam bestreuen."
-        ]
-      }
-    },
-    "dayTotal": "P 164g · F 144g · KH 39g · 2.104 kcal",
-    "period": "Woche 12"
-  },
-  {
-    "name": "Donnerstag",
-    "date": "2026-09-24",
-    "meals": {
-      "Früh": {
-        "dish": "Avocado-Beeren-Chiapudding",
-        "ing": [
-          [
-            "Avocado",
-            "90 g"
-          ],
-          [
-            "Himbeeren",
-            "20 g"
-          ],
-          [
-            "Chiasamen",
-            "20 g"
-          ],
-          [
-            "Veganes Proteinpulver",
-            "30 g"
-          ],
-          [
-            "Kokosmilch (Dose)",
-            "40 ml"
-          ]
-        ],
-        "macros": "P 30g · F 30g · KH 10g · 434 kcal",
-        "steps": [
-          "Avocado, Proteinpulver und Kokosmilch im Mixer glatt pürieren.",
-          "Chiasamen unterrühren, kurz quellen lassen.",
-          "Mit Himbeeren toppen."
-        ]
-      },
-      "Mittag": {
-        "dish": "Tofu-Gurken-Bowl mit Sonnenblumenkernen",
-        "ing": [
-          [
-            "Tofu (fest/natur)",
-            "250 g"
-          ],
-          [
-            "Gurke",
-            "100 g"
-          ],
-          [
-            "Sonnenblumenkerne",
-            "20 g"
-          ],
-          [
-            "Olivenöl",
-            "25 ml"
-          ]
-        ],
-        "macros": "P 49g · F 51g · KH 8g · 692 kcal",
-        "steps": [
-          "Tofu würfeln, in Olivenöl knusprig anbraten (5-6 Min.).",
-          "Gurke in Scheiben schneiden.",
-          "Mit gerösteten Sonnenblumenkernen bestreuen."
-        ]
-      },
-      "Abend": {
-        "dish": "Seitan-Paprika-Auflauf",
-        "ing": [
-          [
-            "Seitan",
-            "120 g"
-          ],
-          [
-            "Paprika",
-            "50 g"
-          ],
-          [
-            "Hefeflocken",
-            "10 g"
-          ],
-          [
-            "Olivenöl",
-            "60 ml"
-          ]
-        ],
-        "macros": "P 92g · F 66g · KH 13g · 1010 kcal",
-        "steps": [
-          "Backofen auf 190°C vorheizen. Seitan und Paprika würfeln.",
-          "In einer Auflaufform verteilen, mit Öl beträufeln.",
-          "Mit Hefeflocken bestreuen.",
-          "20-25 Min. backen bis leicht gebräunt."
-        ]
-      }
-    },
-    "dayTotal": "P 169g · F 149g · KH 29g · 2.136 kcal",
-    "period": "Woche 12"
-  },
-  {
-    "name": "Freitag",
-    "date": "2026-09-25",
-    "meals": {
-      "Früh": {
-        "dish": "Kokos-Kakao-Pudding mit Paranüssen",
-        "ing": [
-          [
-            "Chiasamen",
-            "25 g"
-          ],
-          [
-            "Kakaopulver",
-            "10 g"
-          ],
-          [
-            "Kokosmilch (Dose)",
-            "80 ml"
-          ],
-          [
-            "Kokosöl",
-            "10 ml"
-          ],
-          [
-            "Veganes Proteinpulver",
-            "30 g"
-          ],
-          [
-            "Paranüsse",
-            "2-3 Stk."
-          ]
-        ],
-        "macros": "P 32g · F 41g · KH 9g · 555 kcal",
-        "steps": [
-          "Chiasamen mit Kakaopulver, Kokosmilch und Kokosöl verrühren.",
-          "Proteinpulver einrühren, glattrühren.",
-          "Mind. 2h (am besten über Nacht) im Kühlschrank quellen lassen.",
-          "Mit 2-3 gehackten Paranüssen toppen."
-        ]
-      },
-      "Mittag": {
-        "dish": "Tempeh-Zucchini-Curry rot",
-        "ing": [
-          [
-            "Tempeh",
-            "150 g"
-          ],
-          [
-            "Zucchini",
-            "120 g"
-          ],
-          [
-            "Tomaten",
-            "30 g"
-          ],
-          [
-            "Kokosmilch (Dose)",
-            "70 ml"
-          ],
-          [
-            "Olivenöl",
-            "20 ml"
-          ]
-        ],
-        "macros": "P 34g · F 51g · KH 17g · 691 kcal",
-        "steps": [
-          "Tempeh würfeln, in Olivenöl anbraten (5 Min.).",
-          "Zucchini und gehackte Tomaten dazugeben, 5-6 Min. mitbraten.",
-          "Kokosmilch dazugeben, 6-8 Min. köcheln lassen."
-        ]
-      },
-      "Abend": {
-        "dish": "Tofu-Steak mit Avocado-Kräuter-Sauce",
-        "ing": [
-          [
-            "Tofu (fest/natur)",
-            "250 g"
-          ],
-          [
-            "Avocado",
-            "100 g"
-          ],
-          [
-            "Olivenöl",
-            "35 ml"
-          ]
-        ],
-        "macros": "P 41g · F 72g · KH 7g · 780 kcal",
-        "steps": [
-          "Tofu in dicke Scheiben schneiden, in Olivenöl kräftig anbraten (4-5 Min./Seite).",
-          "Avocado mit Kräutern, Salz und Zitrone zur Sauce verarbeiten.",
-          "Zusammen servieren."
-        ]
-      }
-    },
-    "dayTotal": "P 106g · F 164g · KH 30g · 2.016 kcal",
-    "selenNote": true,
-    "period": "Woche 12"
-  },
-  {
-    "name": "Samstag",
-    "date": "2026-09-26",
-    "meals": {
-      "Früh": {
-        "dish": "Tofu-Paprika-Frühstückspfanne",
-        "ing": [
-          [
-            "Tofu (fest/natur)",
-            "250 g"
-          ],
-          [
-            "Paprika",
-            "40 g"
-          ],
-          [
-            "Zucchini",
-            "60 g"
-          ],
-          [
-            "Olivenöl",
-            "20 ml"
-          ]
-        ],
-        "macros": "P 41g · F 40g · KH 8g · 570 kcal",
-        "steps": [
-          "Tofu grob zerbröseln, Paprika und Zucchini würfeln.",
-          "Olivenöl erhitzen, Gemüse 3-4 Min. andünsten.",
-          "Tofu dazugeben, mit Kräutern und Salz würzen, 5-6 Min. braten."
-        ]
-      },
-      "Mittag": {
-        "dish": "Seitan-Gurken-Salat mit Tahin",
-        "ing": [
-          [
-            "Seitan",
-            "120 g"
-          ],
-          [
-            "Gurke",
-            "100 g"
-          ],
-          [
-            "Tahini",
-            "15 g"
-          ],
-          [
-            "Olivenöl",
-            "35 ml"
-          ]
-        ],
-        "macros": "P 93g · F 63g · KH 12g · 883 kcal",
-        "steps": [
-          "Seitan in Streifen schneiden, in Olivenöl anbraten (6-8 Min.).",
-          "Gurke in Scheiben schneiden.",
-          "Tahini mit restlichem Öl und Wasser zum Dressing verrühren, darüber geben."
-        ]
-      },
-      "Abend": {
-        "dish": "Tempeh-Blumenkohl-Wok",
-        "ing": [
-          [
-            "Tempeh",
-            "150 g"
-          ],
-          [
-            "Blumenkohl",
-            "120 g"
-          ],
-          [
-            "Sojasauce",
-            "10 ml"
-          ],
-          [
-            "Sesam",
-            "15 g"
-          ],
-          [
-            "Olivenöl",
-            "40 ml"
-          ]
-        ],
-        "macros": "P 35g · F 68g · KH 12g · 780 kcal",
-        "steps": [
-          "Tempeh würfeln, in Olivenöl anbraten (5 Min.).",
-          "Blumenkohl in Röschen dazugeben, 5-6 Min. mitbraten.",
-          "Mit Sojasauce ablöschen, mit Sesam bestreuen."
-        ]
-      }
-    },
-    "dayTotal": "P 169g · F 150g · KH 37g · 2.178 kcal",
-    "period": "Woche 12"
-  },
-  {
-    "name": "Sonntag",
-    "date": "2026-09-27",
-    "meals": {
-      "Früh": {
-        "dish": "Beeren-Kokosjoghurt mit Paranüssen",
-        "ing": [
-          [
-            "Kokosjoghurt (ungesüßt)",
-            "140 g"
-          ],
-          [
-            "Himbeeren",
-            "20 g"
-          ],
-          [
-            "Veganes Proteinpulver",
-            "25 g"
-          ],
-          [
-            "Mandeln",
-            "15 g"
-          ],
-          [
-            "Paranüsse",
-            "2-3 Stk."
-          ]
-        ],
-        "macros": "P 30g · F 32g · KH 10g · 469 kcal",
-        "steps": [
-          "Kokosjoghurt mit Proteinpulver glattrühren.",
-          "Mit Himbeeren und gehackten Mandeln toppen.",
-          "Mit 2-3 gehackten Paranüssen ergänzen."
-        ]
-      },
-      "Mittag": {
-        "dish": "Tofu-Gemüse-Curry gelb",
-        "ing": [
-          [
-            "Tofu (fest/natur)",
-            "250 g"
-          ],
-          [
-            "Zucchini",
-            "120 g"
-          ],
-          [
-            "Paprika",
-            "40 g"
-          ],
-          [
-            "Kokosmilch (Dose)",
-            "80 ml"
-          ],
-          [
-            "Olivenöl",
-            "35 ml"
-          ]
-        ],
-        "macros": "P 47g · F 61g · KH 12g · 793 kcal",
-        "steps": [
-          "Tofu würfeln, in Olivenöl anbraten.",
-          "Zucchini und Paprika dazugeben, kurz mitbraten.",
-          "Kokosmilch und Currypulver dazugeben, 8-10 Min. köcheln lassen."
-        ]
-      },
-      "Abend": {
-        "dish": "Seitan-Auberginen-Ragout",
-        "ing": [
-          [
-            "Seitan",
-            "120 g"
-          ],
-          [
-            "Aubergine",
-            "130 g"
-          ],
-          [
-            "Tomaten",
-            "30 g"
-          ],
-          [
-            "Olivenöl",
-            "50 ml"
-          ]
-        ],
-        "macros": "P 92g · F 63g · KH 14g · 923 kcal",
-        "steps": [
-          "Seitan würfeln, Aubergine in Stücke schneiden.",
-          "Olivenöl erhitzen, beides 8-10 Min. anbraten.",
-          "Gehackte Tomaten dazugeben, 10-12 Min. köcheln lassen."
-        ]
-      }
-    },
-    "dayTotal": "P 160g · F 156g · KH 36g · 2.186 kcal",
-    "selenNote": true,
-    "period": "Woche 12"
-  },
   {
     "name": "Montag",
     "date": "2026-09-28",
@@ -1247,7 +573,8 @@
     },
     "dayTotal": "P 147.0g · F 174.8g · KH 38.9g · 2316 kcal",
     "period": "Woche 13",
-    "selenNote": true
+    "selenNote": true,
+    "shopNote": "🛒 Morgen (Sa 03.10.) ist Feiertag – Einkauf für Woche 14 heute erledigen (Liste im Excel Ernaehrungsplan_Woche14). Rucola & Champignons notfalls Montag frisch holen."
   },
   {
     "name": "Samstag",
@@ -1438,6 +765,895 @@
     "dayTotal": "P 162.2g · F 162.4g · KH 34.0g · 2246 kcal",
     "period": "Woche 13",
     "selenNote": true
+  },
+  {
+    "name": "Montag",
+    "date": "2026-10-05",
+    "meals": {
+      "Früh": {
+        "dish": "Tofu-Shakshuka-Pfanne mit Spinat",
+        "ing": [
+          [
+            "Tofu natur (fest)",
+            "300 g"
+          ],
+          [
+            "Tomaten (stückig, Dose)",
+            "110 g"
+          ],
+          [
+            "Paprika",
+            "50 g"
+          ],
+          [
+            "Blattspinat (TK)",
+            "60 g"
+          ],
+          [
+            "Zwiebel",
+            "20 g"
+          ],
+          [
+            "Olivenöl",
+            "25 ml"
+          ],
+          [
+            "Hefeflocken",
+            "10 g"
+          ]
+        ],
+        "macros": "P 52g · F 49g · KH 12g · 716 kcal",
+        "steps": [
+          "Zwiebel und Paprika würfeln, in Olivenöl 3–4 Min. anschwitzen.",
+          "Tomaten mit Paprikapulver, Kreuzkümmel, Chiliflocken und jodiertem Salz zugeben, 5 Min. dick einköcheln.",
+          "Tofu in dicke Würfel schneiden, in die Sauce setzen, Deckel drauf, 5 Min. ziehen lassen.",
+          "Gefrorenen Spinat direkt mit in die Sauce geben (taut in 2–3 Min. auf); mit Hefeflocken bestreuen."
+        ]
+      },
+      "Mittag": {
+        "dish": "Seitan-Champignon-Pfanne mit Rucola-Mandel-Pesto ⚠",
+        "ing": [
+          [
+            "Seitan natur",
+            "190 g"
+          ],
+          [
+            "Champignons ⚠",
+            "150 g"
+          ],
+          [
+            "Rucola ⚠",
+            "60 g"
+          ],
+          [
+            "Mandeln",
+            "15 g"
+          ],
+          [
+            "Olivenöl",
+            "40 ml"
+          ],
+          [
+            "Knoblauch",
+            "5 g"
+          ],
+          [
+            "Zitronensaft",
+            "5 ml"
+          ]
+        ],
+        "macros": "P 57g · F 50g · KH 12g · 750 kcal",
+        "steps": [
+          "Pesto: Rucola, Mandeln, ⅔ des Öls, Knoblauch, Zitronensaft und jodiertes Salz im Mixer grob pürieren.",
+          "Seitan in Streifen schneiden, im restlichen Öl 5 Min. scharf anbraten.",
+          "Champignons in Scheiben dazugeben, 5 Min. mitbraten.",
+          "Pfanne vom Herd nehmen, Pesto unterheben (nicht mehr erhitzen), restlichen Rucola obenauf."
+        ]
+      },
+      "Abend": {
+        "dish": "Tempeh-Bratlinge mit Gurken-Rucola-Tahin-Salat ⚠",
+        "ing": [
+          [
+            "Tempeh",
+            "150 g"
+          ],
+          [
+            "Chiasamen",
+            "10 g"
+          ],
+          [
+            "Hefeflocken",
+            "10 g"
+          ],
+          [
+            "Zwiebel",
+            "20 g"
+          ],
+          [
+            "Olivenöl",
+            "35 ml"
+          ],
+          [
+            "Gurke",
+            "150 g"
+          ],
+          [
+            "Rucola ⚠",
+            "65 g"
+          ],
+          [
+            "Tahini",
+            "15 g"
+          ],
+          [
+            "Zitronensaft",
+            "10 ml"
+          ]
+        ],
+        "macros": "P 42g · F 61g · KH 14g · 800 kcal",
+        "steps": [
+          "Chiasamen mit 30 ml Wasser verrühren, 10 Min. quellen lassen.",
+          "Tempeh fein reiben oder zerbröseln, mit Chia-Gel, Hefeflocken, fein gewürfelter Zwiebel, Paprikapulver, Knoblauchpulver und jodiertem Salz verkneten, 4 Bratlinge formen.",
+          "In Olivenöl bei mittlerer Hitze je Seite 4 Min. goldbraun braten.",
+          "Tahini mit Zitronensaft und 2 EL Wasser glatt rühren, mit gewürfelter Gurke und Rucola mischen, salzen (Rucola-Packung ist damit aufgebraucht)."
+        ]
+      }
+    },
+    "dayTotal": "P 150g · F 161g · KH 38g · 2.266 kcal",
+    "shopNote": "🛒 Neue Einkaufswoche: Rucola und Champignons (⚠) werden heute und morgen komplett verbraucht. Spinat und Brokkoli diesmal als TK-Ware – kein Verderb-Risiko.",
+    "period": "Woche 14"
+  },
+  {
+    "name": "Dienstag",
+    "date": "2026-10-06",
+    "meals": {
+      "Früh": {
+        "dish": "Mandel-Protein-Pancakes mit Himbeeren",
+        "ing": [
+          [
+            "Veganes Proteinpulver",
+            "50 g"
+          ],
+          [
+            "Mandeln",
+            "15 g"
+          ],
+          [
+            "Chiasamen",
+            "10 g"
+          ],
+          [
+            "Kokosöl",
+            "25 g"
+          ],
+          [
+            "Himbeeren (TK)",
+            "40 g"
+          ],
+          [
+            "Paranüsse",
+            "9 g (2 Stück)"
+          ]
+        ],
+        "macros": "P 46g · F 45g · KH 5g · 625 kcal",
+        "steps": [
+          "Mandeln im Mixer fein mahlen.",
+          "Mit Proteinpulver, Chiasamen, 1 TL Backpulver, einer Prise Salz und ca. 100 ml Wasser zu einem dicken Teig rühren, 5 Min. quellen lassen.",
+          "Kokosöl in der Pfanne erhitzen, 3–4 kleine Pancakes bei mittlerer Hitze je Seite 2–3 Min. backen.",
+          "Mit aufgetauten Himbeeren servieren, 2 Paranüsse dazu essen."
+        ]
+      },
+      "Mittag": {
+        "dish": "Seitan-Brokkoli-Champignon-Pfanne mit Sesam ⚠",
+        "ing": [
+          [
+            "Seitan natur",
+            "150 g"
+          ],
+          [
+            "Brokkoli (TK)",
+            "200 g"
+          ],
+          [
+            "Champignons ⚠",
+            "100 g"
+          ],
+          [
+            "Sesam",
+            "10 g"
+          ],
+          [
+            "Sojasauce",
+            "15 ml"
+          ],
+          [
+            "Knoblauch",
+            "5 g"
+          ],
+          [
+            "Olivenöl",
+            "45 ml"
+          ]
+        ],
+        "macros": "P 50g · F 51g · KH 15g · 741 kcal",
+        "steps": [
+          "Sesam ohne Fett goldbraun rösten, beiseitestellen.",
+          "TK-Brokkoli mit 3 EL Wasser zugedeckt 4 Min. dämpfen; restliche Champignons (Packung vom Montag) in Scheiben schneiden.",
+          "Seitan in Streifen im Olivenöl 5 Min. braten, Champignons 3 Min. mitbraten, dann Knoblauch und Brokkoli 2 Min. mitbraten.",
+          "Mit Sojasauce ablöschen, Sesam darüberstreuen. Gut als Lunchbox."
+        ]
+      },
+      "Abend": {
+        "dish": "Zucchini-Lasagne mit Tofu-Hack & Spinat",
+        "ing": [
+          [
+            "Tofu natur (fest)",
+            "295 g"
+          ],
+          [
+            "Zucchini",
+            "200 g"
+          ],
+          [
+            "Tomaten (stückig, Dose)",
+            "130 g"
+          ],
+          [
+            "Blattspinat (TK)",
+            "60 g"
+          ],
+          [
+            "Hefeflocken",
+            "15 g"
+          ],
+          [
+            "Olivenöl",
+            "40 ml"
+          ],
+          [
+            "Zwiebel",
+            "20 g"
+          ],
+          [
+            "Knoblauch",
+            "5 g"
+          ]
+        ],
+        "macros": "P 56g · F 63g · KH 16g · 883 kcal",
+        "steps": [
+          "Ofen auf 200 °C vorheizen. Zucchini längs in dünne Scheiben schneiden, salzen, 5 Min. ziehen lassen, trocken tupfen.",
+          "Tofu zerbröseln, mit Zwiebel und Knoblauch in ⅔ des Öls 6–8 Min. krümelig braten; Tomaten, Oregano und jodiertes Salz zugeben, 3 Min. einkochen.",
+          "Gefrorenen Spinat unter das heiße Tofu-Hack heben, bis er aufgetaut ist. Zucchini und Hack abwechselnd in eine kleine Auflaufform schichten.",
+          "Mit Hefeflocken und restlichem Öl bedecken, 20 Min. backen."
+        ]
+      }
+    },
+    "dayTotal": "P 152g · F 159g · KH 36g · 2.249 kcal",
+    "selenNote": true,
+    "period": "Woche 14"
+  },
+  {
+    "name": "Mittwoch",
+    "date": "2026-10-07",
+    "meals": {
+      "Früh": {
+        "dish": "Kokosjoghurt-Crunch-Bowl mit Mandel-Sesam-Krokant",
+        "ing": [
+          [
+            "Kokosjoghurt (ungesüßt)",
+            "110 g"
+          ],
+          [
+            "Veganes Proteinpulver",
+            "55 g"
+          ],
+          [
+            "Mandeln",
+            "15 g"
+          ],
+          [
+            "Sesam",
+            "10 g"
+          ],
+          [
+            "Sonnenblumenkerne",
+            "10 g"
+          ],
+          [
+            "Himbeeren (TK)",
+            "25 g"
+          ]
+        ],
+        "macros": "P 51g · F 34g · KH 10g · 570 kcal",
+        "steps": [
+          "Mandeln grob hacken, mit Sesam und Sonnenblumenkernen ohne Fett 3–4 Min. rösten, mit Zimt bestäuben.",
+          "Proteinpulver in den Kokosjoghurt rühren (bei Bedarf einen Schluck Wasser).",
+          "Himbeeren und den warmen Krokant darübergeben."
+        ]
+      },
+      "Mittag": {
+        "dish": "Gefüllte Zucchini-Schiffchen mit Tofu-Hack & Hefeflocken-Kruste",
+        "ing": [
+          [
+            "Zucchini",
+            "250 g"
+          ],
+          [
+            "Tofu natur (fest)",
+            "300 g"
+          ],
+          [
+            "Tomaten (stückig, Dose)",
+            "80 g"
+          ],
+          [
+            "Zwiebel",
+            "10 g"
+          ],
+          [
+            "Hefeflocken",
+            "10 g"
+          ],
+          [
+            "Olivenöl",
+            "35 ml"
+          ],
+          [
+            "Sonnenblumenkerne",
+            "10 g"
+          ]
+        ],
+        "macros": "P 55g · F 64g · KH 14g · 869 kcal",
+        "steps": [
+          "Ofen auf 200 °C vorheizen. 1 große Zucchini längs halbieren, Fruchtfleisch mit einem Löffel aushöhlen (Fruchtfleisch hacken und später mitbraten).",
+          "Tofu zerbröseln, mit Zwiebel und dem gehackten Zucchini-Fruchtfleisch im Öl 6 Min. braten, Tomaten, Paprikapulver, Oregano und jodiertes Salz zugeben.",
+          "Zucchinihälften füllen, mit Hefeflocken und Sonnenblumenkernen bestreuen.",
+          "25 Min. backen, bis die Kruste goldbraun ist."
+        ]
+      },
+      "Abend": {
+        "dish": "Tempeh-Spitzkohl-Pfanne mit Sesam & Chili",
+        "ing": [
+          [
+            "Tempeh",
+            "200 g"
+          ],
+          [
+            "Spitzkohl",
+            "110 g"
+          ],
+          [
+            "Sesam",
+            "10 g"
+          ],
+          [
+            "Sojasauce",
+            "15 ml"
+          ],
+          [
+            "Knoblauch",
+            "5 g"
+          ],
+          [
+            "Olivenöl",
+            "45 ml"
+          ]
+        ],
+        "macros": "P 43g · F 68g · KH 15g · 862 kcal",
+        "steps": [
+          "Tempeh in dünne Streifen schneiden, im Öl 5–6 Min. knusprig braten, herausnehmen.",
+          "Spitzkohl in feine Streifen schneiden, mit Knoblauch im verbliebenen Öl 4–5 Min. bissfest braten.",
+          "Tempeh zurückgeben, mit Sojasauce und Chiliflocken abschmecken, mit Sesam bestreuen."
+        ]
+      }
+    },
+    "dayTotal": "P 149g · F 167g · KH 39g · 2.301 kcal",
+    "nextDayPrep": {
+      "dish": "Herzhafte Tofu-Muffins mit Paprika & Zucchini",
+      "note": "Heute Abend backen (25 Min. bei 180 °C), abkühlen lassen und in den Kühlschrank stellen – morgen früh nur noch kalt essen oder 1 Min. aufwärmen."
+    },
+    "period": "Woche 14"
+  },
+  {
+    "name": "Donnerstag",
+    "date": "2026-10-08",
+    "meals": {
+      "Früh": {
+        "dish": "Herzhafte Tofu-Muffins mit Paprika & Zucchini",
+        "ing": [
+          [
+            "Tofu natur (fest)",
+            "300 g"
+          ],
+          [
+            "Paprika",
+            "40 g"
+          ],
+          [
+            "Zucchini",
+            "60 g"
+          ],
+          [
+            "Hefeflocken",
+            "15 g"
+          ],
+          [
+            "Chiasamen",
+            "10 g"
+          ],
+          [
+            "Olivenöl",
+            "20 ml"
+          ],
+          [
+            "Paranüsse",
+            "9 g (2 Stück)"
+          ]
+        ],
+        "macros": "P 55g · F 54g · KH 9g · 766 kcal",
+        "steps": [
+          "(Am Vorabend) Ofen auf 180 °C vorheizen.",
+          "Tofu mit Hefeflocken, Chiasamen, Öl, ½ TL Kurkuma, ½ TL Backpulver, jodiertem Salz, Pfeffer und 3 EL Wasser cremig pürieren.",
+          "Paprika und Zucchini klein würfeln, unterheben, in 6 gefettete Muffinmulden füllen (alternativ kleine Auflaufform als Frittata).",
+          "25 Min. backen, abkühlen lassen, kühl lagern. Morgens mit 2 Paranüssen essen."
+        ]
+      },
+      "Mittag": {
+        "dish": "Seitan-Döner-Teller mit Krautsalat & Tahin-Knoblauch-Sauce",
+        "ing": [
+          [
+            "Seitan natur",
+            "230 g"
+          ],
+          [
+            "Spitzkohl",
+            "80 g"
+          ],
+          [
+            "Gurke",
+            "80 g"
+          ],
+          [
+            "Zwiebel",
+            "10 g"
+          ],
+          [
+            "Tahini",
+            "15 g"
+          ],
+          [
+            "Zitronensaft",
+            "10 ml"
+          ],
+          [
+            "Olivenöl",
+            "35 ml"
+          ],
+          [
+            "Knoblauch",
+            "3 g"
+          ]
+        ],
+        "macros": "P 63g · F 46g · KH 17g · 758 kcal",
+        "steps": [
+          "Seitan sehr dünn schneiden, mit 1 EL Öl, Paprikapulver, Kreuzkümmel, Oregano und jodiertem Salz marinieren.",
+          "Spitzkohl fein hobeln, mit etwas Salz kurz kneten, mit einem Teil des Öls und Zitronensaft anmachen; Gurke und Zwiebel in feine Streifen.",
+          "Seitan im restlichen Öl 5–6 Min. knusprig braten.",
+          "Sauce: Tahini, gepresster Knoblauch, Rest Zitronensaft, 2–3 EL Wasser verrühren. Alles anrichten – auch kalt als Lunchbox gut."
+        ]
+      },
+      "Abend": {
+        "dish": "Baba-Ganoush-Teller mit knusprigen Tempeh-Würfeln",
+        "ing": [
+          [
+            "Aubergine",
+            "190 g"
+          ],
+          [
+            "Tahini",
+            "15 g"
+          ],
+          [
+            "Zitronensaft",
+            "10 ml"
+          ],
+          [
+            "Knoblauch",
+            "3 g"
+          ],
+          [
+            "Tempeh",
+            "130 g"
+          ],
+          [
+            "Olivenöl",
+            "35 ml"
+          ],
+          [
+            "Gurke",
+            "80 g"
+          ]
+        ],
+        "macros": "P 31g · F 55g · KH 14g · 693 kcal",
+        "steps": [
+          "Aubergine halbieren, Schnittflächen einritzen, mit etwas Öl einpinseln, 30 Min. bei 220 °C rösten.",
+          "Fruchtfleisch auslöffeln, mit Tahini, Zitronensaft, Knoblauch, Kreuzkümmel und jodiertem Salz grob zerdrücken.",
+          "Tempeh würfeln, im restlichen Öl 6–7 Min. rundum knusprig braten, mit Paprikapulver würzen.",
+          "Baba Ganoush auf den Teller streichen, Tempeh und Gurkenscheiben darauf."
+        ]
+      }
+    },
+    "dayTotal": "P 149g · F 155g · KH 39g · 2.217 kcal",
+    "selenNote": true,
+    "period": "Woche 14"
+  },
+  {
+    "name": "Freitag",
+    "date": "2026-10-09",
+    "meals": {
+      "Früh": {
+        "dish": "Tempeh-„Bacon“ mit Avocado & Gurke",
+        "ing": [
+          [
+            "Tempeh",
+            "110 g"
+          ],
+          [
+            "Sojasauce",
+            "10 ml"
+          ],
+          [
+            "Olivenöl",
+            "30 ml"
+          ],
+          [
+            "Avocado",
+            "80 g"
+          ],
+          [
+            "Gurke",
+            "80 g"
+          ]
+        ],
+        "macros": "P 24g · F 52g · KH 8g · 606 kcal",
+        "steps": [
+          "Tempeh in sehr dünne Scheiben schneiden, mit Sojasauce, geräuchertem Paprikapulver und Pfeffer marinieren.",
+          "Im Öl bei mittlerer Hitze je Seite 2–3 Min. knusprig braten.",
+          "Avocado mit Salz und Pfeffer zerdrücken, mit Gurkenscheiben und dem Tempeh-Bacon anrichten."
+        ]
+      },
+      "Mittag": {
+        "dish": "Seitan-Kohlblatt-Wraps mit Erdnuss-Dip",
+        "ing": [
+          [
+            "Seitan natur",
+            "255 g"
+          ],
+          [
+            "Spitzkohl",
+            "100 g"
+          ],
+          [
+            "Paprika",
+            "30 g"
+          ],
+          [
+            "Erdnussmus",
+            "15 g"
+          ],
+          [
+            "Sojasauce",
+            "10 ml"
+          ],
+          [
+            "Zitronensaft",
+            "5 ml"
+          ],
+          [
+            "Olivenöl",
+            "35 ml"
+          ]
+        ],
+        "macros": "P 70g · F 46g · KH 18g · 792 kcal",
+        "steps": [
+          "4–5 große Spitzkohlblätter ablösen, 1 Min. in kochendem Wasser blanchieren, abschrecken, trocken tupfen.",
+          "Seitan in Streifen im Öl 5 Min. braten; Paprika in feine Streifen.",
+          "Dip: Erdnussmus, Sojasauce, Zitronensaft, Chili und 2 EL warmes Wasser verrühren.",
+          "Kohlblätter mit Seitan und Paprika füllen, einrollen, mit Dip essen."
+        ]
+      },
+      "Abend": {
+        "dish": "Blumenkohl-Käse-Auflauf mit Tofu-Crunch",
+        "ing": [
+          [
+            "Blumenkohl",
+            "200 g"
+          ],
+          [
+            "Kokosjoghurt (ungesüßt)",
+            "60 g"
+          ],
+          [
+            "Hefeflocken",
+            "15 g"
+          ],
+          [
+            "Tofu natur (fest)",
+            "300 g"
+          ],
+          [
+            "Olivenöl",
+            "40 ml"
+          ],
+          [
+            "Knoblauch",
+            "3 g"
+          ]
+        ],
+        "macros": "P 55g · F 71g · KH 13g · 933 kcal",
+        "steps": [
+          "Ofen auf 200 °C vorheizen. Blumenkohl in Röschen 5 Min. in Salzwasser vorgaren, abtropfen.",
+          "„Käsesauce“: Kokosjoghurt mit Hefeflocken, gepresstem Knoblauch, ½ TL Senf, jodiertem Salz und Muskat glatt rühren (nicht kochen).",
+          "Tofu fein zerbröseln, im Öl mit Paprikapulver 6 Min. knusprig braten.",
+          "Blumenkohl in eine Form, Sauce darüber, Tofu-Crunch obenauf, 15 Min. überbacken."
+        ]
+      }
+    },
+    "dayTotal": "P 149g · F 168g · KH 39g · 2.331 kcal",
+    "period": "Woche 14"
+  },
+  {
+    "name": "Samstag",
+    "date": "2026-10-10",
+    "meals": {
+      "Früh": {
+        "dish": "Zucchini-Tofu-Rösti mit Avocado-Dip",
+        "ing": [
+          [
+            "Zucchini",
+            "160 g"
+          ],
+          [
+            "Tofu natur (fest)",
+            "200 g"
+          ],
+          [
+            "Chiasamen",
+            "10 g"
+          ],
+          [
+            "Hefeflocken",
+            "10 g"
+          ],
+          [
+            "Olivenöl",
+            "20 ml"
+          ],
+          [
+            "Avocado",
+            "80 g"
+          ],
+          [
+            "Zitronensaft",
+            "5 ml"
+          ],
+          [
+            "Paranüsse",
+            "9 g (2 Stück)"
+          ]
+        ],
+        "macros": "P 41g · F 57g · KH 9g · 745 kcal",
+        "steps": [
+          "Zucchini grob raspeln, salzen, 5 Min. ziehen lassen und kräftig ausdrücken.",
+          "Mit zerbröseltem Tofu, Chiasamen, Hefeflocken und Pfeffer verkneten, 4 flache Rösti formen.",
+          "Im Öl bei mittlerer Hitze je Seite 4–5 Min. goldbraun braten.",
+          "Avocado mit Zitronensaft und Salz zerdrücken, dazu servieren; 2 Paranüsse dazu."
+        ]
+      },
+      "Mittag": {
+        "dish": "Seitan-Nuggets in Mandel-Sesam-Panade mit Gurken-Kokos-Dip",
+        "ing": [
+          [
+            "Seitan natur",
+            "280 g"
+          ],
+          [
+            "Mandeln",
+            "20 g"
+          ],
+          [
+            "Sesam",
+            "10 g"
+          ],
+          [
+            "Olivenöl",
+            "25 ml"
+          ],
+          [
+            "Kokosjoghurt (ungesüßt)",
+            "80 g"
+          ],
+          [
+            "Gurke",
+            "80 g"
+          ],
+          [
+            "Knoblauch",
+            "2 g"
+          ]
+        ],
+        "macros": "P 77g · F 55g · KH 19g · 909 kcal",
+        "steps": [
+          "Mandeln im Mixer grob mahlen, mit Sesam, Paprikapulver und jodiertem Salz mischen.",
+          "Seitan in mundgerechte Stücke schneiden, kurz mit Wasser befeuchten und in der Panade wälzen.",
+          "Im Öl rundum 6–7 Min. knusprig braten.",
+          "Dip: Kokosjoghurt mit fein geriebener Gurke, Knoblauch, Salz und Dill/Kräutern verrühren."
+        ]
+      },
+      "Abend": {
+        "dish": "Blumenkohl-Couscous-Pfanne mit Tempeh, Paprika & Mandeln",
+        "ing": [
+          [
+            "Blumenkohl",
+            "160 g"
+          ],
+          [
+            "Tempeh",
+            "130 g"
+          ],
+          [
+            "Paprika",
+            "30 g"
+          ],
+          [
+            "Mandeln",
+            "15 g"
+          ],
+          [
+            "Olivenöl",
+            "30 ml"
+          ],
+          [
+            "Zitronensaft",
+            "5 ml"
+          ],
+          [
+            "Zwiebel",
+            "10 g"
+          ]
+        ],
+        "macros": "P 31g · F 50g · KH 12g · 646 kcal",
+        "steps": [
+          "Blumenkohl im Mixer oder auf der Reibe zu „Couscous“ zerkleinern.",
+          "Tempeh würfeln, im Öl 5 Min. anbraten, Zwiebel und Paprika 3 Min. mitbraten.",
+          "Blumenkohl-Couscous zugeben, mit Kreuzkümmel, Kurkuma und jodiertem Salz 4–5 Min. braten.",
+          "Mit gehackten, gerösteten Mandeln und Zitronensaft abschließen."
+        ]
+      }
+    },
+    "dayTotal": "P 150g · F 163g · KH 40g · 2.300 kcal",
+    "selenNote": true,
+    "period": "Woche 14"
+  },
+  {
+    "name": "Sonntag",
+    "date": "2026-10-11",
+    "meals": {
+      "Früh": {
+        "dish": "Schoko-Mandel-Protein-Brownie mit Kokosjoghurt",
+        "ing": [
+          [
+            "Veganes Proteinpulver",
+            "50 g"
+          ],
+          [
+            "Mandeln",
+            "10 g"
+          ],
+          [
+            "Kakaopulver",
+            "10 g"
+          ],
+          [
+            "Chiasamen",
+            "10 g"
+          ],
+          [
+            "Kokosöl",
+            "25 g"
+          ],
+          [
+            "Kokosjoghurt (ungesüßt)",
+            "80 g"
+          ]
+        ],
+        "macros": "P 46g · F 47g · KH 7g · 656 kcal",
+        "steps": [
+          "Ofen auf 180 °C vorheizen. Mandeln fein mahlen.",
+          "Mit Proteinpulver, Kakao, Chiasamen, geschmolzenem Kokosöl, ½ TL Backpulver, Prise Salz und ca. 80 ml Wasser verrühren.",
+          "In eine kleine gefettete Form (ca. 15 × 10 cm) streichen, 15 Min. backen – innen darf er saftig bleiben.",
+          "Kurz abkühlen lassen, mit Kokosjoghurt servieren."
+        ]
+      },
+      "Mittag": {
+        "dish": "Ofenblech Tofu-Paprika-Zucchini mit Tahin-Drizzle",
+        "ing": [
+          [
+            "Tofu natur (fest)",
+            "300 g"
+          ],
+          [
+            "Paprika",
+            "100 g"
+          ],
+          [
+            "Zucchini",
+            "150 g"
+          ],
+          [
+            "Olivenöl",
+            "35 ml"
+          ],
+          [
+            "Tahini",
+            "15 g"
+          ],
+          [
+            "Zitronensaft",
+            "10 ml"
+          ]
+        ],
+        "macros": "P 51g · F 67g · KH 12g · 865 kcal",
+        "steps": [
+          "Ofen auf 220 °C vorheizen. Tofu würfeln, gut trocken tupfen.",
+          "Tofu, Paprika und Zucchini mit Öl, Paprikapulver, Oregano und jodiertem Salz auf einem Blech mischen.",
+          "25 Min. rösten, nach der Hälfte wenden.",
+          "Tahini mit Zitronensaft und 2–3 EL Wasser verrühren, darüberträufeln."
+        ]
+      },
+      "Abend": {
+        "dish": "Seitan-Spitzkohl-Bratnudeln mit Erdnuss & Sesam",
+        "ing": [
+          [
+            "Seitan natur",
+            "175 g"
+          ],
+          [
+            "Spitzkohl",
+            "200 g"
+          ],
+          [
+            "Erdnussmus",
+            "15 g"
+          ],
+          [
+            "Sesam",
+            "10 g"
+          ],
+          [
+            "Sojasauce",
+            "15 ml"
+          ],
+          [
+            "Olivenöl",
+            "35 ml"
+          ],
+          [
+            "Knoblauch",
+            "5 g"
+          ]
+        ],
+        "macros": "P 54g · F 49g · KH 19g · 759 kcal",
+        "steps": [
+          "Spitzkohl in lange, bandnudelbreite Streifen schneiden.",
+          "Seitan in Streifen im Öl 5 Min. braten, herausnehmen.",
+          "Kohl mit Knoblauch im verbliebenen Öl 4–5 Min. bissfest braten.",
+          "Erdnussmus mit Sojasauce und 2 EL Wasser glatt rühren, mit dem Seitan unterheben, mit Sesam und Chili bestreuen."
+        ]
+      }
+    },
+    "dayTotal": "P 150g · F 163g · KH 38g · 2.279 kcal",
+    "period": "Woche 14"
   }
 ];
 
@@ -3066,6 +3282,682 @@
     },
     "dayTotal": "P 165g · F 139g · KH 35g · 2.044 kcal",
     "selenNote": true
+  }
+] },
+    { label:"Woche 12", planStart:"2026-09-21", days:[
+  {
+    "name": "Montag",
+    "date": "2026-09-21",
+    "meals": {
+      "Früh": {
+        "dish": "Beeren-Chia-Kokosshake",
+        "ing": [
+          [
+            "Veganes Proteinpulver",
+            "35 g"
+          ],
+          [
+            "Kokosmilch (Dose)",
+            "100 ml"
+          ],
+          [
+            "Chiasamen",
+            "15 g"
+          ],
+          [
+            "Himbeeren",
+            "20 g"
+          ]
+        ],
+        "macros": "P 33g · F 31g · KH 8g · 435 kcal",
+        "steps": [
+          "Alle Zutaten in den Mixer geben.",
+          "Glatt cremig mixen, bei Bedarf Wasser/Eis dazugeben."
+        ]
+      },
+      "Mittag": {
+        "dish": "Tofu-Zucchini-Bolognese-Style",
+        "ing": [
+          [
+            "Tofu (fest/natur)",
+            "250 g"
+          ],
+          [
+            "Zucchini",
+            "150 g"
+          ],
+          [
+            "Tomaten",
+            "40 g"
+          ],
+          [
+            "Olivenöl",
+            "25 ml"
+          ],
+          [
+            "Hefeflocken",
+            "10 g"
+          ]
+        ],
+        "macros": "P 49g · F 46g · KH 11g · 654 kcal",
+        "steps": [
+          "Tofu grob zerbröseln ('Hack'), Zucchini spiralisieren oder in Streifen schneiden.",
+          "Olivenöl erhitzen, Tofu knusprig anbraten (5-6 Min.).",
+          "Gehackte Tomaten und Hefeflocken dazugeben, kurz köcheln.",
+          "Zucchininudeln unterheben, 2 Min. warm ziehen lassen."
+        ]
+      },
+      "Abend": {
+        "dish": "Seitan-Champignon-Rahmsauce mit Rucola",
+        "ing": [
+          [
+            "Seitan",
+            "120 g"
+          ],
+          [
+            "Champignons",
+            "120 g"
+          ],
+          [
+            "Kokosmilch (Dose)",
+            "70 ml"
+          ],
+          [
+            "Olivenöl",
+            "45 ml"
+          ],
+          [
+            "Rucola",
+            "80 g"
+          ]
+        ],
+        "macros": "P 94g · F 65g · KH 13g · 1012 kcal",
+        "steps": [
+          "Seitan würfeln, Champignons in Scheiben.",
+          "Olivenöl erhitzen, Seitan anbraten (5 Min.), Champignons dazugeben, 5-6 Min. mitbraten.",
+          "Mit Kokosmilch ablöschen, 5-6 Min. köcheln lassen.",
+          "Mit frischem Rucola servieren."
+        ]
+      }
+    },
+    "dayTotal": "P 176g · F 141g · KH 32g · 2.101 kcal",
+    "shopNote": "⚠ Rucola, Spinat und Champignons sind bewusst auf Montag/Dienstag konzentriert — jetzt frisch einkaufen und zuerst verbrauchen.",
+    "period": "Woche 12"
+  },
+  {
+    "name": "Dienstag",
+    "date": "2026-09-22",
+    "meals": {
+      "Früh": {
+        "dish": "Tofu-Rührei mit Paprika und Spinat",
+        "ing": [
+          [
+            "Tofu (fest/natur)",
+            "250 g"
+          ],
+          [
+            "Paprika",
+            "40 g"
+          ],
+          [
+            "Spinat",
+            "60 g"
+          ],
+          [
+            "Olivenöl",
+            "20 ml"
+          ]
+        ],
+        "macros": "P 41g · F 41g · KH 8g · 574 kcal",
+        "steps": [
+          "Tofu grob zerbröseln, Paprika würfeln.",
+          "Olivenöl erhitzen, Paprika kurz andünsten.",
+          "Tofu dazugeben, mit Kurkuma und Salz würzen, 5-6 Min. braten.",
+          "Spinat zum Schluss unterheben."
+        ]
+      },
+      "Mittag": {
+        "dish": "Tempeh-Gurken-Bowl mit Erdnuss-Sauce",
+        "ing": [
+          [
+            "Tempeh",
+            "150 g"
+          ],
+          [
+            "Gurke",
+            "100 g"
+          ],
+          [
+            "Erdnussmus",
+            "20 g"
+          ],
+          [
+            "Sojasauce",
+            "10 ml"
+          ],
+          [
+            "Olivenöl",
+            "15 ml"
+          ]
+        ],
+        "macros": "P 36g · F 41g · KH 20g · 601 kcal",
+        "steps": [
+          "Tempeh würfeln, in Olivenöl knusprig anbraten (5-6 Min.).",
+          "Gurke in Scheiben/Sticks schneiden.",
+          "Erdnussmus mit Sojasauce und etwas Wasser glattrühren zum Dip.",
+          "Zusammen servieren."
+        ]
+      },
+      "Abend": {
+        "dish": "Tofu-Blumenkohl-Curry rot",
+        "ing": [
+          [
+            "Tofu (fest/natur)",
+            "220 g"
+          ],
+          [
+            "Blumenkohl",
+            "130 g"
+          ],
+          [
+            "Kokosmilch (Dose)",
+            "80 ml"
+          ],
+          [
+            "Olivenöl",
+            "40 ml"
+          ]
+        ],
+        "macros": "P 39g · F 77g · KH 11g · 861 kcal",
+        "steps": [
+          "Tofu würfeln, in etwas Öl anbraten.",
+          "Blumenkohl in Röschen dazugeben, kurz mitbraten.",
+          "Kokosmilch und Currypaste dazugeben, 8-10 Min. köcheln lassen."
+        ]
+      }
+    },
+    "dayTotal": "P 116g · F 159g · KH 35g · 2.036 kcal",
+    "period": "Woche 12"
+  },
+  {
+    "name": "Mittwoch",
+    "date": "2026-09-23",
+    "meals": {
+      "Früh": {
+        "dish": "Mandel-Schoko-Proteinshake",
+        "ing": [
+          [
+            "Veganes Proteinpulver",
+            "35 g"
+          ],
+          [
+            "Mandeln",
+            "20 g"
+          ],
+          [
+            "Kakaopulver",
+            "10 g"
+          ],
+          [
+            "Kokosmilch (Dose)",
+            "90 ml"
+          ],
+          [
+            "Kokosöl",
+            "10 ml"
+          ]
+        ],
+        "macros": "P 34g · F 44g · KH 10g · 594 kcal",
+        "steps": [
+          "Alle Zutaten in den Mixer geben.",
+          "Glatt cremig mixen, bei Bedarf Wasser/Eis dazugeben."
+        ]
+      },
+      "Mittag": {
+        "dish": "Seitan-Zucchini-Curry gelb",
+        "ing": [
+          [
+            "Seitan",
+            "120 g"
+          ],
+          [
+            "Zucchini",
+            "130 g"
+          ],
+          [
+            "Kokosmilch (Dose)",
+            "70 ml"
+          ],
+          [
+            "Olivenöl",
+            "20 ml"
+          ]
+        ],
+        "macros": "P 93g · F 41g · KH 14g · 725 kcal",
+        "steps": [
+          "Seitan in Streifen schneiden, in Olivenöl anbraten.",
+          "Zucchini dazugeben, kurz mitbraten.",
+          "Kokosmilch und Currypulver dazugeben, 8-10 Min. köcheln lassen."
+        ]
+      },
+      "Abend": {
+        "dish": "Tempeh-Auberginen-Pfanne mit Sesam",
+        "ing": [
+          [
+            "Tempeh",
+            "150 g"
+          ],
+          [
+            "Aubergine",
+            "130 g"
+          ],
+          [
+            "Sesam",
+            "15 g"
+          ],
+          [
+            "Sojasauce",
+            "10 ml"
+          ],
+          [
+            "Olivenöl",
+            "35 ml"
+          ]
+        ],
+        "macros": "P 37g · F 59g · KH 15g · 785 kcal",
+        "steps": [
+          "Tempeh würfeln, Aubergine in Stücke schneiden.",
+          "Olivenöl erhitzen, Tempeh 5 Min. anbraten, Aubergine dazugeben, 6-8 Min. mitbraten.",
+          "Mit Sojasauce ablöschen, mit Sesam bestreuen."
+        ]
+      }
+    },
+    "dayTotal": "P 164g · F 144g · KH 39g · 2.104 kcal",
+    "period": "Woche 12"
+  },
+  {
+    "name": "Donnerstag",
+    "date": "2026-09-24",
+    "meals": {
+      "Früh": {
+        "dish": "Avocado-Beeren-Chiapudding",
+        "ing": [
+          [
+            "Avocado",
+            "90 g"
+          ],
+          [
+            "Himbeeren",
+            "20 g"
+          ],
+          [
+            "Chiasamen",
+            "20 g"
+          ],
+          [
+            "Veganes Proteinpulver",
+            "30 g"
+          ],
+          [
+            "Kokosmilch (Dose)",
+            "40 ml"
+          ]
+        ],
+        "macros": "P 30g · F 30g · KH 10g · 434 kcal",
+        "steps": [
+          "Avocado, Proteinpulver und Kokosmilch im Mixer glatt pürieren.",
+          "Chiasamen unterrühren, kurz quellen lassen.",
+          "Mit Himbeeren toppen."
+        ]
+      },
+      "Mittag": {
+        "dish": "Tofu-Gurken-Bowl mit Sonnenblumenkernen",
+        "ing": [
+          [
+            "Tofu (fest/natur)",
+            "250 g"
+          ],
+          [
+            "Gurke",
+            "100 g"
+          ],
+          [
+            "Sonnenblumenkerne",
+            "20 g"
+          ],
+          [
+            "Olivenöl",
+            "25 ml"
+          ]
+        ],
+        "macros": "P 49g · F 51g · KH 8g · 692 kcal",
+        "steps": [
+          "Tofu würfeln, in Olivenöl knusprig anbraten (5-6 Min.).",
+          "Gurke in Scheiben schneiden.",
+          "Mit gerösteten Sonnenblumenkernen bestreuen."
+        ]
+      },
+      "Abend": {
+        "dish": "Seitan-Paprika-Auflauf",
+        "ing": [
+          [
+            "Seitan",
+            "120 g"
+          ],
+          [
+            "Paprika",
+            "50 g"
+          ],
+          [
+            "Hefeflocken",
+            "10 g"
+          ],
+          [
+            "Olivenöl",
+            "60 ml"
+          ]
+        ],
+        "macros": "P 92g · F 66g · KH 13g · 1010 kcal",
+        "steps": [
+          "Backofen auf 190°C vorheizen. Seitan und Paprika würfeln.",
+          "In einer Auflaufform verteilen, mit Öl beträufeln.",
+          "Mit Hefeflocken bestreuen.",
+          "20-25 Min. backen bis leicht gebräunt."
+        ]
+      }
+    },
+    "dayTotal": "P 169g · F 149g · KH 29g · 2.136 kcal",
+    "period": "Woche 12"
+  },
+  {
+    "name": "Freitag",
+    "date": "2026-09-25",
+    "meals": {
+      "Früh": {
+        "dish": "Kokos-Kakao-Pudding mit Paranüssen",
+        "ing": [
+          [
+            "Chiasamen",
+            "25 g"
+          ],
+          [
+            "Kakaopulver",
+            "10 g"
+          ],
+          [
+            "Kokosmilch (Dose)",
+            "80 ml"
+          ],
+          [
+            "Kokosöl",
+            "10 ml"
+          ],
+          [
+            "Veganes Proteinpulver",
+            "30 g"
+          ],
+          [
+            "Paranüsse",
+            "2-3 Stk."
+          ]
+        ],
+        "macros": "P 32g · F 41g · KH 9g · 555 kcal",
+        "steps": [
+          "Chiasamen mit Kakaopulver, Kokosmilch und Kokosöl verrühren.",
+          "Proteinpulver einrühren, glattrühren.",
+          "Mind. 2h (am besten über Nacht) im Kühlschrank quellen lassen.",
+          "Mit 2-3 gehackten Paranüssen toppen."
+        ]
+      },
+      "Mittag": {
+        "dish": "Tempeh-Zucchini-Curry rot",
+        "ing": [
+          [
+            "Tempeh",
+            "150 g"
+          ],
+          [
+            "Zucchini",
+            "120 g"
+          ],
+          [
+            "Tomaten",
+            "30 g"
+          ],
+          [
+            "Kokosmilch (Dose)",
+            "70 ml"
+          ],
+          [
+            "Olivenöl",
+            "20 ml"
+          ]
+        ],
+        "macros": "P 34g · F 51g · KH 17g · 691 kcal",
+        "steps": [
+          "Tempeh würfeln, in Olivenöl anbraten (5 Min.).",
+          "Zucchini und gehackte Tomaten dazugeben, 5-6 Min. mitbraten.",
+          "Kokosmilch dazugeben, 6-8 Min. köcheln lassen."
+        ]
+      },
+      "Abend": {
+        "dish": "Tofu-Steak mit Avocado-Kräuter-Sauce",
+        "ing": [
+          [
+            "Tofu (fest/natur)",
+            "250 g"
+          ],
+          [
+            "Avocado",
+            "100 g"
+          ],
+          [
+            "Olivenöl",
+            "35 ml"
+          ]
+        ],
+        "macros": "P 41g · F 72g · KH 7g · 780 kcal",
+        "steps": [
+          "Tofu in dicke Scheiben schneiden, in Olivenöl kräftig anbraten (4-5 Min./Seite).",
+          "Avocado mit Kräutern, Salz und Zitrone zur Sauce verarbeiten.",
+          "Zusammen servieren."
+        ]
+      }
+    },
+    "dayTotal": "P 106g · F 164g · KH 30g · 2.016 kcal",
+    "selenNote": true,
+    "period": "Woche 12"
+  },
+  {
+    "name": "Samstag",
+    "date": "2026-09-26",
+    "meals": {
+      "Früh": {
+        "dish": "Tofu-Paprika-Frühstückspfanne",
+        "ing": [
+          [
+            "Tofu (fest/natur)",
+            "250 g"
+          ],
+          [
+            "Paprika",
+            "40 g"
+          ],
+          [
+            "Zucchini",
+            "60 g"
+          ],
+          [
+            "Olivenöl",
+            "20 ml"
+          ]
+        ],
+        "macros": "P 41g · F 40g · KH 8g · 570 kcal",
+        "steps": [
+          "Tofu grob zerbröseln, Paprika und Zucchini würfeln.",
+          "Olivenöl erhitzen, Gemüse 3-4 Min. andünsten.",
+          "Tofu dazugeben, mit Kräutern und Salz würzen, 5-6 Min. braten."
+        ]
+      },
+      "Mittag": {
+        "dish": "Seitan-Gurken-Salat mit Tahin",
+        "ing": [
+          [
+            "Seitan",
+            "120 g"
+          ],
+          [
+            "Gurke",
+            "100 g"
+          ],
+          [
+            "Tahini",
+            "15 g"
+          ],
+          [
+            "Olivenöl",
+            "35 ml"
+          ]
+        ],
+        "macros": "P 93g · F 63g · KH 12g · 883 kcal",
+        "steps": [
+          "Seitan in Streifen schneiden, in Olivenöl anbraten (6-8 Min.).",
+          "Gurke in Scheiben schneiden.",
+          "Tahini mit restlichem Öl und Wasser zum Dressing verrühren, darüber geben."
+        ]
+      },
+      "Abend": {
+        "dish": "Tempeh-Blumenkohl-Wok",
+        "ing": [
+          [
+            "Tempeh",
+            "150 g"
+          ],
+          [
+            "Blumenkohl",
+            "120 g"
+          ],
+          [
+            "Sojasauce",
+            "10 ml"
+          ],
+          [
+            "Sesam",
+            "15 g"
+          ],
+          [
+            "Olivenöl",
+            "40 ml"
+          ]
+        ],
+        "macros": "P 35g · F 68g · KH 12g · 780 kcal",
+        "steps": [
+          "Tempeh würfeln, in Olivenöl anbraten (5 Min.).",
+          "Blumenkohl in Röschen dazugeben, 5-6 Min. mitbraten.",
+          "Mit Sojasauce ablöschen, mit Sesam bestreuen."
+        ]
+      }
+    },
+    "dayTotal": "P 169g · F 150g · KH 37g · 2.178 kcal",
+    "period": "Woche 12"
+  },
+  {
+    "name": "Sonntag",
+    "date": "2026-09-27",
+    "meals": {
+      "Früh": {
+        "dish": "Beeren-Kokosjoghurt mit Paranüssen",
+        "ing": [
+          [
+            "Kokosjoghurt (ungesüßt)",
+            "140 g"
+          ],
+          [
+            "Himbeeren",
+            "20 g"
+          ],
+          [
+            "Veganes Proteinpulver",
+            "25 g"
+          ],
+          [
+            "Mandeln",
+            "15 g"
+          ],
+          [
+            "Paranüsse",
+            "2-3 Stk."
+          ]
+        ],
+        "macros": "P 30g · F 32g · KH 10g · 469 kcal",
+        "steps": [
+          "Kokosjoghurt mit Proteinpulver glattrühren.",
+          "Mit Himbeeren und gehackten Mandeln toppen.",
+          "Mit 2-3 gehackten Paranüssen ergänzen."
+        ]
+      },
+      "Mittag": {
+        "dish": "Tofu-Gemüse-Curry gelb",
+        "ing": [
+          [
+            "Tofu (fest/natur)",
+            "250 g"
+          ],
+          [
+            "Zucchini",
+            "120 g"
+          ],
+          [
+            "Paprika",
+            "40 g"
+          ],
+          [
+            "Kokosmilch (Dose)",
+            "80 ml"
+          ],
+          [
+            "Olivenöl",
+            "35 ml"
+          ]
+        ],
+        "macros": "P 47g · F 61g · KH 12g · 793 kcal",
+        "steps": [
+          "Tofu würfeln, in Olivenöl anbraten.",
+          "Zucchini und Paprika dazugeben, kurz mitbraten.",
+          "Kokosmilch und Currypulver dazugeben, 8-10 Min. köcheln lassen."
+        ]
+      },
+      "Abend": {
+        "dish": "Seitan-Auberginen-Ragout",
+        "ing": [
+          [
+            "Seitan",
+            "120 g"
+          ],
+          [
+            "Aubergine",
+            "130 g"
+          ],
+          [
+            "Tomaten",
+            "30 g"
+          ],
+          [
+            "Olivenöl",
+            "50 ml"
+          ]
+        ],
+        "macros": "P 92g · F 63g · KH 14g · 923 kcal",
+        "steps": [
+          "Seitan würfeln, Aubergine in Stücke schneiden.",
+          "Olivenöl erhitzen, beides 8-10 Min. anbraten.",
+          "Gehackte Tomaten dazugeben, 10-12 Min. köcheln lassen."
+        ]
+      }
+    },
+    "dayTotal": "P 160g · F 156g · KH 36g · 2.186 kcal",
+    "selenNote": true,
+    "period": "Woche 12"
   }
 ] },
   ];
