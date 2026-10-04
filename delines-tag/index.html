@@ -474,9 +474,10 @@ ul.items { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
 
   /* ---------- Wheel ---------- */
   const cv = $("wheel"), ctx = cv.getContext("2d");
-  let rot = 0, spinning = false;
+  let rot = 0, spinning = false, frozen = null;   // frozen: slices kept still while the wheel turns
   const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
   function slices() {
+    if (spinning && frozen) return frozen;
     if (pool !== "mix") return open(pool);
     const a = open("linus"), b = open("lisa"), out = [];   // interleave so colors alternate
     for (let i = 0; i < Math.max(a.length, b.length); i++) { if (a[i]) out.push(a[i]); if (b[i]) out.push(b[i]); }
@@ -550,20 +551,21 @@ ul.items { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
     const s = slices();
     if (spinning) return;
     if (!s.length) { toast(pool === "mix" ? "Noch keine Ideen. Schreibt erst welche rein." : `${NAMES[pool]}s Topf ist leer.`); return; }
-    spinning = true; $("spinBtn").disabled = true;
+    frozen = s; spinning = true; $("spinBtn").disabled = true;
     const a = (Math.PI * 2) / s.length, idx = Math.floor(Math.random() * s.length);
     const jitter = (Math.random() - 0.5) * a * 0.7;
     const target = -(idx + 0.5) * a + jitter;
     const TAU = Math.PI * 2, norm = x => ((x % TAU) + TAU) % TAU;
-    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const from = rot, delta = norm(target - from) + (reduce ? 0 : TAU * (14 + Math.floor(Math.random() * 3)));
-    const dur = reduce ? 500 : 10000, t0 = performance.now();
-    const ease = t => 1 - Math.pow(1 - t, 3);   // fast start, long gentle slow-down onto the result
+    // 4 s at full speed, then 6 s of steady slowing until it settles on the result (always 10 s)
+    const CRUISE = 4000, BRAKE = 6000, dur = CRUISE + BRAKE, t0 = performance.now();
+    const from = rot, delta = norm(target - from) + TAU * (11 + Math.floor(Math.random() * 3));
+    const brakeDist = delta / (1 + 2 * CRUISE / BRAKE), speed = 2 * brakeDist / BRAKE;   // continuous speed at the hand-over
+    const pos = ms => ms <= CRUISE ? speed * ms : speed * CRUISE + brakeDist * (1 - Math.pow(1 - (ms - CRUISE) / BRAKE, 2));
     (function step(now) {
-      const t = Math.min(1, (now - t0) / dur);
-      rot = from + delta * ease(t); drawWheel();
+      const ms = Math.min(dur, now - t0), t = ms / dur;
+      rot = from + pos(ms); drawWheel();
       if (t < 1) requestAnimationFrame(step);
-      else { rot = norm(rot); spinning = false; $("spinBtn").disabled = false; lastPick = s[idx]; renderResult(); burst(lastPick.owner); }
+      else { rot = norm(rot); spinning = false; frozen = null; $("spinBtn").disabled = false; lastPick = s[idx]; renderResult(); burst(lastPick.owner); }
     })(t0);
   }
   function setPool(p) {
