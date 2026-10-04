@@ -1,0 +1,9 @@
+# Netlify: Base directory = delinstag, kein Build nötig
+[build]
+  publish = "."
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+    Referrer-Policy = "same-origin"
