@@ -556,9 +556,9 @@ ul.items { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
     const target = -(idx + 0.5) * a + jitter;
     const TAU = Math.PI * 2, norm = x => ((x % TAU) + TAU) % TAU;
     const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const from = rot, delta = norm(target - from) + (reduce ? 0 : TAU * (5 + Math.floor(Math.random() * 2)));
-    const dur = reduce ? 500 : 4600, t0 = performance.now();
-    const ease = t => 1 - Math.pow(1 - t, 4);
+    const from = rot, delta = norm(target - from) + (reduce ? 0 : TAU * (14 + Math.floor(Math.random() * 3)));
+    const dur = reduce ? 500 : 10000, t0 = performance.now();
+    const ease = t => 1 - Math.pow(1 - t, 3);   // fast start, long gentle slow-down onto the result
     (function step(now) {
       const t = Math.min(1, (now - t0) / dur);
       rot = from + delta * ease(t); drawWheel();
