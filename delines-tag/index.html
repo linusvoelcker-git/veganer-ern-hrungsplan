@@ -1,0 +1,503 @@
+<title>Deline's Tag</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: one column on phones — Turn banner, Glücksrad, two idea lists (blue | green), Archiv */
+:root {
+  --bg: #f5f6f3;
+  --surface: #ffffff;
+  --fg: #1b211d;
+  --muted: #5f6a63;
+  --line: #dfe3dd;
+  --lisa: #0f9d58;
+  --lisa-strong: #087a42;
+  --lisa-soft: #dcf5e6;
+  --lisa-2: #34c47c;
+  --lisa-3: #0b8048;
+  --linus: #2563eb;
+  --linus-strong: #1d4fc4;
+  --linus-soft: #e0eaff;
+  --linus-2: #5b8cf5;
+  --linus-3: #1e48b8;
+  --on-color: #ffffff;
+  --danger: #c2410c;
+  --display: "Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
+  --body: "Figtree", "Segoe UI", system-ui, sans-serif;
+  --radius: 14px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #121614; --surface: #1b211e; --fg: #eef2ef; --muted: #9aa69f; --line: #2c3530;
+    --lisa: #22c36f; --lisa-strong: #4be08f; --lisa-soft: #133a25; --lisa-2: #18a65d; --lisa-3: #4fd98f;
+    --linus: #4f86ff; --linus-strong: #8ab0ff; --linus-soft: #18264a; --linus-2: #2f66e0; --linus-3: #7aa6ff;
+    --danger: #fb923c; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #121614; --surface: #1b211e; --fg: #eef2ef; --muted: #9aa69f; --line: #2c3530;
+  --lisa: #22c36f; --lisa-strong: #4be08f; --lisa-soft: #133a25; --lisa-2: #18a65d; --lisa-3: #4fd98f;
+  --linus: #4f86ff; --linus-strong: #8ab0ff; --linus-soft: #18264a; --linus-2: #2f66e0; --linus-3: #7aa6ff;
+  --danger: #fb923c; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 16px; line-height: 1.5; }
+.wrap { max-width: 1040px; margin: 0 auto; padding-inline: 16px; padding-block: 24px 64px; display: grid; gap: 28px; }
+h1, h2, h3 { font-family: var(--display); margin: 0; text-wrap: balance; line-height: 1.1; }
+button { font: inherit; cursor: pointer; }
+button:focus-visible, input:focus-visible { outline: 3px solid var(--fg); outline-offset: 2px; }
+
+/* Header */
+.top { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 12px; }
+.brand h1 { font-size: clamp(2.2rem, 6vw, 3.4rem); font-weight: 800; letter-spacing: -0.02em; }
+.brand h1 .li { color: var(--linus); }
+.brand h1 .sa { color: var(--lisa); }
+.brand p { margin: 4px 0 0; color: var(--muted); }
+.sync { font-size: 0.8rem; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+.sync i { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); display: inline-block; }
+.sync.live i { background: var(--lisa); }
+.sync.local i { background: var(--danger); }
+
+/* Turn banner */
+.turn { border-radius: 20px; padding: 22px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; color: var(--on-color); background: var(--muted); transition: background .4s; }
+.turn.lisa { background: var(--lisa); }
+.turn.linus { background: var(--linus); }
+.turn .eyebrow { text-transform: uppercase; letter-spacing: .1em; font-size: .75rem; font-weight: 700; opacity: .85; }
+.turn h2 { font-size: clamp(1.6rem, 4.5vw, 2.4rem); font-weight: 800; margin-top: 4px; }
+.turn .sub { opacity: .9; margin-top: 4px; font-size: .95rem; }
+.turn-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.ghost { background: rgba(255,255,255,.18); color: inherit; border: 1.5px solid rgba(255,255,255,.55); border-radius: 999px; padding: 8px 16px; font-weight: 600; }
+.ghost:hover { background: rgba(255,255,255,.3); }
+.who-btn { border: 0; border-radius: 999px; padding: 10px 18px; font-weight: 700; color: var(--on-color); }
+.who-btn.lisa { background: var(--lisa-strong); }
+.who-btn.linus { background: var(--linus-strong); }
+
+/* Wheel */
+.wheel-card { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 20px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; align-items: center; }
+@media (max-width: 760px) { .wheel-card { grid-template-columns: minmax(0, 1fr); } }
+.tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 12px; }
+.tab { border: 2px solid var(--line); background: transparent; color: var(--fg); border-radius: 999px; padding: 8px 14px; font-weight: 600; }
+.tab[aria-pressed="true"].linus { background: var(--linus); border-color: var(--linus); color: var(--on-color); }
+.tab[aria-pressed="true"].lisa { background: var(--lisa); border-color: var(--lisa); color: var(--on-color); }
+.tab[aria-pressed="true"].mix { background: linear-gradient(90deg, var(--linus) 0 50%, var(--lisa) 50% 100%); border-color: transparent; color: var(--on-color); }
+.tab .n { opacity: .7; font-variant-numeric: tabular-nums; margin-left: 4px; }
+.wheel-box { position: relative; width: 100%; max-width: 420px; aspect-ratio: 1; margin: 0 auto; }
+.wheel-box canvas { width: 100%; height: 100%; display: block; }
+.pointer { position: absolute; top: -6px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 16px solid transparent; border-right: 16px solid transparent; border-top: 30px solid var(--fg); filter: drop-shadow(0 2px 2px rgba(0,0,0,.25)); }
+.spin { margin-top: 18px; width: 100%; border: 0; border-radius: 14px; padding: 16px; font-family: var(--display); font-size: 1.3rem; font-weight: 800; color: var(--on-color); background: var(--fg); }
+.spin.linus { background: var(--linus); }
+.spin.lisa { background: var(--lisa); }
+.spin.mix { background: linear-gradient(90deg, var(--linus), var(--lisa)); }
+.spin:disabled { opacity: .5; cursor: not-allowed; }
+.result { margin-top: 16px; border-radius: var(--radius); padding: 16px; border: 2px dashed var(--line); min-height: 92px; }
+.result.linus { border: 2px solid var(--linus); background: var(--linus-soft); }
+.result.lisa { border: 2px solid var(--lisa); background: var(--lisa-soft); }
+.result .label { font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; font-weight: 700; color: var(--muted); }
+.result .what { font-family: var(--display); font-size: 1.6rem; font-weight: 800; margin: 2px 0 10px; overflow-wrap: anywhere; }
+.result .row { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* Lists */
+.lists { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; }
+@media (max-width: 760px) { .lists { grid-template-columns: minmax(0, 1fr); } }
+.list { background: var(--surface); border-radius: 20px; padding: 18px; border-top: 8px solid var(--muted); border-left: 1px solid var(--line); border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); display: grid; gap: 12px; align-content: start; }
+.list.linus { border-top-color: var(--linus); }
+.list.lisa { border-top-color: var(--lisa); background: linear-gradient(180deg, var(--lisa-soft), var(--surface) 140px); }
+.list.linus { background: linear-gradient(180deg, var(--linus-soft), var(--surface) 140px); }
+.list h3 { font-size: 1.4rem; display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.list.linus h3 { color: var(--linus-strong); }
+.list.lisa h3 { color: var(--lisa-strong); }
+.count { font-family: var(--body); font-size: .85rem; color: var(--muted); font-weight: 600; font-variant-numeric: tabular-nums; }
+.add { display: flex; gap: 8px; }
+.add input { flex: 1; min-width: 0; border: 1.5px solid var(--line); background: var(--surface); color: var(--fg); border-radius: 10px; padding: 10px 12px; font: inherit; }
+.add button { border: 0; border-radius: 10px; padding: 0 16px; font-weight: 700; color: var(--on-color); }
+.list.linus .add button { background: var(--linus); }
+.list.lisa .add button { background: var(--lisa); }
+.list.linus .add input:focus { border-color: var(--linus); outline: none; }
+.list.lisa .add input:focus { border-color: var(--lisa); outline: none; }
+ul.items { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.item { display: flex; align-items: center; gap: 8px; padding: 9px 10px; border-radius: 10px; background: var(--bg); }
+.item .t { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.item .dot { width: 10px; height: 10px; border-radius: 50%; flex: none; }
+.linus .dot, .dot.linus { background: var(--linus); }
+.lisa .dot, .dot.lisa { background: var(--lisa); }
+.mini { border: 1px solid var(--line); background: var(--surface); color: var(--fg); border-radius: 8px; padding: 4px 9px; font-size: .82rem; font-weight: 600; white-space: nowrap; }
+.mini:hover { border-color: var(--fg); }
+.mini.done.linus, .linus .mini.done { color: var(--linus-strong); }
+.mini.done.lisa, .lisa .mini.done { color: var(--lisa-strong); }
+.mini.warn { color: var(--danger); border-color: var(--danger); }
+.solid { border: 0; border-radius: 10px; padding: 10px 14px; font-weight: 700; color: var(--on-color); background: var(--fg); }
+.solid.linus { background: var(--linus); }
+.solid.lisa { background: var(--lisa); }
+.plain { border: 1.5px solid var(--line); background: var(--surface); color: var(--fg); border-radius: 10px; padding: 9px 14px; font-weight: 600; }
+.empty { color: var(--muted); font-size: .92rem; padding: 6px 2px; }
+
+/* Archive */
+.archive { display: grid; gap: 12px; }
+.archive-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.archive-head h2 { font-size: 1.6rem; }
+.stats { display: flex; gap: 14px; font-size: .9rem; color: var(--muted); flex-wrap: wrap; }
+.stats b { font-variant-numeric: tabular-nums; }
+.stats .linus b { color: var(--linus-strong); }
+.stats .lisa b { color: var(--lisa-strong); }
+.arch-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.arch { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 12px; align-items: center; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; border-left: 6px solid var(--muted); }
+.arch.turn-linus { border-left-color: var(--linus); }
+.arch.turn-lisa { border-left-color: var(--lisa); }
+.arch .date { font-variant-numeric: tabular-nums; font-size: .82rem; color: var(--muted); width: 5.2em; }
+.arch .t { overflow-wrap: anywhere; font-weight: 600; }
+.arch .meta { font-size: .8rem; color: var(--muted); font-weight: 400; }
+.tag-linus { color: var(--linus-strong); font-weight: 700; }
+.tag-lisa { color: var(--lisa-strong); font-weight: 700; }
+.note { font-size: .85rem; color: var(--muted); }
+.toast { position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--fg); color: var(--bg); padding: 10px 18px; border-radius: 999px; font-weight: 600; font-size: .92rem; max-width: calc(100% - 32px); }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <h1><span class="li">Deline's</span> <span class="sa">Tag</span></h1>
+      <p>Jeden Dienstag. Abwechselnd entscheidet Linus oder Lisa.</p>
+    </div>
+    <div class="sync" id="sync"><i></i><span>Verbinde…</span></div>
+  </header>
+
+  <section class="turn" id="turn" aria-live="polite">
+    <div>
+      <div class="eyebrow" id="turnDate">Nächster Dienstag</div>
+      <h2 id="turnTitle">Lade…</h2>
+      <div class="sub" id="turnSub"></div>
+    </div>
+    <div class="turn-actions" id="turnActions"></div>
+  </section>
+
+  <section class="wheel-card" aria-labelledby="wheelH">
+    <div>
+      <h2 id="wheelH" style="font-size:1.8rem">Glücksrad</h2>
+      <p class="note" style="margin:6px 0 0">Wählt einen Topf und dreht. Gemischt nimmt alle offenen Ideen von euch beiden.</p>
+      <div class="tabs" role="group" aria-label="Welcher Topf">
+        <button class="tab linus" id="tab-linus" data-pool="linus" aria-pressed="false">Linus<span class="n" id="n-linus">0</span></button>
+        <button class="tab lisa" id="tab-lisa" data-pool="lisa" aria-pressed="false">Lisa<span class="n" id="n-lisa">0</span></button>
+        <button class="tab mix" id="tab-mix" data-pool="mix" aria-pressed="true">Gemischt<span class="n" id="n-mix">0</span></button>
+      </div>
+      <div class="result" id="result">
+        <div class="label">Ergebnis</div>
+        <div class="what" id="resultWhat" style="color:var(--muted);font-size:1.1rem;font-weight:600">Noch nicht gedreht</div>
+        <div class="row" id="resultRow"></div>
+      </div>
+    </div>
+    <div>
+      <div class="wheel-box">
+        <canvas id="wheel" aria-label="Glücksrad"></canvas>
+        <div class="pointer" aria-hidden="true"></div>
+      </div>
+      <button class="spin mix" id="spinBtn">Drehen!</button>
+    </div>
+  </section>
+
+  <section class="lists">
+    <div class="list linus">
+      <h3>Linus' Ideen <span class="count" id="c-linus">0 offen</span></h3>
+      <form class="add" data-owner="linus">
+        <input id="in-linus" placeholder="Neue Idee von Linus…" maxlength="120" autocomplete="off" aria-label="Neue Idee von Linus">
+        <button type="submit">+</button>
+      </form>
+      <ul class="items" id="list-linus"></ul>
+    </div>
+    <div class="list lisa">
+      <h3>Lisa's Ideen <span class="count" id="c-lisa">0 offen</span></h3>
+      <form class="add" data-owner="lisa">
+        <input id="in-lisa" placeholder="Neue Idee von Lisa…" maxlength="120" autocomplete="off" aria-label="Neue Idee von Lisa">
+        <button type="submit">+</button>
+      </form>
+      <ul class="items" id="list-lisa"></ul>
+    </div>
+  </section>
+
+  <section class="archive">
+    <div class="archive-head">
+      <h2>Archiv</h2>
+      <div class="stats" id="stats"></div>
+    </div>
+    <ul class="arch-list" id="archive"></ul>
+  </section>
+</div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+(() => {
+  const NAMES = { linus: "Linus", lisa: "Lisa" };
+  const other = w => (w === "linus" ? "lisa" : "linus");
+  const $ = id => document.getElementById(id);
+
+  let activities = [];   // {id, title, owner, createdAt, done, doneAt, turnOf}
+  let turn = null;       // "linus" | "lisa" | null
+  let pool = "mix";
+  try { pool = localStorage.getItem("dt-pool") || "mix"; } catch (e) {}
+  let lastPick = null;
+  const pendingDelete = new Set();
+
+  /* ---------- Storage: shared db, or this device as fallback ---------- */
+  const store = (() => {
+    let db = null, mode = "loading";
+    const listeners = { acts: [], turn: [] };
+    const LS = "delines-tag-v1";
+    const local = { load() { try { return JSON.parse(localStorage.getItem(LS)) || { acts: {}, turn: null }; } catch (e) { return { acts: {}, turn: null }; } },
+      save(s) { try { localStorage.setItem(LS, JSON.stringify(s)); } catch (e) {} } };
+    function emitLocal() { const s = local.load(); listeners.acts.forEach(f => f(Object.entries(s.acts).map(([id, d]) => ({ id, ...d })))); listeners.turn.forEach(f => f(s.turn)); }
+    const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+
+    async function init(onMode) {
+      try { db = window.claude && window.claude.use ? await window.claude.use("db") : null; } catch (e) { db = null; }
+      if (db) {
+        mode = "live"; onMode(mode);
+        db.collection("activities").onSnapshot(snap => {
+          const list = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+          listeners.acts.forEach(f => f(list));
+        }, err => toast("Verbindung unterbrochen. Seite neu laden."));
+        db.doc("meta/turn").onSnapshot(s => {
+          const v = s.exists ? s.data().next : null;
+          listeners.turn.forEach(f => f(v === "linus" || v === "lisa" ? v : null));
+        }, () => {});
+      } else {
+        mode = "local"; onMode(mode); emitLocal();
+      }
+    }
+    async function guard(p) {
+      try { await p; } catch (e) {
+        if (e && e.code === "invalid_argument") toast("Keine Schreibrechte. Linus muss dir Bearbeiten-Zugriff geben.");
+        else if (e && e.code === "quota_exceeded") toast("Speicher voll. Alte Archiv-Einträge löschen.");
+        else toast("Speichern hat nicht geklappt. Nochmal versuchen.");
+        throw e;
+      }
+    }
+    return {
+      init, get mode() { return mode; },
+      onActs(f) { listeners.acts.push(f); }, onTurn(f) { listeners.turn.push(f); },
+      add(data) {
+        if (mode === "live") return guard(db.collection("activities").add(data));
+        const s = local.load(); s.acts[uid()] = data; local.save(s); emitLocal(); return Promise.resolve();
+      },
+      update(id, patch) {
+        if (mode === "live") return guard(db.doc("activities/" + id).update(patch));
+        const s = local.load(); if (s.acts[id]) Object.assign(s.acts[id], patch); local.save(s); emitLocal(); return Promise.resolve();
+      },
+      remove(id) {
+        if (mode === "live") return guard(db.doc("activities/" + id).delete());
+        const s = local.load(); delete s.acts[id]; local.save(s); emitLocal(); return Promise.resolve();
+      },
+      setTurn(next) {
+        if (mode === "live") return guard(db.doc("meta/turn").set({ next, changedAt: new Date().toISOString() }));
+        const s = local.load(); s.turn = next; local.save(s); emitLocal(); return Promise.resolve();
+      }
+    };
+  })();
+
+  /* ---------- Helpers ---------- */
+  let toastTimer;
+  function toast(msg) { const t = $("toast"); t.textContent = msg; t.hidden = false; clearTimeout(toastTimer); toastTimer = setTimeout(() => (t.hidden = true), 3200); }
+  function nextTuesday(from = new Date()) {
+    const d = new Date(from.getFullYear(), from.getMonth(), from.getDate());
+    const add = (2 - d.getDay() + 7) % 7; d.setDate(d.getDate() + add); return d;
+  }
+  const fmtLong = d => d.toLocaleDateString("de-DE", { weekday: "long", day: "numeric", month: "long" });
+  const fmtShort = d => d.toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit", year: "2-digit" });
+  const open = owner => activities.filter(a => !a.done && (!owner || a.owner === owner)).sort((a, b) => (a.createdAt || "").localeCompare(b.createdAt || ""));
+  const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+
+  /* ---------- Actions ---------- */
+  async function markDone(a) {
+    const turnOf = turn || a.owner;
+    await store.update(a.id, { done: true, doneAt: new Date().toISOString(), turnOf });
+    await store.setTurn(other(turnOf));
+    if (lastPick && lastPick.id === a.id) { lastPick = null; renderResult(); }
+    toast(`„${a.title}“ ist im Archiv. Nächstes Mal entscheidet ${NAMES[other(turnOf)]}.`);
+  }
+  async function restore(a) {
+    await store.update(a.id, { done: false, doneAt: null, turnOf: null });
+    toast(`„${a.title}“ ist wieder in der Liste. Wer dran ist, bleibt gleich.`);
+  }
+  function askDelete(a, btn) {
+    if (pendingDelete.has(a.id)) { pendingDelete.delete(a.id); store.remove(a.id); return; }
+    pendingDelete.add(a.id); btn.textContent = "Wirklich löschen?"; btn.classList.add("warn");
+    setTimeout(() => { if (pendingDelete.delete(a.id)) render(); }, 3500);
+  }
+
+  /* ---------- Render ---------- */
+  function renderTurn() {
+    const box = $("turn"), d = nextTuesday(), isToday = d.toDateString() === new Date().toDateString();
+    box.className = "turn" + (turn ? " " + turn : "");
+    $("turnDate").textContent = isToday ? "Heute ist Deline's Tag · " + fmtLong(d) : "Nächster Deline's Tag · " + fmtLong(d);
+    const acts = $("turnActions"); acts.replaceChildren();
+    if (!turn) {
+      $("turnTitle").textContent = "Wer fängt an?";
+      $("turnSub").textContent = "Einmal festlegen, danach wechselt es automatisch, sobald ihr eine Aktivität archiviert.";
+      ["linus", "lisa"].forEach(w => { const b = el("button", "who-btn " + w, NAMES[w] + " fängt an"); b.onclick = () => store.setTurn(w); acts.append(b); });
+      return;
+    }
+    $("turnTitle").textContent = `${NAMES[turn]} entscheidet`;
+    const n = open(turn).length;
+    $("turnSub").textContent = n ? `${n} ${n === 1 ? "Idee" : "Ideen"} in ${NAMES[turn]}s Topf. Danach ist ${NAMES[other(turn)]} dran.` : `${NAMES[turn]}s Topf ist leer. Zeit für neue Ideen!`;
+    const spinB = el("button", "ghost", `${NAMES[turn]}s Rad drehen`);
+    spinB.onclick = () => { setPool(turn); spin(); document.querySelector(".wheel-card").scrollIntoView({ behavior: "smooth", block: "center" }); };
+    const sw = el("button", "ghost", "Tauschen ⇄"); sw.title = "Falls ihr manuell wechseln wollt";
+    sw.onclick = () => store.setTurn(other(turn));
+    acts.append(spinB, sw);
+  }
+
+  function renderLists() {
+    ["linus", "lisa"].forEach(w => {
+      const ul = $("list-" + w), items = open(w);
+      ul.replaceChildren();
+      $("c-" + w).textContent = items.length + " offen";
+      if (!items.length) { ul.append(el("li", "empty", w === "linus" ? "Noch keine Ideen. Schreib oben die erste rein." : "Noch keine Ideen. Lisa, schreib oben die erste rein.")); return; }
+      items.forEach(a => {
+        const li = el("li", "item " + w);
+        li.append(el("span", "dot"), el("span", "t", a.title));
+        const done = el("button", "mini done", "Gemacht ✓"); done.onclick = () => markDone(a);
+        const del = el("button", "mini", pendingDelete.has(a.id) ? "Wirklich löschen?" : "✕");
+        if (pendingDelete.has(a.id)) del.classList.add("warn");
+        del.setAttribute("aria-label", "„" + a.title + "“ löschen"); del.onclick = () => askDelete(a, del);
+        li.append(done, del); ul.append(li);
+      });
+    });
+    $("n-linus").textContent = open("linus").length;
+    $("n-lisa").textContent = open("lisa").length;
+    $("n-mix").textContent = open().length;
+  }
+
+  function renderArchive() {
+    const ul = $("archive"), done = activities.filter(a => a.done).sort((a, b) => (b.doneAt || "").localeCompare(a.doneAt || ""));
+    ul.replaceChildren();
+    const by = w => done.filter(a => a.turnOf === w).length;
+    const st = $("stats"); st.replaceChildren();
+    [["linus", "von Linus entschieden"], ["lisa", "von Lisa entschieden"]].forEach(([w, l]) => { const s = el("span", w); const b = el("b", null, by(w)); s.append(b, " " + l); st.append(s); });
+    if (!done.length) { ul.append(el("li", "empty", "Noch nichts erledigt. Wenn ihr eine Aktivität gemacht habt, drückt „Gemacht ✓“ und sie landet hier.")); return; }
+    done.forEach(a => {
+      const li = el("li", "arch turn-" + (a.turnOf || ""));
+      li.append(el("span", "date", a.doneAt ? fmtShort(new Date(a.doneAt)) : "–"));
+      const mid = el("div"); mid.append(el("div", "t", a.title));
+      const meta = el("div", "meta");
+      if (a.turnOf) { meta.append("Entschieden von "); meta.append(el("span", "tag-" + a.turnOf, NAMES[a.turnOf])); meta.append(" · "); }
+      meta.append("Idee von "); meta.append(el("span", "tag-" + a.owner, NAMES[a.owner] || "?"));
+      mid.append(meta); li.append(mid);
+      const back = el("button", "mini", "Zurück"); back.title = "Zurück in die Ideen-Liste"; back.onclick = () => restore(a);
+      li.append(back); ul.append(li);
+    });
+  }
+
+  function renderResult() {
+    const r = $("result"), what = $("resultWhat"), row = $("resultRow");
+    row.replaceChildren();
+    const live = lastPick && activities.find(a => a.id === lastPick.id && !a.done);
+    if (!live) { r.className = "result"; what.textContent = "Noch nicht gedreht"; what.style.cssText = "color:var(--muted);font-size:1.1rem;font-weight:600"; return; }
+    r.className = "result " + live.owner; what.style.cssText = ""; what.textContent = live.title;
+    $("result").querySelector(".label").textContent = "Ergebnis · Idee von " + NAMES[live.owner];
+    const done = el("button", "solid " + (turn || live.owner), "Gemacht → Archiv"); done.onclick = () => markDone(live);
+    const again = el("button", "plain", "Nochmal drehen"); again.onclick = spin;
+    row.append(done, again);
+  }
+
+  function render() { renderTurn(); renderLists(); renderArchive(); renderResult(); drawWheel(); }
+
+  /* ---------- Wheel ---------- */
+  const cv = $("wheel"), ctx = cv.getContext("2d");
+  let rot = 0, spinning = false;
+  const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  function slices() {
+    if (pool !== "mix") return open(pool);
+    const a = open("linus"), b = open("lisa"), out = [];   // interleave so colors alternate
+    for (let i = 0; i < Math.max(a.length, b.length); i++) { if (a[i]) out.push(a[i]); if (b[i]) out.push(b[i]); }
+    return out;
+  }
+  function sizeCanvas() {
+    const r = cv.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
+    cv.width = Math.round(r.width * dpr); cv.height = Math.round(r.height * dpr);
+  }
+  function drawWheel() {
+    if (!cv.width) sizeCanvas();
+    const W = cv.width, R = W / 2 - 4 * (window.devicePixelRatio || 1), c = W / 2, s = slices();
+    ctx.clearRect(0, 0, W, W);
+    ctx.save(); ctx.translate(c, c);
+    if (!s.length) {
+      ctx.beginPath(); ctx.arc(0, 0, R, 0, Math.PI * 2); ctx.fillStyle = css("--line"); ctx.fill();
+      ctx.fillStyle = css("--muted"); ctx.font = `600 ${W / 22}px ${css("--body")}`; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+      ctx.fillText("Keine offenen Ideen", 0, 0); ctx.restore(); return;
+    }
+    const a = (Math.PI * 2) / s.length;
+    const shades = { linus: [css("--linus"), css("--linus-2"), css("--linus-3")], lisa: [css("--lisa"), css("--lisa-2"), css("--lisa-3")] };
+    const cnt = { linus: 0, lisa: 0 };
+    s.forEach((it, i) => {
+      const start = -Math.PI / 2 + rot + i * a;
+      const sh = shades[it.owner] || shades.linus;
+      let k = cnt[it.owner] = (cnt[it.owner] || 0) + 1;
+      if (i === s.length - 1 && s.length > 1 && s[0].owner === it.owner && (k - 1) % 3 === 0) k++; // avoid same shade meeting first slice
+      ctx.beginPath(); ctx.moveTo(0, 0); ctx.arc(0, 0, R, start, start + a); ctx.closePath();
+      ctx.fillStyle = s.length === 1 ? sh[0] : sh[(k - 1) % 3]; ctx.fill();
+      ctx.strokeStyle = css("--surface"); ctx.lineWidth = 2 * (window.devicePixelRatio || 1); ctx.stroke();
+      ctx.save(); ctx.rotate(start + a / 2);
+      ctx.fillStyle = "#ffffff"; ctx.textAlign = "right"; ctx.textBaseline = "middle";
+      const fs = Math.max(W / 34, Math.min(W / 20, (a * R) / 2.2));
+      ctx.font = `700 ${fs}px ${css("--body")}`;
+      let txt = it.title; const max = R * 0.72;
+      while (ctx.measureText(txt).width > max && txt.length > 2) txt = txt.slice(0, -2) + "…";
+      if (txt !== it.title && !txt.endsWith("…")) txt += "…";
+      ctx.fillText(txt, R - 14 * (window.devicePixelRatio || 1), 0); ctx.restore();
+    });
+    ctx.beginPath(); ctx.arc(0, 0, R * 0.12, 0, Math.PI * 2); ctx.fillStyle = css("--surface"); ctx.fill();
+    ctx.lineWidth = 3 * (window.devicePixelRatio || 1); ctx.strokeStyle = css("--fg"); ctx.stroke();
+    ctx.restore();
+  }
+  function spin() {
+    const s = slices();
+    if (spinning) return;
+    if (!s.length) { toast(pool === "mix" ? "Noch keine Ideen. Schreibt erst welche rein." : `${NAMES[pool]}s Topf ist leer.`); return; }
+    spinning = true; $("spinBtn").disabled = true;
+    const a = (Math.PI * 2) / s.length, idx = Math.floor(Math.random() * s.length);
+    const jitter = (Math.random() - 0.5) * a * 0.7;
+    const target = -(idx + 0.5) * a + jitter;
+    const TAU = Math.PI * 2, norm = x => ((x % TAU) + TAU) % TAU;
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const from = rot, delta = norm(target - from) + (reduce ? 0 : TAU * (5 + Math.floor(Math.random() * 2)));
+    const dur = reduce ? 500 : 4600, t0 = performance.now();
+    const ease = t => 1 - Math.pow(1 - t, 4);
+    (function step(now) {
+      const t = Math.min(1, (now - t0) / dur);
+      rot = from + delta * ease(t); drawWheel();
+      if (t < 1) requestAnimationFrame(step);
+      else { rot = norm(rot); spinning = false; $("spinBtn").disabled = false; lastPick = s[idx]; renderResult(); }
+    })(t0);
+  }
+  function setPool(p) {
+    pool = p; try { localStorage.setItem("dt-pool", p); } catch (e) {}
+    ["linus", "lisa", "mix"].forEach(k => $("tab-" + k).setAttribute("aria-pressed", String(k === p)));
+    const b = $("spinBtn"); b.className = "spin " + p;
+    b.textContent = p === "mix" ? "Gemischt drehen!" : `${NAMES[p]}s Rad drehen!`;
+    drawWheel();
+  }
+
+  /* ---------- Wire up ---------- */
+  document.querySelectorAll(".tab").forEach(t => (t.onclick = () => { if (!spinning) setPool(t.dataset.pool); }));
+  $("spinBtn").onclick = spin;
+  document.querySelectorAll("form.add").forEach(f => f.addEventListener("submit", async e => {
+    e.preventDefault();
+    const owner = f.dataset.owner, inp = f.querySelector("input"), title = inp.value.trim();
+    if (!title) return;
+    if (activities.some(a => !a.done && a.owner === owner && a.title.toLowerCase() === title.toLowerCase())) { toast("Diese Idee steht schon drin."); return; }
+    inp.value = "";
+    try { await store.add({ title, owner, createdAt: new Date().toISOString(), done: false }); } catch (err) { inp.value = title; }
+  }));
+  let rz; window.addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(() => { sizeCanvas(); drawWheel(); }, 120); });
+  matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change", drawWheel);
+  new MutationObserver(drawWheel).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  document.fonts?.ready.then(drawWheel);
+
+  store.onActs(list => { activities = list; render(); });
+  store.onTurn(v => { turn = v; renderTurn(); renderResult(); });
+  setPool(pool); sizeCanvas(); render();
+  store.init(mode => {
+    const s = $("sync");
+    s.className = "sync " + mode;
+    s.lastElementChild.textContent = mode === "live" ? "Gemeinsam gespeichert" : "Nur auf diesem Gerät gespeichert";
+  });
+})();
+</script>
