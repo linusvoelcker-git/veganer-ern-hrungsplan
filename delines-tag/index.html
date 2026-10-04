@@ -1,4 +1,4 @@
-<title>Deline's Tag</title>
+<title>Delinstag</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500;1,9..144,700&family=Figtree:wght@400;500;600;700&family=Caveat:wght@500;700&display=swap">
 <style>
@@ -222,7 +222,7 @@ ul.items { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
       <circle class="petal" cx="22" cy="36" r="3"/><circle class="petal" cx="240" cy="36" r="3"/>
     </svg>
     <div class="brand">
-      <h1><span class="li">Deline's</span><span class="amp"><span class="heart-ico"></span></span><span class="sa">Tag</span></h1>
+      <h1><span class="li">Delins</span><span class="sa">tag</span><span class="amp"><span class="heart-ico"></span></span></h1>
       <p>jeden Dienstag · mal entscheidet <span class="li">Linus</span>, mal <span class="sa">Delisa</span></p>
     </div>
     <div class="sync" id="sync"><i></i><span>Verbinde…</span></div>
@@ -398,7 +398,7 @@ ul.items { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
   function renderTurn() {
     const box = $("turn"), d = nextTuesday(), isToday = d.toDateString() === new Date().toDateString();
     box.className = "turn" + (turn ? " " + turn : "");
-    $("turnDate").textContent = isToday ? "Heute ist Deline's Tag · " + fmtLong(d) : "Nächster Deline's Tag · " + fmtLong(d);
+    $("turnDate").textContent = isToday ? "Heute ist Delinstag · " + fmtLong(d) : "Nächster Delinstag · " + fmtLong(d);
     const acts = $("turnActions"); acts.replaceChildren();
     if (!turn) {
       $("turnTitle").textContent = "Wer fängt an?";
